@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a64abc6e-5396-41e8-a66e-37145df24d43" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ride_on/models/.keep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ride_on/security/.keep" afterDir="false" />
+    <list default="true" id="3bc891b8-c4bd-4222-a5ea-cbcd6d6f61ff" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/ride_on/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/ride_on/controllers/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/ride_on/security/AppUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/ride_on/security/JwtConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/ride_on/security/JwtRequestFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/ride_on/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,13 +43,58 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/mattheine/Desktop/capstoneProject/ride-on-capstone-project/ride-on",
+    "settings.editor.selected.configurable": "editor.preferences.import"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="RIDE_ON_DB_USERNAME" value="the-big-tuna" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="org.ride_on.App" />
+      <module name="ride-on" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ride_on.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <envs>
+        <env name="RIDE_ON_DB_USERNAME" value="the-big-tuna" />
+      </envs>
+      <module name="ride-on" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="ride-on" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <envs>
+        <env name="RIDE_ON_DB_USERNAME" value="the-big-tuna" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a64abc6e-5396-41e8-a66e-37145df24d43" name="Changes" comment="" />
+      <changelist id="3bc891b8-c4bd-4222-a5ea-cbcd6d6f61ff" name="Changes" comment="" />
       <created>1673732546814</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
