@@ -10,6 +10,9 @@ public class Car {
     private String color;
     private String licensePlate;
 
+    public Car() {
+    }
+
     public Car(int carId, boolean insurance, boolean registration, String make, String model, String year, String color, String licensePlate) {
         this.carId = carId;
         this.insurance = insurance;

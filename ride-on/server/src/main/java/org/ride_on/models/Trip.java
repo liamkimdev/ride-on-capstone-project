@@ -9,6 +9,9 @@ public class Trip {
     private int seats;
     private LocalDate date;
 
+    public Trip() {
+    }
+
     public Trip(int tripId, String departure, String arrival, int seat, LocalDate date) {
         this.tripId = tripId;
         this.departure = departure;

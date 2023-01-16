@@ -1,6 +1,3 @@
-drop database if exists ride_on;
-create database ride_on;
-
 use ride_on;
 
 drop table if exists app_user_role;

@@ -7,6 +7,9 @@ public class Rider {
     private BigDecimal totalCost;
     private boolean paymentConfirmation;
 
+    public Rider() {
+    }
+
     public Rider(int riderId, BigDecimal totalCost, boolean paymentConfirmation) {
         this.riderId = riderId;
         this.totalCost = totalCost;
