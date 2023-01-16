@@ -1,5 +1,8 @@
 package org.ride_on.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Car {
     private int carId;
     private boolean insurance;
@@ -9,11 +12,13 @@ public class Car {
     private String year;
     private String color;
     private String licensePlate;
+    private List<Trip> trips = new ArrayList<>();
+    private int userId;
 
     public Car() {
     }
 
-    public Car(int carId, boolean insurance, boolean registration, String make, String model, String year, String color, String licensePlate) {
+    public Car(int carId, boolean insurance, boolean registration, String make, String model, String year, String color, String licensePlate, List<Trip> trips, int userId) {
         this.carId = carId;
         this.insurance = insurance;
         this.registration = registration;
@@ -22,8 +27,25 @@ public class Car {
         this.year = year;
         this.color = color;
         this.licensePlate = licensePlate;
+        this.trips = trips;
+        this.userId = userId;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
     public int getCarId() {
         return carId;
     }

@@ -1,6 +1,8 @@
 package org.ride_on.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Trip {
     private int tripId;
@@ -8,16 +10,36 @@ public class Trip {
     private String arrival;
     private int seats;
     private LocalDate date;
+    private int carId;
 
     public Trip() {
     }
 
-    public Trip(int tripId, String departure, String arrival, int seat, LocalDate date) {
+    public Trip(int tripId, String departure, String arrival, int seats, LocalDate date, int carId) {
         this.tripId = tripId;
         this.departure = departure;
         this.arrival = arrival;
         this.seats = seats;
         this.date = date;
+        this.carId = carId;
+    }
+
+    public int getCarId() {
+        return carId;
+    }
+
+    public void setCarId(int carId) {
+        this.carId = carId;
+    }
+
+    private List<Rider> riders = new ArrayList<>();
+
+    public List<Rider> getRiders() {
+        return riders;
+    }
+
+    public void setRiders(List<Rider> riders) {
+        this.riders = riders;
     }
 
     public int getSeats() {

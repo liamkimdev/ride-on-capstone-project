@@ -1,5 +1,8 @@
 package org.ride_on.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private int userId;
     private String firstName;
@@ -7,6 +10,8 @@ public class User {
     private String bankingAccount;
     private String identification;
     private String preferences;
+    private List<Car> cars = new ArrayList<>();
+    private List<Rider> riders = new ArrayList<>();
 
     public User() {
     }
@@ -18,6 +23,22 @@ public class User {
         this.bankingAccount = bankingAccount;
         this.identification = identification;
         this.preferences = preferences;
+    }
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    public List<Rider> getRiders() {
+        return riders;
+    }
+
+    public void setRiders(List<Rider> riders) {
+        this.riders = riders;
     }
 
     public String getFirstName() {
