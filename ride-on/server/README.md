@@ -112,7 +112,7 @@ Controller
     @GetMapping("/{userId}")
     public Account findByUserId(@PathVariable int userId)
 
-    @PostMapping("/{carId}")
+    @PostMapping()
     public ResponseEntity<Object> createCar(@RequestBody Car car)
 
 [ ] CarController
@@ -134,7 +134,7 @@ Controller
     public ResponseEntity<Object> createTrip(@RequestBody Trip trip)
     
 
-[ ] RiderController
+[ ] RiderController/ trip controller??
 
     add @RestController
     add @CrossOrigin(origins = {"http://localhost:3000"})
