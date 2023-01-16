@@ -1,5 +1,6 @@
 package org.ride_on.security;
 
+import org.ride_on.models.AppUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,13 +30,13 @@ public class JwtRequestFilter extends BasicAuthenticationFilter {
         String authorization = request.getHeader("Authorization");
         if (authorization != null && authorization.startsWith("Bearer ")) {
 
-            UserDetails user = converter.getUserFromToken(authorization);
+            AppUser user = converter.getUserFromToken(authorization);
             if (user == null) {
-                response.setStatus(403);
+                response.setStatus(403); // Forbidden
             } else {
 
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                        user.getUsername(), null, user.getAuthorities());
+                        user, null, user.getAuthorities());
 
                 SecurityContextHolder.getContext().setAuthentication(token);
             }

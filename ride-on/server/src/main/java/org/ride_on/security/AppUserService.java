@@ -1,5 +1,10 @@
 package org.ride_on.security;
 
+import org.ride_on.data.AppUserRepository;
+import org.ride_on.domain.ActionStatus;
+import org.ride_on.domain.Result;
+import org.ride_on.models.AppUser;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,47 +17,92 @@ import java.util.List;
 @Service
 public class AppUserService implements UserDetailsService {
 
-    private final PasswordEncoder passwordEncoder;
+    private final AppUserRepository repository;
+    private final PasswordEncoder encoder;
+
 
     private List<UserDetails> users;
 
 
-    public AppUserService(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-
-        makeUsers();
+    public AppUserService(AppUserRepository repository, PasswordEncoder encoder) {
+        this.repository = repository;
+        this.encoder = encoder;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AppUser appUser = repository.findByUsername(username);
 
-        UserDetails userDetails = users.stream()
-                .filter(user -> user.getUsername().equals(username))
-                .findFirst()
-                .orElse(null);
-
-        if (userDetails == null) {
-            throw new UsernameNotFoundException(username + " not found.");
+        if (appUser == null || !appUser.isEnabled()) {
+            throw new UsernameNotFoundException(username + " not found");
         }
 
-        return userDetails;
+        return appUser;
     }
 
-    private void makeUsers() {
+    public Result<AppUser> create(String username, String password) {
+        Result<AppUser> result = validate(username, password);
+        if (!result.isSuccess()) {
+            return result;
+        }
 
-        UserDetails user = User.builder()
-                .passwordEncoder(passwordEncoder::encode)
-                .username("user")
-                .password("password")
-                .authorities("USER")
-                .build();
-        UserDetails admin = User.builder()
-                .passwordEncoder(passwordEncoder::encode)
-                .username("admin")
-                .password("password")
-                .authorities("ADMIN")
-                .build();
+        password = encoder.encode(password);
 
-        users = List.of(user, admin);
+        AppUser appUser = new AppUser(0, username, password, true, List.of("USER"));
+
+        try {
+            appUser = repository.create(appUser);
+            result.setPayload(appUser);
+        } catch (DuplicateKeyException e) {
+            result.addMessage(ActionStatus.INVALID, "The provided username already exists");
+        }
+
+        return result;
+    }
+
+    private Result<AppUser> validate(String username, String password) {
+        Result<AppUser> result = new Result<>();
+        if (username == null || username.isBlank()) {
+            result.addMessage(ActionStatus.INVALID, "username is required");
+            return result;
+        }
+
+        if (password == null) {
+            result.addMessage(ActionStatus.INVALID, "password is required");
+            return result;
+        }
+
+        if (username.length() > 50) {
+            result.addMessage(ActionStatus.INVALID, "username must be less than 50 characters");
+        }
+
+        if (!isValidPassword(password)) {
+            result.addMessage(ActionStatus.INVALID,
+                    "password must be at least 8 character and contain a digit," +
+                            " a letter, and a non-digit/non-letter");
+        }
+
+        return result;
+    }
+
+    private boolean isValidPassword(String password) {
+        if (password.length() < 8) {
+            return false;
+        }
+
+        int digits = 0;
+        int letters = 0;
+        int others = 0;
+        for (char c : password.toCharArray()) {
+            if (Character.isDigit(c)) {
+                digits++;
+            } else if (Character.isLetter(c)) {
+                letters++;
+            } else {
+                others++;
+            }
+        }
+
+        return digits > 0 && letters > 0 && others > 0;
     }
 }

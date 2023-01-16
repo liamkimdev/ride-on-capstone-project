@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -14,9 +15,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final JwtConverter converter;
+    private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtConverter converter) {
+    public SecurityConfig(JwtConverter converter, UserDetailsService userDetailsService) {
         this.converter = converter;
+        this.userDetailsService = userDetailsService;
     }
 
 
@@ -29,6 +32,7 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
+                .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()
                 .antMatchers(HttpMethod.GET,
                         "/home").permitAll()
