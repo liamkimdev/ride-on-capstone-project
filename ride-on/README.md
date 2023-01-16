@@ -83,7 +83,7 @@ Controller
 
     add @RestController
     add @CrossOrigin(origins = {"http://localhost:3000"})
-    add @RequestMapping("/api/unregistered-user")
+    add @RequestMapping("/api/home")
 
     field variables
         private final UnregistedUserService service
