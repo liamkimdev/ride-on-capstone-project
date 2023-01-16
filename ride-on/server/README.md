@@ -1,6 +1,6 @@
 Model
 
-[ ] User
+[x] User
 
     private int userId;
     private String bankingAccount;
@@ -12,7 +12,7 @@ Model
     
     getters/setters
 
-[ ] Rider (Seat)
+[x] Rider (Seat)
 
     int riderId
     BigDecimal totalCost
@@ -23,7 +23,7 @@ Model
 
     getters/setters
 
-[ ] Car (Driver)
+[x] Car (Driver)
 
     int carId
     String(dropdown) / boolean(?) insurance
@@ -39,7 +39,7 @@ Model
     
     getters/setters
 
-[ ] Trip
+[x] Trip
     
     int tripId
     String departure
@@ -435,13 +435,13 @@ Data
 
 Mapper
 
-[ ] TripMapper
+[x] TripMapper
 
-[ ] UserMapper
+[x] UserMapper
 
-[ ] RiderMapper
+[x] RiderMapper
 
-[ ] CarMapper
+[x] CarMapper
 
 [ ] RatingMapper
 
@@ -451,15 +451,15 @@ Security
 
 https://github.com/dev10-program/cohort-39/tree/main/M10/lms
 
-[ ] Spring Token-based Security
+[x] Spring Token-based Security
     
     follow the lesson
 
-[ ] Database-driven Security
+[x] Database-driven Security
 
     follow the lesson
 
-[ ] React Security
+[x] React Security
 
     follow the lesson
 
