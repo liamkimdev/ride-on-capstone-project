@@ -6,13 +6,23 @@ public class Trip {
     private int tripId;
     private String departure;
     private String arrival;
+    private int seats;
     private LocalDate date;
 
-    public Trip(int tripId, String departure, String arrival, LocalDate date) {
+    public Trip(int tripId, String departure, String arrival, int seat, LocalDate date) {
         this.tripId = tripId;
         this.departure = departure;
         this.arrival = arrival;
+        this.seats = seats;
         this.date = date;
+    }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public void setSeats(int seats) {
+        this.seats = seats;
     }
 
     public int getTripId() {

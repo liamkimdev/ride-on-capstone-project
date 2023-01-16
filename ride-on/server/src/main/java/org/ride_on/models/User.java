@@ -2,15 +2,35 @@ package org.ride_on.models;
 
 public class User {
     private int userId;
+    private String firstName;
+    private String lastName;
     private String bankingAccount;
     private String identification;
     private String preferences;
 
-    public User(int userId, String bankingAccount, String identification, String preferences) {
+    public User(int userId, String firstName, String lastName, String bankingAccount, String identification, String preferences) {
         this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.bankingAccount = bankingAccount;
         this.identification = identification;
         this.preferences = preferences;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getUserId() {
