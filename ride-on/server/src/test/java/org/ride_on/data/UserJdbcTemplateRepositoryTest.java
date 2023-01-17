@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class UserJdbcTemplateRepositoryTest {
 
-    final static int NEXT_ID = 3;
+    final static int NEXT_ID = 4;
 
     @Autowired
     UserJdbcTemplateRepository repository;
@@ -53,8 +53,8 @@ class UserJdbcTemplateRepositoryTest {
 
     @Test
     void deleteByUserId() {
-        assertTrue(repository.deleteByUserId(1));
-        assertFalse(repository.deleteByUserId(1));
+        assertTrue(repository.deleteByUserId(3));
+        assertFalse(repository.deleteByUserId(3));
         assertFalse(repository.deleteByUserId(100000));
     }
 }

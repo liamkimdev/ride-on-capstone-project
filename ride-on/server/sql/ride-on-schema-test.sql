@@ -74,7 +74,8 @@ begin
 		(first_name, last_name, banking_account, identification, preferences)
 	values 
 		('Liam', 'Kim', '01234abcde', '56789fghij', 'drive is all about talking and listening'),
-        ('Matthew', 'Heine', '1700144abcd', 'mt1039876', 'silence is life');
+        ('Matthew', 'Heine', '1700144abcd', 'mt1039876', 'silence is life'),
+        ('To Be Deleted', 'To Be Deleted', 'To Be Deleted', 'To Be Deleted', 'To Be Deleted'); -- use user_id 3 to be deleted
 	
     insert into car
 		(insurance, registration, make, model, `year`, color, license_plate, user_id)
