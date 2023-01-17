@@ -68,14 +68,14 @@ Model
 
 Controller
 
-[ ] GlobalExceptionHandler
+[x] GlobalExceptionHandler
 
     add @ControllerAdvice
     add @ExceptionHandler
         DataIntegrityViolationException.class
         Exception.class
 
-[ ] ErrorResponse
+[x] ErrorResponse
 
     reference field agent ErrorResponse class
 
@@ -307,7 +307,7 @@ Domain
 
         return result
 
-[ ] Result
+[x] Result
 
     private final ArrayList<String> messages = new ArrayList<>();
     private ResultType type = ResultType.SUCCESS;
@@ -338,7 +338,7 @@ Domain
         this.type = type;
     }
 
-[ ] ResultType
+[x] ActionStatus
 
     public enum ResultType {
         SUCCESS,
@@ -346,7 +346,7 @@ Domain
         NOT_FOUND
     }
 
-[ ] Validations
+[x] Validations
 
       public static boolean isNullOrBlank(String value) {
         return value == null || value.isBlank();
@@ -356,7 +356,7 @@ Domain
 
 Data
 
-[ ] TripJdbcTemplateRepository
+[x] TripJdbcTemplateRepository
     
     field variables
         private final JdbcTemplate jdbcTemplate
@@ -379,11 +379,11 @@ Data
     @Transactional
     deleteTrip
 
-[ ] TripRepository
+[x] TripRepository
 
     extract from JdbcTemplateRepo
 
-[ ] UserJdbcTemplateRepository
+[x] UserJdbcTemplateRepository
 
     field variables
         private final JdbcTemplate jdbcTemplate
@@ -403,11 +403,11 @@ Data
     @Transactional // delete from Rider and Car first maybe??
     deleteByUserId()
 
-[ ] UserRepository
+[x] UserRepository
 
     extract from JdbcTemplateRepo
 
-[ ] CarJdbcTemplateRepository
+[x] CarJdbcTemplateRepository
 
     field variables
         private final JdbcTemplate jdbcTemplate
@@ -427,7 +427,7 @@ Data
     @Transactional (delete from Trip first(?))
     deleteByCarId()
 
-[ ] CarRepository
+[x] CarRepository
 
     extract from JdbcTemplateRepo
 
