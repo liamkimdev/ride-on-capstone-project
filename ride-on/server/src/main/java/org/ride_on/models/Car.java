@@ -18,6 +18,17 @@ public class Car {
     public Car() {
     }
 
+    public Car(int carId, boolean insurance, boolean registration, String make, String model, String year, String color, String licensePlate){
+        this.carId = carId;
+        this.insurance = insurance;
+        this.registration = registration;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.color = color;
+        this.licensePlate = licensePlate;
+    }
+
     public Car(int carId, boolean insurance, boolean registration, String make, String model, String year, String color, String licensePlate, List<Trip> trips, int userId) {
         this.carId = carId;
         this.insurance = insurance;

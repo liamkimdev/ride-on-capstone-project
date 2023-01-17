@@ -90,8 +90,18 @@ public class CarJdbcTemplateRepository implements CarRepository {
     @Override
     @Transactional
     public boolean deleteByCarId(int carId) {
-        jdbcTemplate.update("delete from trip where car_id = ?;", carId);
-        return jdbcTemplate.update("delete from car where car_id = ?;", carId) > 0;
+        // open
+        jdbcTemplate.execute("set sql_safe_updates = 0;");
+        // rider
+        jdbcTemplate.update("delete from rider where trip_id in (select trip_id from trip where car_id = ?);", carId);
+        // trip
+        jdbcTemplate.update("delete from trip where car_id in (select car_id from car where car_id = ?);", carId);
+        // car
+        boolean deleteCar = jdbcTemplate.update("delete from car where car_id = ?;", carId) > 0;
+        // close
+        jdbcTemplate.execute("set sql_safe_updates = 1;");
+
+        return deleteCar;
     }
 
     private void addTrips(Car car) {

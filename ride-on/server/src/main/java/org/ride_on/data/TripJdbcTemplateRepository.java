@@ -71,8 +71,7 @@ public class TripJdbcTemplateRepository implements TripRepository {
                 + "departure = ?, "
                 + "arrival = ?, "
                 + "seats = ?, "
-                + "`date` = ?, "
-                + "car_id = ? "
+                + "`date` = ? "
                 + "where trip_id = ?;";
 
         return jdbcTemplate.update(sql,
@@ -80,14 +79,22 @@ public class TripJdbcTemplateRepository implements TripRepository {
                 trip.getArrival(),
                 trip.getSeats(),
                 trip.getDate(),
-                trip.getCarId()) > 0;
+                trip.getTripId()) > 0;
     }
 
     @Override
     @Transactional
     public boolean deleteByTripId(int tripId) {
+        // open
+        jdbcTemplate.execute("set sql_safe_updates = 0;");
+        // rider
         jdbcTemplate.update("delete from rider where trip_id = ?;", tripId);
-        return jdbcTemplate.update("delete from trip where trip_id = ?;", tripId) > 0;
+        // trip
+        boolean deleteTrip = jdbcTemplate.update("delete from trip where trip_id = ?;", tripId) > 0;
+        // close
+        jdbcTemplate.execute("set sql_safe_updates = 1;");
+
+        return deleteTrip;
     }
 
     private void addRiders(Trip trip) {

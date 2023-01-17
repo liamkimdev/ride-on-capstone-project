@@ -55,6 +55,6 @@ class UserJdbcTemplateRepositoryTest {
     void deleteByUserId() {
         assertTrue(repository.deleteByUserId(1));
         assertFalse(repository.deleteByUserId(1));
-        assertFalse(repository.deleteByUserId(50));
+        assertFalse(repository.deleteByUserId(100000));
     }
 }
