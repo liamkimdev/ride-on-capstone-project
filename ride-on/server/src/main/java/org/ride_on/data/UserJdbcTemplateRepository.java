@@ -87,9 +87,20 @@ public class UserJdbcTemplateRepository implements UserRepository {
     @Override
     @Transactional
     public boolean deleteByUserId(int userId) {
-        jdbcTemplate.update("delete from car where user_id = ?;", userId);
+        // open
+        jdbcTemplate.execute("set sql_safe_updates = 0;");
+        // rider
         jdbcTemplate.update("delete from rider where user_id = ?;", userId);
-        return jdbcTemplate.update("delete from `user` where user_id = ?;", userId) > 0;
+        // trip
+        jdbcTemplate.update("delete from trip where car_id in (select car_id from car where user_id = ?);", userId);
+        // car
+        jdbcTemplate.update("delete from car where user_id = ?;", userId);
+        // user
+        boolean deleteUser = jdbcTemplate.update("delete from `user` where user_id = ?;", userId) > 0;
+        // close
+        jdbcTemplate.execute("set sql_safe_updates = 1;");
+
+        return deleteUser;
     }
 
     private void addCars(User user) {
