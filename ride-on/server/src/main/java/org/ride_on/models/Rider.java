@@ -5,14 +5,14 @@ import java.math.BigDecimal;
 public class Rider {
     private int riderId;
     private BigDecimal totalCost;
-    private boolean paymentConfirmation;
-
+    private boolean paymentConfirmation = true;
     private int userId;
     private int tripId;
 
+    // private Trip trip;
+
     public Rider() {
     }
-
     public Rider(int riderId, BigDecimal totalCost, boolean paymentConfirmation, int userId, int tripId) {
         this.riderId = riderId;
         this.totalCost = totalCost;

@@ -3,9 +3,11 @@ package org.ride_on.domain;
 import org.ride_on.data.TripRepository;
 import org.ride_on.models.Trip;
 import org.ride_on.models.User;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
+@Service
 public class CarService {
 
     private final TripRepository repository;

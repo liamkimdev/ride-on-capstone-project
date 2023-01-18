@@ -4,7 +4,9 @@ import org.ride_on.data.CarRepository;
 import org.ride_on.data.UserRepository;
 import org.ride_on.models.Car;
 import org.ride_on.models.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RegisteredUserService {
     private final CarRepository carRepository;
     private final UserRepository userRepository;

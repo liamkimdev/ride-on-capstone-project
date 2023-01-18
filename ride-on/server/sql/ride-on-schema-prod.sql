@@ -44,7 +44,7 @@ create table trip (
 create table rider (
 	rider_id int primary key auto_increment,
     total_cost decimal (10, 2) not null,
-    payment_confirmation boolean default false,
+    payment_confirmation boolean default true,
     user_id int not null,
     trip_id int not null,
 	constraint fk_rider_user

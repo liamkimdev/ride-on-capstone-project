@@ -4,9 +4,11 @@ import org.ride_on.data.TripRepository;
 import org.ride_on.data.UserRepository;
 import org.ride_on.models.Trip;
 import org.ride_on.models.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UnregisteredUserService {
     private final TripRepository tripRepository;
 

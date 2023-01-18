@@ -44,7 +44,7 @@ create table trip (
 create table rider (
 	rider_id int primary key auto_increment,
     total_cost decimal (10, 2) not null,
-    payment_confirmation boolean default false,
+    payment_confirmation boolean default true,
     user_id int not null,
     trip_id int not null,
 	constraint fk_rider_user
@@ -96,8 +96,14 @@ begin
 		(total_cost, payment_confirmation, user_id, trip_id)
     values
 		(5.00, false, 1, 2),
-		(15.00, true, 2, 1);
-    
+		(15.00, true, 2, 1),
+		(5.00, false, 3, 2);
+
 end //
 
 delimiter ;
+
+
+-- describe rider;
+
+-- total_cost, payment_confirmation, user_id, trip_id,

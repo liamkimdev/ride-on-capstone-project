@@ -5,8 +5,12 @@ import org.ride_on.data.mappers.TripMapper;
 import org.ride_on.models.Rider;
 import org.ride_on.models.Trip;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -20,26 +24,12 @@ public class RiderJdbcTemplateRepository implements RiderRepository {
     }
 
     @Override
-    public Rider findByTripId(int tripId) {
+    public List<Rider> findByTripId(int tripId) {
         final String sql = "select * from rider where trip_id = ?;";
-        Rider rider = jdbcTemplate.query(sql, new RiderMapper(), tripId).stream().findFirst().orElse(null);
+        List<Rider> riders = jdbcTemplate.query(sql, new RiderMapper(), tripId);
 
-        return rider;
+        return riders;
     }
-
-
-    // TODO: Repo or Service?
-//    @Override
-//    public boolean joinTrip(Rider rider, Trip trip) {
-
-//        // if seats are greater than 0, rider can book the trip
-//        // rider can be added
-//        // decrease total seats by 1
-//        // return true if rider is added
-//        // else return false if seats were unavailable (0)
-//
-//        return false;
-//    }
 
     @Override
     public boolean deleteByRiderId(int riderId) {
@@ -51,5 +41,30 @@ public class RiderJdbcTemplateRepository implements RiderRepository {
         jdbcTemplate.execute("set sql_safe_updates = 1;");
 
         return deleteRider;
+    }
+
+    @Override
+    // joinTrip
+    public Rider createRider(Rider rider) {
+
+        final String sql = "insert into rider (total_cost, payment_confirmation, user_id, trip_id) "
+                + "values (?,?,?,?);";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int rowsAffected = jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setBigDecimal(1, rider.getTotalCost());
+            ps.setBoolean(2, rider.isPaymentConfirmation());
+            ps.setInt(3, rider.getUserId());
+            ps.setInt(4, rider.getTripId());
+            return ps;
+        }, keyHolder);
+
+        if (rowsAffected <= 0) {
+            return null;
+        }
+
+        rider.setRiderId(keyHolder.getKey().intValue());
+        return rider;
     }
 }
