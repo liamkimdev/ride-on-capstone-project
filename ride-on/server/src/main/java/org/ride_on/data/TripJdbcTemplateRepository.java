@@ -43,8 +43,8 @@ public class TripJdbcTemplateRepository implements TripRepository {
 
     @Override
     public Trip createTrip(Trip trip){
-        final String sql = "insert into trip (departure, arrival, seats, `date`, car_id) "
-                + " values (?,?,?,?,?);";
+        final String sql = "insert into trip (departure, arrival, seats, price_per_seat, `date`, car_id) "
+                + " values (?,?,?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -52,8 +52,9 @@ public class TripJdbcTemplateRepository implements TripRepository {
             ps.setString(1, trip.getDeparture());
             ps.setString(2, trip.getArrival());
             ps.setInt(3, trip.getSeats());
-            ps.setDate(4, Date.valueOf(trip.getDate()));
-            ps.setInt(5, trip.getCarId());
+            ps.setBigDecimal(4, trip.getPricePerSeat());
+            ps.setDate(5, Date.valueOf(trip.getDate()));
+            ps.setInt(6, trip.getCarId());
             return ps;
         }, keyHolder);
 
@@ -71,6 +72,7 @@ public class TripJdbcTemplateRepository implements TripRepository {
                 + "departure = ?, "
                 + "arrival = ?, "
                 + "seats = ?, "
+                + "price_per_seat = ?, "
                 + "`date` = ? "
                 + "where trip_id = ?;";
 
@@ -78,6 +80,7 @@ public class TripJdbcTemplateRepository implements TripRepository {
                 trip.getDeparture(),
                 trip.getArrival(),
                 trip.getSeats(),
+                trip.getPricePerSeat(),
                 trip.getDate(),
                 trip.getTripId()) > 0;
     }

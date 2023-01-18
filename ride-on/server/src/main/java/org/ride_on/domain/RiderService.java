@@ -1,7 +1,9 @@
 package org.ride_on.domain;
 
+import org.ride_on.data.RiderRepository;
 import org.ride_on.data.TripRepository;
 import org.ride_on.data.UserRepository;
+import org.ride_on.models.Rider;
 import org.ride_on.models.Trip;
 import org.ride_on.models.User;
 
@@ -10,11 +12,11 @@ import java.util.List;
 public class RiderService {
 
     private final TripRepository tripRepository;
-    //private final RiderRepository riderRepository;
+    private final RiderRepository riderRepository;
 
-    public RiderService(TripRepository tripRepository/*, RiderRepository riderRepository*/) {
+    public RiderService(TripRepository tripRepository, RiderRepository riderRepository) {
         this.tripRepository = tripRepository;
-        //this.riderRepository = riderRepository;
+        this.riderRepository = riderRepository;
     }
 
     public List<Trip> findAll() {
@@ -25,24 +27,20 @@ public class RiderService {
         return tripRepository.findByTripId(tripId);
     }
 
-    //public Result<Trip> joinTrip() {
-        // TODO: create a rider repository
-        // TODO: finish this method by passing in rider as a parameter
-        // Result<Trip> result = validate(rider);
-//        if (!result.isSuccess()) {
-//            return result;
-//        }
+//    public Result<Trip> joinTrip(int riderId, int tripId) {
+//       Result<Trip> result = new Result<>();
+//       boolean updatedSeat = tripRepository.updateSeats(riderId);
+//       boolean joinedTrip = riderRepository.joinTrip(tripId);
+//
+//       riderRepository.updatePayment(riderId);
+//
+//       if (!(updatedSeat && joinedTrip)) {
+//           result.addMessage(ActionStatus.INVALID, "a rider could not join the trip, check again for available seats");
+//       }
+//
+//       return result;
 //    }
 
-//        if (trip.getTripId() != 0) {
-//            result.addMessage(ActionStatus.INVALID,"tripId cannot be set for `add` operation");
-//        }
-//
-//        rider = tripRepository.createTrip(trip);
-//        result.setPayload(trip);
-//        return result;
-//    }
-//
 //    private Result<Trip> validate(Trip trip) {
 //        Result<Trip> result = new Result<>();
 //

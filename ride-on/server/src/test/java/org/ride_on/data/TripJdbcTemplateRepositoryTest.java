@@ -6,6 +6,7 @@ import org.ride_on.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -47,7 +48,7 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldCreateTrip() {
-        Trip trip = new Trip(NEXT_ID, "Macon, GA", "Warner Robins, GA", 4, LocalDate.of(2023,3,3), 2);
+        Trip trip = new Trip(NEXT_ID, "Macon, GA", "Warner Robins, GA", 4,new BigDecimal(20.00), LocalDate.of(2023,3,3), 2);
         Trip actual = repository.createTrip(trip);
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getTripId());

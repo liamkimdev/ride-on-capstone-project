@@ -15,7 +15,9 @@ public class TripMapper implements RowMapper<Trip> {
         trip.setDeparture(rs.getString("departure"));
         trip.setArrival(rs.getString("arrival"));
         trip.setSeats(rs.getInt("seats"));
+        trip.setPricePerSeat(rs.getBigDecimal("price_per_seat"));
         trip.setDate(rs.getDate("date").toLocalDate());
+        trip.setCarId(rs.getInt("car_id"));
 
         return trip;
     }

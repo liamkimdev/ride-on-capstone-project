@@ -33,6 +33,7 @@ create table trip (
     departure varchar(255) not null,
     arrival varchar(255) not null,
     seats int default 0,
+	price_per_seat decimal (10, 2) not null,
     `date` date not null,
     car_id int not null,
     constraint fk_trip_car
@@ -86,16 +87,16 @@ begin
         (false, true, 'Ford', 'F150', '2005', 'black', 'FORD123', 2);
 
 	insert into trip
-		(departure, arrival, seats, `date`, car_id) 
+		(departure, arrival, seats, price_per_seat, `date`, car_id) 
     values
-		('Missoula, MT', 'Bozeman, MT', 4, '2023-01-16', 2),
-        ('Alpharetta, GA', 'Atlanta, GA', 1, '2023-02-23', 1); 
+		('Missoula, MT', 'Bozeman, MT', 4, 15.00, '2023-01-16', 2),
+        ('Alpharetta, GA', 'Atlanta, GA', 1, 5.00, '2023-02-23', 1); 
         
 	insert into rider
 		(total_cost, payment_confirmation, user_id, trip_id)
     values
-		(50.00, false, 1, 2),
-		(100.00, true, 2, 1);
+		(5.00, false, 1, 2),
+		(15.00, true, 2, 1);
     
 end //
 

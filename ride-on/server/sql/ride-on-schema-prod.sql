@@ -33,6 +33,7 @@ create table trip (
     departure varchar(255) not null,
     arrival varchar(255) not null,
     seats int default 0,
+	price_per_seat decimal (10, 2) not null,
     `date` date not null,
     car_id int not null,
     constraint fk_trip_car

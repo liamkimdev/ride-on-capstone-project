@@ -14,6 +14,8 @@ public class RiderMapper implements RowMapper<Rider> {
         rider.setRiderId(resultSet.getInt("rider_id"));
         rider.setTotalCost(resultSet.getBigDecimal("total_cost"));
         rider.setPaymentConfirmation(resultSet.getBoolean("payment_confirmation"));
+        rider.setUserId(resultSet.getInt("user_id"));
+        rider.setTripId(resultSet.getInt("trip_id"));
 
         return rider;
     }

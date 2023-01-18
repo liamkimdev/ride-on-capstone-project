@@ -1,5 +1,6 @@
 package org.ride_on.models;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,19 +10,29 @@ public class Trip {
     private String departure;
     private String arrival;
     private int seats;
+    private BigDecimal pricePerSeat;
     private LocalDate date;
     private int carId;
 
     public Trip() {
     }
 
-    public Trip(int tripId, String departure, String arrival, int seats, LocalDate date, int carId) {
+    public Trip(int tripId, String departure, String arrival, int seats, BigDecimal pricePerSeat, LocalDate date, int carId) {
         this.tripId = tripId;
         this.departure = departure;
         this.arrival = arrival;
         this.seats = seats;
+        this.pricePerSeat = pricePerSeat;
         this.date = date;
         this.carId = carId;
+    }
+
+    public BigDecimal getPricePerSeat() {
+        return pricePerSeat;
+    }
+
+    public void setPricePerSeat(BigDecimal pricePerSeat) {
+        this.pricePerSeat = pricePerSeat;
     }
 
     public int getCarId() {

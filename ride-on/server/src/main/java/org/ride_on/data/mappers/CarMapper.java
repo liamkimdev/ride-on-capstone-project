@@ -20,6 +20,7 @@ public class CarMapper implements RowMapper<Car> {
         car.setYear(rs.getString("year"));
         car.setColor(rs.getString("color"));
         car.setLicensePlate(rs.getString("license_plate"));
+        car.setUserId(rs.getInt("user_id"));
 
         return car;
     }

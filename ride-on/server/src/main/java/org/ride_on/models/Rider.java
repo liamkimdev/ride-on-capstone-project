@@ -7,13 +7,34 @@ public class Rider {
     private BigDecimal totalCost;
     private boolean paymentConfirmation;
 
+    private int userId;
+    private int tripId;
+
     public Rider() {
     }
 
-    public Rider(int riderId, BigDecimal totalCost, boolean paymentConfirmation) {
+    public Rider(int riderId, BigDecimal totalCost, boolean paymentConfirmation, int userId, int tripId) {
         this.riderId = riderId;
         this.totalCost = totalCost;
         this.paymentConfirmation = paymentConfirmation;
+        this.userId = userId;
+        this.tripId = tripId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(int tripId) {
+        this.tripId = tripId;
     }
 
     public int getRiderId() {
