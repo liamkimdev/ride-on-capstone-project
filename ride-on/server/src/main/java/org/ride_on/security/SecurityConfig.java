@@ -31,6 +31,7 @@ public class SecurityConfig {
         http.cors();
 
         http.authorizeRequests()
+                .antMatchers("/api/ride_on").permitAll()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()

@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class UnregisteredUserService {
     private final TripRepository tripRepository;
-
     private final UserRepository userRepository;
 
     public UnregisteredUserService(TripRepository tripRepository, UserRepository userRepository) {

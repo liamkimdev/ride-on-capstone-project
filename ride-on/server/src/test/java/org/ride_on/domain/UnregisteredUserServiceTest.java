@@ -1,11 +1,16 @@
 package org.ride_on.domain;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.ride_on.data.TripRepository;
+import org.ride_on.data.UserRepository;
 import org.ride_on.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class UnregisteredUserServiceTest {
@@ -13,9 +18,16 @@ class UnregisteredUserServiceTest {
     @Autowired
     UnregisteredUserService service;
 
+    @MockBean
+    UserRepository userRepository;
+
+
     @Test
     void shouldNotBeAbleToCreateAccountWithNullUser() {
         User user = null;
+
+        when(userRepository.createUser(user)).thenReturn(user);
+
         Result<User> result = service.createAccount(user);
         assertFalse(result.isSuccess());
         assertEquals(1, result.getMessages().size());
@@ -30,6 +42,9 @@ class UnregisteredUserServiceTest {
         user.setLastName("Heine");
         user.setBankingAccount("123456");
         user.setIdentification("123456789");
+
+        when(userRepository.createUser(user)).thenReturn(user);
+
         Result<User> result = service.createAccount(user);
         assertFalse(result.isSuccess());
         assertEquals(1, result.getMessages().size());
@@ -44,6 +59,9 @@ class UnregisteredUserServiceTest {
         user.setLastName("");
         user.setBankingAccount("123456");
         user.setIdentification("123456789");
+
+        when(userRepository.createUser(user)).thenReturn(user);
+
         Result<User> result = service.createAccount(user);
         assertFalse(result.isSuccess());
         assertEquals(1, result.getMessages().size());
@@ -58,6 +76,9 @@ class UnregisteredUserServiceTest {
         user.setLastName("Kim");
         user.setBankingAccount(null);
         user.setIdentification("123456789");
+
+        when(userRepository.createUser(user)).thenReturn(user);
+
         Result<User> result = service.createAccount(user);
         assertFalse(result.isSuccess());
         assertEquals(1, result.getMessages().size());
@@ -72,6 +93,9 @@ class UnregisteredUserServiceTest {
         user.setLastName("Doe");
         user.setBankingAccount("");
         user.setIdentification("123456789");
+
+        when(userRepository.createUser(user)).thenReturn(user);
+
         Result<User> result = service.createAccount(user);
         assertFalse(result.isSuccess());
         assertEquals(1, result.getMessages().size());
@@ -86,6 +110,9 @@ class UnregisteredUserServiceTest {
         user.setLastName("Doe");
         user.setBankingAccount("123456");
         user.setIdentification(null);
+
+        when(userRepository.createUser(user)).thenReturn(user);
+
         Result<User> result = service.createAccount(user);
         assertFalse(result.isSuccess());
         assertEquals(1, result.getMessages().size());
@@ -100,6 +127,10 @@ class UnregisteredUserServiceTest {
         user.setLastName("Doe");
         user.setBankingAccount("123456");
         user.setIdentification("");
+
+        when(userRepository.createUser(user)).thenReturn(user);
+
+
         Result<User> result = service.createAccount(user);
         assertFalse(result.isSuccess());
         assertEquals(1, result.getMessages().size());
@@ -114,6 +145,9 @@ class UnregisteredUserServiceTest {
         user.setLastName("Doe");
         user.setBankingAccount("123456");
         user.setIdentification("123456789");
+
+        when(userRepository.createUser(user)).thenReturn(user);
+
         Result<User> result = service.createAccount(user);
         assertTrue(result.isSuccess());
         assertEquals(0, result.getMessages().size());
@@ -126,6 +160,9 @@ class UnregisteredUserServiceTest {
         user.setLastName("Doe");
         user.setBankingAccount("123456");
         user.setIdentification("123456789");
+
+        when(userRepository.createUser(user)).thenReturn(user);
+
         Result<User> result = service.createAccount(user);
         assertTrue(result.isSuccess());
         assertEquals(0, result.getMessages().size());
@@ -138,6 +175,9 @@ class UnregisteredUserServiceTest {
         user.setLastName("Kim");
         user.setBankingAccount("123456");
         user.setIdentification("123456789");
+
+        when(userRepository.createUser(user)).thenReturn(user);
+
         Result<User> result = service.createAccount(user);
         assertTrue(result.isSuccess());
         assertEquals(0, result.getMessages().size());
