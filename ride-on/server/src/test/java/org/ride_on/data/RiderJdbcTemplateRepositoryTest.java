@@ -43,7 +43,7 @@ class RiderJdbcTemplateRepositoryTest {
         Trip trip = tripRepository.findByTripId(1);
 
         Rider rider = new Rider();
-        rider.setUserId(3);
+        rider.setUserId(2);
         rider.setTotalCost(trip.getPricePerSeat());
         rider.setTripId(trip.getTripId());
 

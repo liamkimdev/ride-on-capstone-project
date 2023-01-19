@@ -37,7 +37,6 @@ public class RiderController {
         return ResponseEntity.ok(trip);
     }
 
-
     //createRider
     @PostMapping("/{userId}/{tripId}")
     public ResponseEntity<Object> createRider(@PathVariable int tripId, @RequestBody Rider rider) {
@@ -48,6 +47,4 @@ public class RiderController {
         }
         return ErrorResponse.build(result);
     }
-
-
 }

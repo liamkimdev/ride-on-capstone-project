@@ -2,7 +2,6 @@ package org.ride_on.domain;
 
 import org.ride_on.data.TripRepository;
 import org.ride_on.models.Trip;
-import org.ride_on.models.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

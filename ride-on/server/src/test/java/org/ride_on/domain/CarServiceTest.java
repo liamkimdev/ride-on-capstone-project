@@ -1,7 +1,6 @@
 package org.ride_on.domain;
 
 import org.junit.jupiter.api.Test;
-import org.ride_on.data.CarRepository;
 import org.ride_on.data.TripRepository;
 import org.ride_on.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,7 +140,7 @@ class CarServiceTest {
     }
 
     @Test
-    public void createTrip_zeroCarId_returnsErrorResult() {
+    public void shouldNotCreateWithInvalidCarId() {
         // Arrange
         Trip trip = new Trip();
         trip.setDeparture("Seattle");
@@ -159,8 +158,5 @@ class CarServiceTest {
         // Assert
         assertEquals(expectedResult.getMessages(), actualResult.getMessages());
         assertFalse(actualResult.isSuccess());
-
     }
-
-
 }

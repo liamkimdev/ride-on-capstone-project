@@ -40,7 +40,4 @@ public class RegisteredUserController {
         }
         return ErrorResponse.build(result);
     }
-
-
-
 }

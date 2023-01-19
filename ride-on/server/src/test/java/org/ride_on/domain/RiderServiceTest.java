@@ -48,7 +48,7 @@ class RiderServiceTest {
     }
 
     @Test
-    public void createRider_validRider_returnsSuccessResult() {
+    public void shouldCreateValidRider() {
         // Arrange
         Rider rider = new Rider();
         rider.setRiderId(1);

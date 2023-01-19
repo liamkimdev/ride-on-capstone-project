@@ -20,7 +20,7 @@ public class CarController {
     }
 
     //createTrip
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Object> createTrip(@RequestBody Trip trip){
         Result<Trip> result = service.createTrip(trip);
         if(result.isSuccess()){
@@ -28,5 +28,4 @@ public class CarController {
         }
         return ErrorResponse.build(result);
     }
-
 }

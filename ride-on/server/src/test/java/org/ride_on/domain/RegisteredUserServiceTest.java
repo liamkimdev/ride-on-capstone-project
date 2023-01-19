@@ -187,7 +187,7 @@ class RegisteredUserServiceTest {
     }
 
     @Test
-    public void shouldNotCreateWithNoLisencePlate() {
+    public void shouldNotCreateWithNoLicensePlate() {
         // Arrange
         Car car = new Car();
         car.setInsurance(true);
@@ -206,5 +206,4 @@ class RegisteredUserServiceTest {
         assertEquals(expectedResult.getMessages(), actualResult.getMessages());
         assertFalse(actualResult.isSuccess());
     }
-
 }
