@@ -42,7 +42,7 @@ public class RiderService {
            result.addMessage(ActionStatus.INVALID, "a rider cannot be null");
        }
 
-       if (!(trip.getSeats() == (currentSeat - 1))) {
+       if (trip.getSeats() <= 0 ) {
            result.addMessage(ActionStatus.INVALID, "a rider could not join the trip, check again for available seats");
        }
 
