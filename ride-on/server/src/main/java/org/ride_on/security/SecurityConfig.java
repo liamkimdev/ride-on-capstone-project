@@ -38,17 +38,17 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET,
                         "/home").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/registered-user", "/registered-user/*").hasAnyAuthority("USER", "ADMIN")
+                        "/api/ride_on/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
-                        "/registered-user/*").hasAnyAuthority("USER", "ADMIN")
+                        "/api/ride_on/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.GET,
-                        "/car/*").hasAnyAuthority("USER", "ADMIN")
+                        "/api/ride_on/car/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
-                        "/car").hasAnyAuthority("USER", "ADMIN")
+                        "/api/ride_on/car").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.GET,
-                        "/rider/*").hasAnyAuthority("USER", "ADMIN")
+                        "/api/ride_on/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT,
-                        "/rider/*").hasAnyAuthority("USER", "ADMIN")
+                        "/api/ride_on/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/**").denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(authconfig), converter))

@@ -1,0 +1,28 @@
+### Car Controller Testing
+
+@url = http://localhost:8080/api/ride_on/car
+
+### Testing create trip
+
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1Mzc0MTI4fQ.bIhKwfnVYLFm3lsIkc6m8ANB_uxR2wJukgYw4I0mWNY
+
+{
+    "departure": "Seattle, WA",
+    "arrival": "Atlanta, GA",
+    "seats": 7,
+    "pricePerSeat": 150,
+    "date": "2023-04-23",
+    "carId": 1
+}
+
+### to get the JWT token
+
+POST http://localhost:8080/authenticate 
+Content-Type: application/json
+
+{
+    "username": "lkim@dev-10.com",
+    "password": "P@ssw0rd!"
+}

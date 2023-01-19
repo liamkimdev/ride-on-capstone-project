@@ -8,6 +8,9 @@ import org.ride_on.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -28,15 +31,12 @@ class RegisteredUserServiceTest {
     @Test
     public void shouldFindWithValidUserId() {
         // Arrange
-        User expectedUser = new User();
-        expectedUser.setUserId(1);
-        expectedUser.setFirstName("Liam");
-        expectedUser.setLastName("Kim");
+        User expectedUser = new User(1, "lkim@dev-10.com", "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa", true, "Liam", "Kim", "01234abcde", "56789fghij", "drive is all about talking and listening", new ArrayList<>());
 
-        when(userRepository.findByUserId(1)).thenReturn(expectedUser);
+        when(userRepository.findByUsername("lkim@dev-10.com")).thenReturn(expectedUser);
 
         // Act
-        User actualUser = service.findByUserId(1);
+        UserDetails actualUser = service.loadUserByUsername("lkim@dev-10.com");
 
         // Assert
         assertEquals(expectedUser, actualUser);

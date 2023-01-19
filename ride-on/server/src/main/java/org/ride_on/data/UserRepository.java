@@ -4,7 +4,8 @@ import org.ride_on.models.User;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface UserRepository {
-    User findByUserId(int userId);
+
+  //  User findByUserId(int userId, String username);
 
     User createUser(User user);
 
@@ -12,4 +13,6 @@ public interface UserRepository {
 
     @Transactional
     boolean deleteByUserId(int userId);
+
+    User findByUsername(String username);
 }

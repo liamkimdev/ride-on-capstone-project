@@ -24,8 +24,9 @@ public class RiderController {
     }
 
 
-    //findAllTrips
-        //should this @GetMapping link to unregistered userController @Getmapping??
+    //findAllTrips by userID
+        //should this @GetMapping @PathVAriable int userID link to unregistered userController @Getmapping??
+
     //findByTripId
     @GetMapping("/{userId}/{tripId}")
     public ResponseEntity<Trip> findByTripId(@PathVariable int tripId){

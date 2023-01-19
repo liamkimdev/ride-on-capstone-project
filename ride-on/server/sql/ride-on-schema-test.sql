@@ -4,8 +4,12 @@ create database ride_on_test;
 
 use ride_on_test;
 
+
 create table `user` (
 	user_id int primary key auto_increment,
+    username varchar(50) not null unique,
+    password_hash varchar(2048) not null,
+    enabled bit not null default(1),
     first_name varchar(255) not null,
     last_name varchar(255) not null,
     banking_account varchar(255) not null,
@@ -55,10 +59,34 @@ create table rider (
         references trip(trip_id)
 );
 
+create table app_role (
+    app_role_id int primary key auto_increment,
+    `name` varchar(50) not null unique
+);
+
+create table user_role (
+    user_id int not null,
+    app_role_id int not null,
+    constraint pk_user_role
+        primary key (user_id, app_role_id),
+    constraint fk_user_role_user_id
+        foreign key (user_id)
+        references `user`(user_id),
+	constraint fk_user_role_role_id
+        foreign key (app_role_id)
+        references app_role(app_role_id)
+);
+
+insert into app_role (`name`) values
+    ('USER'),
+    ('ADMIN');
+
 delimiter //
 create procedure set_known_good_state()
 begin
 
+	delete from user_role;
+    
 	delete from rider;
 	alter table rider auto_increment = 1;
     
@@ -70,13 +98,14 @@ begin
     
     delete from `user`;
 	alter table `user` auto_increment = 1;
-    
+
+    -- passwords are set to "P@ssw0rd!"
     insert into `user`
-		(first_name, last_name, banking_account, identification, preferences)
+		(username, password_hash, enabled, first_name, last_name, banking_account, identification, preferences)
 	values 
-		('Liam', 'Kim', '01234abcde', '56789fghij', 'drive is all about talking and listening'),
-        ('Matthew', 'Heine', '1700144abcd', 'mt1039876', 'silence is life'),
-        ('To Be Deleted', 'To Be Deleted', 'To Be Deleted', 'To Be Deleted', 'To Be Deleted'); -- use user_id 3 to be deleted
+		('lkim@dev-10.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1, 'Liam', 'Kim', '01234abcde', '56789fghij', 'drive is all about talking and listening'),
+        ('Mheine@dev-10.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1, 'Matthew', 'Heine', '1700144abcd', 'mt1039876', 'silence is life'),
+        ('To Be Deleted', 'To Be Deleted', 1, 'To Be Deleted', 'To Be Deleted', 'To Be Deleted', 'To Be Deleted', 'To Be Deleted'); -- use user_id 3 to be deleted
 	
     insert into car
 		(insurance, registration, make, model, `year`, color, license_plate, user_id)
@@ -98,6 +127,11 @@ begin
 		(5.00, false, 1, 2),
 		(15.00, true, 2, 1),
 		(5.00, false, 3, 2);
+        
+	insert into user_role
+	values
+		(1, 2),
+		(2, 1);
 
 end //
 

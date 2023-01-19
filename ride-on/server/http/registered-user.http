@@ -1,0 +1,27 @@
+### Registered User Controller Testing
+
+@url = http://localhost:8080/api/ride_on
+
+### Testing find by username
+
+GET {{url}}/{username} HTTP/1.1
+Authorization: Bearer
+--- jwt token ---
+
+### Testing create car
+
+POST {{url}}/2 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1Mzc0NDM5fQ.prMUGVs-8dEILBOeflnVqMfPNc7GKRITaX5RsZwZSoM
+
+{
+    "insurance": true,
+    "registration": true,
+    "make": "Chevy",
+    "model": "Tahoe",
+    "year": "2022",
+    "color": "black",
+    "licensePlate": "k1lla",
+    "trips": [],
+    "userId": 1
+}
