@@ -2,7 +2,6 @@ package org.ride_on.domain;
 
 import org.junit.jupiter.api.Test;
 import org.ride_on.data.RiderRepository;
-import org.ride_on.data.TripRepository;
 import org.ride_on.models.Rider;
 import org.ride_on.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,31 +20,7 @@ class RiderServiceTest {
     RiderService service;
 
     @MockBean
-    RiderRepository riderRepository;
-
-    @MockBean
-    TripRepository tripRepository;
-
-
-    @Test
-    public void shouldFindWithValidTripId() {
-        // Arrange
-        Trip expectedTrip = new Trip();
-        expectedTrip.setTripId(1);
-        expectedTrip.setDeparture("Seattle");
-        expectedTrip.setArrival("Atlanta");
-        expectedTrip.setDate(LocalDate.now().plusDays(1));
-        expectedTrip.setSeats(4);
-        expectedTrip.setCarId(1);
-
-        when(tripRepository.findByTripId(1)).thenReturn(expectedTrip);
-
-        // Act
-        Trip actualTrip = service.findByTripId(1);
-
-        // Assert
-        assertEquals(expectedTrip, actualTrip);
-    }
+    RiderRepository repository;
 
     @Test
     public void shouldCreateValidRider() {
@@ -63,7 +38,7 @@ class RiderServiceTest {
 
         Result<Trip> expectedResult = new Result<>();
 
-        when(riderRepository.createRider(rider)).thenReturn(rider);
+        when(repository.createRider(rider)).thenReturn(rider);
 
         // Act
         Result<Trip> actualResult = service.createRider(rider, trip);
@@ -84,7 +59,7 @@ class RiderServiceTest {
         Result<Trip> expectedResult = new Result<>();
         expectedResult.addMessage(ActionStatus.INVALID, "a rider cannot be null");
 
-        when(riderRepository.createRider(rider)).thenReturn(null);
+        when(repository.createRider(rider)).thenReturn(null);
 
         // Act
         Result<Trip> actualResult = service.createRider(rider, trip);
@@ -104,7 +79,7 @@ class RiderServiceTest {
         Result<Trip> expectedResult = new Result<>();
         expectedResult.addMessage(ActionStatus.INVALID, "a rider could not join the trip, check again for available seats");
 
-        when(riderRepository.createRider(rider)).thenReturn(rider);
+        when(repository.createRider(rider)).thenReturn(rider);
 
         // Act
         Result<Trip> actualResult = service.createRider(rider, trip);
@@ -113,7 +88,4 @@ class RiderServiceTest {
         assertEquals(expectedResult.getMessages(), actualResult.getMessages());
         assertFalse(actualResult.isSuccess());
     }
-
-
-
 }

@@ -38,21 +38,21 @@ public class SecurityConfig {
                         "/home").permitAll()
                 // user
                 .antMatchers(HttpMethod.GET,
-                "/api/ride_on/user/*").hasAnyAuthority("USER", "ADMIN")
+                        "/api/ride_on/user/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
-                "/api/ride_on/user").permitAll()
+                        "/api/ride_on/user").permitAll()
 
                 // trip
                 .antMatchers(HttpMethod.GET,
-                "/api/ride_on/trip").permitAll()
+                        "/api/ride_on/trip").permitAll()
                 .antMatchers(HttpMethod.GET,
-                "/api/ride_on/trip/**").hasAnyAuthority("USER", "ADMIN")
+                        "/api/ride_on/trip/**").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
-                "/api/ride_on/trip").hasAnyAuthority("USER", "ADMIN")
+                        "/api/ride_on/trip").hasAnyAuthority("USER", "ADMIN")
 
                 // car
                 .antMatchers(HttpMethod.POST,
-                "/api/ride_on/car").hasAnyAuthority("USER", "ADMIN")
+                        "/api/ride_on/car").hasAnyAuthority("USER", "ADMIN")
 
                 // rider
                 .antMatchers(HttpMethod.POST,

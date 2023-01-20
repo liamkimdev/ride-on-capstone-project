@@ -119,7 +119,8 @@ begin
 		(departure, arrival, seats, price_per_seat, `date`, car_id) 
     values
 		('Missoula, MT', 'Bozeman, MT', 4, 15.00, '2023-01-16', 2),
-        ('Alpharetta, GA', 'Atlanta, GA', 1, 5.00, '2023-02-23', 1); 
+        ('Alpharetta, GA', 'Atlanta, GA', 1, 5.00, '2023-02-23', 1),
+        ('To Be Deleted', 'To Be Deleted', 1, 1.00, '2023-12-31', 3);
         
 	insert into rider
 		(total_cost, payment_confirmation, user_id, trip_id)

@@ -18,7 +18,7 @@ class TripServiceTest {
     TripService service;
 
     @MockBean
-    TripRepository tripRepository;
+    TripRepository repository;
 
     @Test
     public void shouldCreateValidTrip() {
@@ -33,7 +33,7 @@ class TripServiceTest {
         Result<Trip> expectedResult = new Result<>();
         expectedResult.setPayload(trip);
 
-        when(tripRepository.createTrip(trip)).thenReturn(trip);
+        when(repository.createTrip(trip)).thenReturn(trip);
 
         // Act
         Result<Trip> actualResult = service.createTrip(trip);

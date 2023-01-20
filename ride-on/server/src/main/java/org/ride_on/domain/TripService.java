@@ -31,10 +31,6 @@ public class TripService {
             return result;
         }
 
-        if (trip.getTripId() != 0) {
-            result.addMessage(ActionStatus.INVALID,"tripId cannot be set for `add` operation");
-        }
-
         trip = repository.createTrip(trip);
         result.setPayload(trip);
         return result;

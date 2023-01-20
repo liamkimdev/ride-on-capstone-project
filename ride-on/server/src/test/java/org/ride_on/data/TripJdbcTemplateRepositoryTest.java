@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class TripJdbcTemplateRepositoryTest {
 
-    final static int NEXT_ID = 3;
+    final static int NEXT_ID = 4;
 
     @Autowired
     TripJdbcTemplateRepository repository;
@@ -48,7 +48,7 @@ class TripJdbcTemplateRepositoryTest {
 
     @Test
     void shouldCreateTrip() {
-        Trip trip = new Trip(NEXT_ID, "Macon, GA", "Warner Robins, GA", 4,new BigDecimal(20.00), LocalDate.of(2023,3,3), 2);
+        Trip trip = new Trip(NEXT_ID, "Macon, GA", "Warner Robins, GA", 4, new BigDecimal(20.00), LocalDate.of(2023,3,3), 2);
         Trip actual = repository.createTrip(trip);
         assertNotNull(actual);
         assertEquals(NEXT_ID, actual.getTripId());

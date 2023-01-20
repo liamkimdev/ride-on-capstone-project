@@ -17,10 +17,6 @@ public class RiderService {
         this.riderRepository = riderRepository;
     }
 
-//    public List<Rider> findRidersByTripId(int tripId) {
-//        return riderRepository.findRidersByTripId(tripId);
-//    }
-
     // joinTrip
     public Result<Trip> createRider(Rider rider, Trip trip) {
        Result<Trip> result = new Result<>();

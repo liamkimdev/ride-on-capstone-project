@@ -1,209 +1,142 @@
-//package org.ride_on.domain;
-//
-//import org.junit.jupiter.api.Test;
-//import org.ride_on.data.CarRepository;
-//import org.ride_on.data.UserRepository;
-//import org.ride_on.models.Car;
-//import org.ride_on.models.User;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.boot.test.mock.mockito.MockBean;
-//import org.springframework.security.core.userdetails.UserDetails;
-//
-//import java.util.ArrayList;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.Mockito.when;
-//
-//@SpringBootTest
-//class UserServiceTest {
-//
-//    @Autowired
-//    UserService service;
-//
-//    @MockBean
-//    CarRepository carRepository;
-//
-//    @MockBean
-//    UserRepository userRepository;
-//
-//
-//    @Test
-//    public void shouldFindWithValidUserId() {
-//        // Arrange
-//        User expectedUser = new User(1, "lkim@dev-10.com", "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa", true, "Liam", "Kim", "01234abcde", "56789fghij", "drive is all about talking and listening", new ArrayList<>());
-//
-//        when(userRepository.findByUsername("lkim@dev-10.com")).thenReturn(expectedUser);
-//
-//        // Act
-//        UserDetails actualUser = service.loadUserByUsername("lkim@dev-10.com");
-//
-//        // Assert
-//        assertEquals(expectedUser, actualUser);
-//    }
-//
-//
-//    @Test
-//    public void shouldCreateCarWithValidCar() {
-//        // Arrange
-//        Car car = new Car();
-//        car.setInsurance(true);
-//        car.setRegistration(true);
-//        car.setMake("Toyota");
-//        car.setModel("Camry");
-//        car.setColor("white");
-//        car.setLicensePlate("MT5123");
-//
-//        Result<Car> expectedResult = new Result<>();
-//        expectedResult.setPayload(car);
-//
-//        when(carRepository.createCar(car)).thenReturn(car);
-//
-//        // Act
-//        Result<Car> actualResult = service.createCar(car);
-//
-//        // Assert
-//        assertEquals(expectedResult.getPayload(), actualResult.getPayload());
-//        assertTrue(actualResult.isSuccess());
-//    }
-//
-//    @Test
-//    public void shouldNotCreateWithNullCar() {
-//        // Arrange
-//        Result<Car> expectedResult = new Result<>();
-//        expectedResult.addMessage(ActionStatus.INVALID, "car cannot be null");
-//
-//        // Act
-//        Result<Car> actualResult = service.createCar(null);
-//
-//        // Assert
-//        assertEquals(expectedResult.getMessages(), actualResult.getMessages());
-//        assertFalse(actualResult.isSuccess());
-//    }
-//
-//    @Test
-//    public void shouldNotCreateWithNoInsurance() {
-//        // Arrange
-//        Car car = new Car();
-//        car.setRegistration(true);
-//        car.setMake("Toyota");
-//        car.setModel("Camry");
-//        car.setColor("white");
-//        car.setLicensePlate("ABC123");
-//
-//        Result<Car> expectedResult = new Result<>();
-//        expectedResult.addMessage(ActionStatus.INVALID, "insurance is required");
-//
-//        // Act
-//        Result<Car> actualResult = service.createCar(car);
-//
-//        // Assert
-//        assertEquals(expectedResult.getMessages(), actualResult.getMessages());
-//        assertFalse(actualResult.isSuccess());
-//    }
-//
-//    @Test
-//    public void shouldNotCreateWithNoRegistration() {
-//        // Arrange
-//        Car car = new Car();
-//        car.setInsurance(true);
-//        car.setMake("Toyota");
-//        car.setModel("Camry");
-//        car.setColor("white");
-//        car.setLicensePlate("ABC123");
-//
-//        Result<Car> expectedResult = new Result<>();
-//        expectedResult.addMessage(ActionStatus.INVALID, "registration is required");
-//
-//        // Act
-//        Result<Car> actualResult = service.createCar(car);
-//
-//        // Assert
-//        assertEquals(expectedResult.getMessages(), actualResult.getMessages());
-//        assertFalse(actualResult.isSuccess());
-//    }
-//
-//    @Test
-//    public void shouldNotCreateWithNoMake() {
-//        // Arrange
-//        Car car = new Car();
-//        car.setInsurance(true);
-//        car.setRegistration(true);
-//        car.setModel("Camry");
-//        car.setColor("white");
-//        car.setLicensePlate("ABC123");
-//
-//        Result<Car> expectedResult = new Result<>();
-//        expectedResult.addMessage(ActionStatus.INVALID, "car make is required");
-//
-//        // Act
-//        Result<Car> actualResult = service.createCar(car);
-//
-//        // Assert
-//        assertEquals(expectedResult.getMessages(), actualResult.getMessages());
-//        assertFalse(actualResult.isSuccess());
-//    }
-//
-//    @Test
-//    public void shouldNotCreateWithNoModel() {
-//        // Arrange
-//        Car car = new Car();
-//        car.setInsurance(true);
-//        car.setRegistration(true);
-//        car.setMake("Toyota");
-//        car.setColor("white");
-//        car.setLicensePlate("ABC123");
-//
-//        Result<Car> expectedResult = new Result<>();
-//        expectedResult.addMessage(ActionStatus.INVALID, "car model is required");
-//
-//        // Act
-//        Result<Car> actualResult = service.createCar(car);
-//
-//        // Assert
-//        assertEquals(expectedResult.getMessages(), actualResult.getMessages());
-//        assertFalse(actualResult.isSuccess());
-//    }
-//
-//    @Test
-//    public void shouldNotCreateWithNoColor() {
-//        // Arrange
-//        Car car = new Car();
-//        car.setInsurance(true);
-//        car.setRegistration(true);
-//        car.setMake("Toyota");
-//        car.setModel("Camry");
-//        car.setLicensePlate("ABC123");
-//
-//        Result<Car> expectedResult = new Result<>();
-//        expectedResult.addMessage(ActionStatus.INVALID, "car color is required");
-//
-//        // Act
-//        Result<Car> actualResult = service.createCar(car);
-//
-//        // Assert
-//        assertEquals(expectedResult.getMessages(), actualResult.getMessages());
-//        assertFalse(actualResult.isSuccess());
-//    }
-//
-//    @Test
-//    public void shouldNotCreateWithNoLicensePlate() {
-//        // Arrange
-//        Car car = new Car();
-//        car.setInsurance(true);
-//        car.setRegistration(true);
-//        car.setMake("Toyota");
-//        car.setModel("Camry");
-//        car.setColor("white");
-//
-//        Result<Car> expectedResult = new Result<>();
-//        expectedResult.addMessage(ActionStatus.INVALID, "license plate is required");
-//
-//        // Act
-//        Result<Car> actualResult = service.createCar(car);
-//
-//        // Assert
-//        assertEquals(expectedResult.getMessages(), actualResult.getMessages());
-//        assertFalse(actualResult.isSuccess());
-//    }
-//}
+package org.ride_on.domain;
+
+import org.junit.jupiter.api.Test;
+import org.ride_on.data.UserRepository;
+import org.ride_on.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest
+class UserServiceTest {
+
+    @Autowired
+    UserService service;
+
+    @MockBean
+    UserRepository repository;
+
+
+    @Test
+    void shouldNotBeAbleToCreateAccountWithNullUser() {
+        User user = null;
+
+        when(repository.createUser(user)).thenReturn(user);
+
+        Result<User> result = service.createUser(user);
+        assertFalse(result.isSuccess());
+        assertEquals(1, result.getMessages().size());
+        assertEquals(ActionStatus.INVALID, result.getType());
+        assertEquals("user cannot be null", result.getMessages().get(0));
+    }
+
+    @Test
+    public void shouldNotBeAbleToCreateAccountWithNullFirstName() {
+        User user = new User(2,"Mheine@dev-10.com", "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa", true, null, "Heine", "1700144abcd", "mt1039876", "silence is life", new ArrayList<>());
+
+        when(repository.createUser(user)).thenReturn(user);
+
+        Result<User> result = service.createUser(user);
+        assertFalse(result.isSuccess());
+        assertEquals(1, result.getMessages().size());
+        assertEquals(ActionStatus.INVALID, result.getType());
+        assertEquals("firstName is required", result.getMessages().get(0));
+    }
+
+    @Test
+    public void shouldNotBeAbleToCreateAccountWithNullLastName() {
+        User user = new User(1,"lkim@dev-10.com", "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa", true, "Liam", null, "asojdjasoidjas", "56789fghij", "drive is all about talking and listening", new ArrayList<>());
+
+        when(repository.createUser(user)).thenReturn(user);
+
+        Result<User> result = service.createUser(user);
+        assertFalse(result.isSuccess());
+        assertEquals(1, result.getMessages().size());
+        assertEquals(ActionStatus.INVALID, result.getType());
+        assertEquals("lastName is required", result.getMessages().get(0));
+    }
+
+    @Test
+    public void shouldNotBeAbleToCreateAccountWithNullBankingAccount() {
+        User user = new User(1,"lkim@dev-10.com", "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa", true, "Liam", "Kim", null, "56789fghij", "drive is all about talking and listening", new ArrayList<>());
+
+        when(repository.createUser(user)).thenReturn(user);
+
+        Result<User> result = service.createUser(user);
+        assertFalse(result.isSuccess());
+        assertEquals(1, result.getMessages().size());
+        assertEquals(ActionStatus.INVALID, result.getType());
+        assertEquals("bankingAccount is required", result.getMessages().get(0));
+    }
+
+    @Test
+    public void shouldNotBeAbleToCreateAccountWithEmptyBankingAccount() {
+        User user = new User(1,"lkim@dev-10.com", "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa", true, "Liam", "Kim", "", "56789fghij", "drive is all about talking and listening", new ArrayList<>());
+
+        when(repository.createUser(user)).thenReturn(user);
+
+        Result<User> result = service.createUser(user);
+        assertFalse(result.isSuccess());
+        assertEquals(1, result.getMessages().size());
+        assertEquals(ActionStatus.INVALID, result.getType());
+        assertEquals("bankingAccount is required", result.getMessages().get(0));
+    }
+
+    @Test
+    public void shouldNotBeAbleToCreateAccountWithNullIdentification() {
+        User user = new User(1,"lkim@dev-10.com", "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa", true, "Liam", "Kim", "Mjkfh48923", null, "drive is all about talking and listening", new ArrayList<>());
+
+        when(repository.createUser(user)).thenReturn(user);
+
+        Result<User> result = service.createUser(user);
+        assertFalse(result.isSuccess());
+        assertEquals(1, result.getMessages().size());
+        assertEquals(ActionStatus.INVALID, result.getType());
+        assertEquals("identification is required", result.getMessages().get(0));
+    }
+
+    @Test
+    public void shouldNotBeAbleToCreateAccountWithEmptyIdentification() {
+        User user = new User(1,"lkim@dev-10.com", "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa", true, "Liam", "Kim", "djiasjasoijdsaoi", "", "drive is all about talking and listening", new ArrayList<>());
+
+        when(repository.createUser(user)).thenReturn(user);
+
+
+        Result<User> result = service.createUser(user);
+        assertFalse(result.isSuccess());
+        assertEquals(1, result.getMessages().size());
+        assertEquals(ActionStatus.INVALID, result.getType());
+        assertEquals("identification is required", result.getMessages().get(0));
+    }
+
+    @Test
+    public void shouldCreateValidUser() {
+        User user = new User(1,"lkim@dev-10.com", "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa", true, "Liam", "Kim", "jasiodjaiosj", "56789fghij", "drive is all about talking and listening", new ArrayList<>());
+
+        when(repository.createUser(user)).thenReturn(user);
+
+        Result<User> result = service.createUser(user);
+        assertTrue(result.isSuccess());
+        assertEquals(0, result.getMessages().size());
+    }
+
+    @Test
+    public void shouldFindWithValidUserId() {
+        // Arrange
+        User expectedUser = new User(1, "lkim@dev-10.com", "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa", true, "Liam", "Kim", "01234abcde", "56789fghij", "drive is all about talking and listening", new ArrayList<>());
+
+        when(repository.findByUsername("lkim@dev-10.com")).thenReturn(expectedUser);
+
+        // Act
+        UserDetails actualUser = service.loadUserByUsername("lkim@dev-10.com");
+
+        // Assert
+        assertEquals(expectedUser, actualUser);
+    }
+}
