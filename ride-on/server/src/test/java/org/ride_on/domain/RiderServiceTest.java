@@ -2,6 +2,7 @@ package org.ride_on.domain;
 
 import org.junit.jupiter.api.Test;
 import org.ride_on.data.RiderRepository;
+import org.ride_on.data.TripRepository;
 import org.ride_on.models.Rider;
 import org.ride_on.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,12 @@ class RiderServiceTest {
     RiderService service;
 
     @MockBean
-    RiderRepository repository;
+    RiderRepository riderRepository;
+
+    @MockBean
+    TripRepository tripRepository;
+
+
 
     @Test
     public void shouldCreateValidRider() {
@@ -38,10 +44,11 @@ class RiderServiceTest {
 
         Result<Trip> expectedResult = new Result<>();
 
-        when(repository.createRider(rider)).thenReturn(rider);
+        when(riderRepository.createRider(rider)).thenReturn(rider);
+        when(tripRepository.findByTripId(rider.getTripId())).thenReturn(trip);
 
         // Act
-        Result<Trip> actualResult = service.createRider(rider, trip);
+        Result<Trip> actualResult = service.createRider(rider);
 
         // Assert
         assertEquals(expectedResult.getMessages(), actualResult.getMessages());
@@ -58,15 +65,9 @@ class RiderServiceTest {
 
         Result<Trip> expectedResult = new Result<>();
         expectedResult.addMessage(ActionStatus.INVALID, "a rider cannot be null");
-
-        when(repository.createRider(rider)).thenReturn(null);
-
-        // Act
-        Result<Trip> actualResult = service.createRider(rider, trip);
-
         // Assert
-        assertEquals(expectedResult.getMessages(), actualResult.getMessages());
-        assertFalse(actualResult.isSuccess());
+        assertEquals(expectedResult.getMessages().get(0), "a rider cannot be null");
+        assertEquals(expectedResult.getMessages().size(), 1);
     }
 
     @Test
@@ -79,10 +80,11 @@ class RiderServiceTest {
         Result<Trip> expectedResult = new Result<>();
         expectedResult.addMessage(ActionStatus.INVALID, "a rider could not join the trip, check again for available seats");
 
-        when(repository.createRider(rider)).thenReturn(rider);
+        when(riderRepository.createRider(rider)).thenReturn(rider);
+        when(tripRepository.findByTripId(rider.getTripId())).thenReturn(trip);
 
         // Act
-        Result<Trip> actualResult = service.createRider(rider, trip);
+        Result<Trip> actualResult = service.createRider(rider);
 
         // Assert
         assertEquals(expectedResult.getMessages(), actualResult.getMessages());

@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import Confirmation from "./components/Confirmation";
 import Error from "./components/Error";
@@ -7,11 +12,13 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import AuthContext from "./contexts/AuthContext";
 import Home from "./components/Home";
+import Nav from "./components/Nav";
+import About from "./components/About";
+import TripForm from "./components/TripForm";
 
 const LOCAL_STORAGE_TOKEN_KEY = "rideOnToken";
 
 function App() {
-
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -23,7 +30,6 @@ function App() {
   }, []);
 
   const login = (token) => {
-    
     const { sub: username, authorities: authoritiesString } = jwtDecode(token);
 
     const roles = authoritiesString.split(",");
@@ -34,31 +40,31 @@ function App() {
       token,
       hasRole(role) {
         return this.roles.includes(role);
-      }
-    }
+      },
+    };
 
     console.log(user);
 
     setCurrentUser(user);
 
     return user;
-  }
+  };
 
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
-  }
+  };
 
   const auth = {
-    currentUser: currentUser ? {...currentUser} : null,
+    currentUser: currentUser ? { ...currentUser } : null,
     login,
-    logout
-  }
+    logout,
+  };
 
   return (
     <AuthContext.Provider value={auth}>
-      <Router>
-
+      <Nav />
+      <div>
         <Routes>
           {/* If logged in, go to form page, if not go to home page
           <Route path="/edit/:id" element={
@@ -70,24 +76,29 @@ function App() {
             currentUser ? <SightingForm /> : <Navigate to="/" />
           }/> */}
 
-          <Route path="/confirmation" element={<Confirmation />}/>
-          <Route path="/error" element={<Error />}/>
+          <Route path="/confirmation" element={<Confirmation />} />
+          <Route path="/error" element={<Error />} />
 
           {/* If logged in, go to home page, if not go to login page */}
-          <Route path="/login" element={
-            currentUser ? <Navigate to="/" /> : <Login />
-          }/>
-          
+          <Route
+            path="/login"
+            element={currentUser ? <Navigate to="/" /> : <Login />}
+          />
+
           {/* If logged in, go to home page, if not go to register page */}
-          <Route path="/register" element={
-            currentUser ? <Navigate to="/" /> : <Register />
-          }/>
+          <Route
+            path="/register"
+            element={currentUser ? <Navigate to="/" /> : <Register />}
+          />
 
+           <Route path="/about" element={<About />} />
+          {/* // <Route path="*" element={<NotFound />}/>  */}
 
-          <Route path="/" element={<Home /> } />
+          <Route path="/" element={<Home />} />
+          <Route path="/api/ride_on/trip/form" element={<TripForm />} />
           {/* // <Route path="*" element={<NotFound />}/>  */}
         </Routes>
-      </Router>
+      </div>
     </AuthContext.Provider>
   );
 }

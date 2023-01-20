@@ -1,0 +1,9 @@
+.bg-white{
+    background-color: #FFFFFF;
+}
+
+.links{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+}

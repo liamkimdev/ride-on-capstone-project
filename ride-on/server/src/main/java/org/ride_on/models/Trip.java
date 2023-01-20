@@ -13,6 +13,7 @@ public class Trip {
     private BigDecimal pricePerSeat;
     private LocalDate date;
     private int carId;
+    private List<Rider> riders = new ArrayList<>();
 
     public Trip() {
     }
@@ -43,7 +44,6 @@ public class Trip {
         this.carId = carId;
     }
 
-    private List<Rider> riders = new ArrayList<>();
 
     public List<Rider> getRiders() {
         return riders;

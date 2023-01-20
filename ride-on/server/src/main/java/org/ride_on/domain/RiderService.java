@@ -11,10 +11,12 @@ import java.util.List;
 @Service
 public class RiderService {
     private final RiderRepository riderRepository;
+    private final TripRepository tripRepository;
 
 
-    public RiderService(RiderRepository riderRepository) {
+    public RiderService(RiderRepository riderRepository, TripRepository tripRepository) {
         this.riderRepository = riderRepository;
+        this.tripRepository = tripRepository;
     }
 
     public List<Rider> findRidersByTripId(int tripId) {
@@ -22,22 +24,30 @@ public class RiderService {
     }
 
     // joinTrip
-    public Result<Trip> createRider(Rider rider, Trip trip) {
-       Result<Trip> result = new Result<>();
+    public Result<Trip> createRider(Rider rider) {
 
-       int currentSeat = trip.getSeats();
-       trip.setSeats(currentSeat - 1); // updatedSeat
+        Result<Trip> result = new Result<>();
 
-       Rider createRider = riderRepository.createRider(rider);
+        if (rider == null) {
+            result.addMessage(ActionStatus.INVALID, "a rider cannot be null");
+            return result;
+        }
 
-       if (createRider == null) {
-           result.addMessage(ActionStatus.INVALID, "a rider cannot be null");
-       }
+        Trip trip = tripRepository.findByTripId(rider.getTripId());
 
-       if (trip.getSeats() <= 0 ) {
-           result.addMessage(ActionStatus.INVALID, "a rider could not join the trip, check again for available seats");
-       }
+        int currentSeat = trip.getSeats();
+        trip.setSeats(currentSeat - 1); // updatedSeat
 
-       return result;
+        Rider createRider = riderRepository.createRider(rider);
+
+        if (createRider == null) {
+            result.addMessage(ActionStatus.INVALID, "a rider cannot be null");
+        }
+
+        if (trip.getSeats() <= 0) {
+            result.addMessage(ActionStatus.INVALID, "a rider could not join the trip, check again for available seats");
+        }
+
+        return result;
     }
 }

@@ -30,9 +30,7 @@ public class RiderController {
     @GetMapping("/{tripId}")
     public ResponseEntity<Object> findRidersByTripId(@PathVariable int tripId) {
         List<Rider> riders = riderService.findRidersByTripId(tripId);
-        if(riders.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-        }
+
         return ResponseEntity.ok(riders);
     }
 
@@ -40,8 +38,11 @@ public class RiderController {
     //create Rider
     @PostMapping("/{userId}/{tripId}")
     public ResponseEntity<Object> createRider(@PathVariable int tripId, @RequestBody Rider rider) {
-        Trip trip = tripService.findByTripId(tripId);
-        Result<Trip> result = riderService.createRider(rider, trip);
+        if(rider.getTripId() != tripId){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        Result<Trip> result = riderService.createRider(rider);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
