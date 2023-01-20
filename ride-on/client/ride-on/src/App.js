@@ -15,6 +15,8 @@ import Home from "./components/Home";
 import Nav from "./components/Nav";
 import About from "./components/About";
 import TripForm from "./components/TripForm";
+import RideOn from "./components/RideOn";
+import CarForm from "./components/CarForm";
 
 const LOCAL_STORAGE_TOKEN_KEY = "rideOnToken";
 
@@ -94,8 +96,14 @@ function App() {
            <Route path="/about" element={<About />} />
           {/* // <Route path="*" element={<NotFound />}/>  */}
 
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          
+          <Route path="/" element={<RideOn />} />
+          
           <Route path="/api/ride_on/trip/form" element={<TripForm />} />
+
+          <Route path="/api/ride_on/car/form" element={<CarForm />} />
+
           {/* // <Route path="*" element={<NotFound />}/>  */}
         </Routes>
       </div>

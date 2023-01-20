@@ -72,7 +72,7 @@ function TripForm() {
         <div className='row offset-4'>
         <button className="btn btn-primary mt-3 col-3" type="submit">Submit</button>
         
-            <button className="btn btn-secondary mt-3 ms-2 col-3" type="button">Cancel</button>
+            <button className="btn btn-secondary mt-3 ms-2 col-3" type="button" onClick={() => navigate("/home")}>Cancel</button> 
             </div>
     </form>
     </>

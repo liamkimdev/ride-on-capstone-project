@@ -12,7 +12,7 @@ function Nav() {
                 <Link className="navbar-brand" to="/">Ride On</Link>
                 <ul className="navbar-nav me-auto mb-2 mb-md-0">
                     <li className="nav-item">
-                        <NavLink to="/" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+                        <NavLink to="/home" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                             Home
                         </NavLink>
                     </li>
