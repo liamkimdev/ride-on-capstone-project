@@ -46,23 +46,6 @@ public class UserJdbcTemplateRepository implements UserRepository {
         return jdbcTemplate.query(sql, (rs, rowId) -> rs.getString("name"), username);
     }
 
-//    @Override
-//    public User findByUserId(int userId, String username) {
-//        List<String> roles = getRolesByUsername(username);
-//
-//        final String sql = "select * from user where user_id = ?;";
-//
-//        User user = jdbcTemplate.query(sql, new UserMapper(roles), userId).stream()
-//                .findFirst().orElse(null);
-//
-//        if (user != null) {
-//            addCars(user);
-//            addRiders(user);
-//        }
-//
-//        return user;
-//    }
-
     @Override
     public User createUser(User user) {
 

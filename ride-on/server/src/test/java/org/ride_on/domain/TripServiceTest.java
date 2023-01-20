@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class CarServiceTest {
+class TripServiceTest {
     @Autowired
-    CarService service;
+    TripService service;
 
     @MockBean
     TripRepository tripRepository;

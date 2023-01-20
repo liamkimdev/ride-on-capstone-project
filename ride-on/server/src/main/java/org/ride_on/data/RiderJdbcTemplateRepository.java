@@ -24,7 +24,7 @@ public class RiderJdbcTemplateRepository implements RiderRepository {
     }
 
     @Override
-    public List<Rider> findByTripId(int tripId) {
+    public List<Rider> findRidersByTripId(int tripId) {
         final String sql = "select * from rider where trip_id = ?;";
         List<Rider> riders = jdbcTemplate.query(sql, new RiderMapper(), tripId);
 

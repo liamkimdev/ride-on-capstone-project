@@ -1,0 +1,21 @@
+### Trip Controller
+
+@url = http://localhost:8080/api/ride_on/trip
+
+### Create Trip
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1NDAyMTk2fQ.HND8Mmr-xkFW1QqzUgNX_wtpFYzrdHgt7p7sUnPEJD0
+
+{
+    "departure": "Seattle, WA",
+    "arrival": "Atlanta, GA",
+    "seats": 7,
+    "pricePerSeat": 150,
+    "date": "2023-04-23",
+    "carId": 1
+}
+
+### Find By Trip ID
+GET {{url}}/1/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1NDAyMzcyfQ.Yhx_qnwSTEZt0lPmL2z7pR-HU7NIj3rQPA1uwmRKI7A

@@ -2,32 +2,24 @@ package org.ride_on.domain;
 
 import org.ride_on.data.RiderRepository;
 import org.ride_on.data.TripRepository;
-import org.ride_on.data.UserRepository;
 import org.ride_on.models.Rider;
 import org.ride_on.models.Trip;
-import org.ride_on.models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class RiderService {
-
-    private final TripRepository tripRepository;
     private final RiderRepository riderRepository;
 
-    public RiderService(TripRepository tripRepository, RiderRepository riderRepository) {
-        this.tripRepository = tripRepository;
+
+    public RiderService(RiderRepository riderRepository) {
         this.riderRepository = riderRepository;
     }
 
-    public List<Trip> findAll() {
-        return tripRepository.findAll();
-    }
-
-    public Trip findByTripId(int tripId) {
-        return tripRepository.findByTripId(tripId);
-    }
+//    public List<Rider> findRidersByTripId(int tripId) {
+//        return riderRepository.findRidersByTripId(tripId);
+//    }
 
     // joinTrip
     public Result<Trip> createRider(Rider rider, Trip trip) {

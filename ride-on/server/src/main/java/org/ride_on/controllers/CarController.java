@@ -4,8 +4,10 @@ import org.ride_on.domain.CarService;
 import org.ride_on.domain.Result;
 import org.ride_on.models.Car;
 import org.ride_on.models.Trip;
+import org.ride_on.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,10 +21,14 @@ public class CarController {
         this.service = service;
     }
 
-    //createTrip
+    //create car
     @PostMapping
-    public ResponseEntity<Object> createTrip(@RequestBody Trip trip){
-        Result<Trip> result = service.createTrip(trip);
+    public ResponseEntity<Object> createCar(@RequestBody Car car, @AuthenticationPrincipal User user){
+        if (user.getUserId() != car.getUserId()) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        Result<Car> result = service.createCar(car);
         if(result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }

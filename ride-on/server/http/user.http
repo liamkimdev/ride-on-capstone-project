@@ -1,0 +1,62 @@
+### User Controller
+
+@url = http://localhost:8080/api/ride_on/user
+
+### Create account for Liam
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "lkim@dev-10.com",
+    "password": "P@ssw0rd!",
+    "enabled": true,
+    "firstName": "Liam",
+    "lastName": "Kim",
+    "bankingAccount": "12345abcdef",
+    "identification": "GA1234jklfd",
+    "preferences": "windows down, wind in my hair",
+    "cars": [],
+    "riders": [],
+    "authorities": []
+}
+
+### Create account for Matthew
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Mheine@dev-10.com",
+    "password": "P@ssw0rd!",
+    "enabled": true,
+    "firstName": "Matthew",
+    "lastName": "Heine",
+    "bankingAccount": "12345abcde",
+    "identification": "GA1234jklf",
+    "preferences": "windows up, silence is life, stay SHUT",
+    "cars": [],
+    "riders": [],
+    "authorities": []
+}
+
+### Find by username
+GET {{url}}/lkim@dev-10.com HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1NDAyMTk2fQ.HND8Mmr-xkFW1QqzUgNX_wtpFYzrdHgt7p7sUnPEJD0
+
+### Get JWT token for Liam
+POST {{url}}/authenticate 
+Content-Type: application/json
+
+{
+    "username": "lkim@dev-10.com",
+    "password": "P@ssw0rd!"
+}
+
+### GET JWT token for Matthew
+POST {{url}}/authenticate 
+Content-Type: application/json
+
+{
+    "username": "Mheine@dev-10.com",
+    "password": "P@ssw0rd!"
+}
+

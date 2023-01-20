@@ -6,7 +6,7 @@ import org.ride_on.models.Trip;
 import java.util.List;
 
 public interface RiderRepository {
-    List<Rider> findByTripId(int tripId);
+    List<Rider> findRidersByTripId(int tripId);
 
     boolean deleteByRiderId(int riderId);
 

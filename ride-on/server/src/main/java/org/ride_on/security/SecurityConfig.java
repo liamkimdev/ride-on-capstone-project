@@ -32,20 +32,36 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/api/ride_on").permitAll()
-                .antMatchers("/authenticate").permitAll()
-                .antMatchers("/create_account").permitAll()
+                .antMatchers("/api/ride_on/user/authenticate").permitAll()
                 .antMatchers("/refresh_token").authenticated()
                 .antMatchers(HttpMethod.GET,
                         "/home").permitAll()
+                // user
+                .antMatchers(HttpMethod.GET,
+                "/api/ride_on/user/*").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST,
+                "/api/ride_on/user").permitAll()
+
+                // trip
+                .antMatchers(HttpMethod.GET,
+                "/api/ride_on/trip").permitAll()
+                .antMatchers(HttpMethod.GET,
+                "/api/ride_on/trip/**").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST,
+                "/api/ride_on/trip").hasAnyAuthority("USER", "ADMIN")
+
+                // car
+                .antMatchers(HttpMethod.POST,
+                "/api/ride_on/car").hasAnyAuthority("USER", "ADMIN")
+
+                // rider
+                .antMatchers(HttpMethod.POST,
+                        "/api/ride_on/rider/**").hasAnyAuthority("USER", "ADMIN")
+
+                // catch all
                 .antMatchers(HttpMethod.GET,
                         "/api/ride_on/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
-                        "/api/ride_on/*").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers(HttpMethod.GET,
-                        "/api/ride_on/car/*").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers(HttpMethod.POST,
-                        "/api/ride_on/car").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers(HttpMethod.GET,
                         "/api/ride_on/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT,
                         "/api/ride_on/*").hasAnyAuthority("USER", "ADMIN")

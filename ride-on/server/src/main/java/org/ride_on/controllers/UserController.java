@@ -1,7 +1,7 @@
 package org.ride_on.controllers;
 
-import org.ride_on.domain.RegisteredUserService;
 import org.ride_on.domain.Result;
+import org.ride_on.domain.UserService;
 import org.ride_on.models.User;
 import org.ride_on.security.JwtConverter;
 import org.springframework.http.HttpStatus;
@@ -11,26 +11,25 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class AuthController {
-
+@CrossOrigin(origins = {"http://localhost:3000"})
+@RequestMapping("/api/ride_on/user")
+public class UserController {
     private final AuthenticationManager authenticationManager;
     private final JwtConverter converter;
-    private final RegisteredUserService service;
+    private final UserService service;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtConverter converter, RegisteredUserService service) {
+    public UserController(AuthenticationManager authenticationManager, JwtConverter converter, UserService service) {
         this.authenticationManager = authenticationManager;
         this.converter = converter;
         this.service = service;
     }
-
     @PostMapping("/authenticate")
     public ResponseEntity<Map<String, String>> authenticate(@RequestBody Map<String, String> credentials) {
 
@@ -66,24 +65,23 @@ public class AuthController {
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-
-    @PostMapping("/create_account")
-    public ResponseEntity<?> createAccount(@RequestBody Map<String, String> credentials) {
-
-        String username = credentials.get("username");
-        String password = credentials.get("password");
-
-        Result<User> result = service.create(username, password);
-
-        // unhappy path...
-        if (!result.isSuccess()) {
-            return new ResponseEntity<>(result.getMessages(), HttpStatus.BAD_REQUEST);
+    //find by username
+    @GetMapping("/{username}")
+    public ResponseEntity<User> findByUserId(@PathVariable String username){
+        UserDetails user = service.loadUserByUsername(username);
+        if(user == null){;
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return ResponseEntity.ok((User) user);
+    }
 
-        // happy path...
-        HashMap<String, Integer> map = new HashMap<>();
-        map.put("appUserId", result.getPayload().getUserId());
-
-        return new ResponseEntity<>(map, HttpStatus.CREATED);
+    // create account
+    @PostMapping
+    public ResponseEntity<Object> createUser(@RequestBody User user) {
+        Result<User> result = service.createUser(user);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
+        }
+        return ErrorResponse.build(result);
     }
 }

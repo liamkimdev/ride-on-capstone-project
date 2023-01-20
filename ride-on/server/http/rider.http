@@ -1,24 +1,16 @@
-### Rider Controller Testing
+### Rider Controller
 
-@url = http://localhost:8080/api/ride_on/car
+@url = http://localhost:8080/api/ride_on/rider
 
-### Testing find all trips from unregistered user's perspective
-
-GET {{url}} HTTP/1.1
-
-### Testing create trip
-
-POST {{url}} HTTP/1.1
+### Create Rider
+POST {{url}}/2/1 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer
---- jwt token ---
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoiTWhlaW5lQGRldi0xMC5jb20iLCJ1c2VyX2lkIjoyLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2NzU0MDI3NTJ9.RZnfMgZazCrO2_tjxLE8FvvzR-KHaPvx2xVqAJ2K440
 
 {
+    "totalCost": 150,
+    "paymentConfirmation": true,
+    "userId": 1,
     "tripId": 1
-    "departure": "Seattle, WA"
-    "arrival": "Atlanta, GA"
-    "seats": 7
-    "pricePerSeat": 150
-    "date": 2023-04-23
-    "carId: 1
 }
+
