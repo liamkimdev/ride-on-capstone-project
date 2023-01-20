@@ -2,7 +2,7 @@
 
 @url = http://localhost:8080/api/ride_on/user
 
-### Create account for Liam
+### Create User for Liam
 POST {{url}} HTTP/1.1
 Content-Type: application/json
 
@@ -20,7 +20,7 @@ Content-Type: application/json
     "authorities": []
 }
 
-### Create account for Matthew
+### Create User for Matthew
 POST {{url}} HTTP/1.1
 Content-Type: application/json
 
@@ -38,11 +38,16 @@ Content-Type: application/json
     "authorities": []
 }
 
-### Find by username
+### Find User-Liam By Username
 GET {{url}}/lkim@dev-10.com HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1NDAyMTk2fQ.HND8Mmr-xkFW1QqzUgNX_wtpFYzrdHgt7p7sUnPEJD0
 
-### Get JWT token for Liam
+### Find User-Matthew By Username
+GET {{url}}/Mheine@dev-10.com HTTP/1.1
+Authorization: Bearer
+
+
+### Get JWT Token for Liam
 POST {{url}}/authenticate 
 Content-Type: application/json
 
@@ -51,7 +56,7 @@ Content-Type: application/json
     "password": "P@ssw0rd!"
 }
 
-### GET JWT token for Matthew
+### GET JWT Token for Matthew
 POST {{url}}/authenticate 
 Content-Type: application/json
 

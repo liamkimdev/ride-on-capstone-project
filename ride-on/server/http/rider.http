@@ -14,3 +14,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoiTWhla
     "tripId": 1
 }
 
+### Find Rider By Trip ID
+GET {{url}}/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1NDM4NTYwfQ.trTZ7IhyNM2wUh9Wupl5OFrQMNWfbmCIsjVW-Sn-nQ8
+
+

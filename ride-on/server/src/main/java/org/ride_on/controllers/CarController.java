@@ -21,7 +21,7 @@ public class CarController {
         this.service = service;
     }
 
-    //create car
+    //Create Car
     @PostMapping
     public ResponseEntity<Object> createCar(@RequestBody Car car, @AuthenticationPrincipal User user){
         if (user.getUserId() != car.getUserId()) {

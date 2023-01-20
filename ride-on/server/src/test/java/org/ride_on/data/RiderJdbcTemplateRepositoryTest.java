@@ -3,6 +3,7 @@ package org.ride_on.data;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ride_on.models.Rider;
+import org.ride_on.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,7 +17,10 @@ class RiderJdbcTemplateRepositoryTest {
     final static int NEXT_ID = 4;
 
     @Autowired
-    RiderJdbcTemplateRepository repository;
+    RiderJdbcTemplateRepository riderRepository;
+
+    @Autowired
+    TripJdbcTemplateRepository tripRepository;
 
     @Autowired
     KnownGoodState knownGoodState;
@@ -28,30 +32,28 @@ class RiderJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindRidersByTripId() {
-        List<Rider> riders = repository.findRidersByTripId(1);
+        List<Rider> riders = riderRepository.findRidersByTripId(1);
         assertEquals(1, riders.size());
         assertEquals(true, riders.get(0).isPaymentConfirmation());
     }
+    @Test
+    void shouldCreateRider() {
+        Trip trip = tripRepository.findByTripId(3);
 
-    // TODO: Finish Testing for Rider After Working on Rider Classes (Vertical Approach)
-//    @Test
-//    void shouldCreateRider() {
-//        Trip trip = tripRepository.findByTripId(2);
-//
-//        Rider rider = new Rider();
-//        rider.setUserId(2);
-//        rider.setTotalCost(trip.getPricePerSeat());
-//        rider.setTripId(trip.getTripId());
-//
-//        Rider actual = riderRepository.createRider(rider);
-//
-//        assertNotNull(actual);
-//        assertEquals(NEXT_ID, actual.getRiderId());
-//        assertEquals(true, actual.isPaymentConfirmation());
-//    }
-//
-//    @Test
-//    void shouldDeleteByRiderId() {
-//        assertTrue(riderRepository.deleteByRiderId(3));
-//    }
+        Rider rider = new Rider();
+        rider.setUserId(2);
+        rider.setTotalCost(trip.getPricePerSeat());
+        rider.setTripId(trip.getTripId());
+
+        Rider actual = riderRepository.createRider(rider);
+
+        assertNotNull(actual);
+        assertEquals(NEXT_ID, actual.getRiderId());
+        assertEquals(true, actual.isPaymentConfirmation());
+    }
+
+    @Test
+    void shouldDeleteByRiderId() {
+        assertTrue(riderRepository.deleteByRiderId(2));
+    }
 }

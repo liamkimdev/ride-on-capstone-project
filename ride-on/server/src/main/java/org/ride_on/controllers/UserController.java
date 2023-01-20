@@ -65,7 +65,7 @@ public class UserController {
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-    //find by username
+    // Find User
     @GetMapping("/{username}")
     public ResponseEntity<User> findByUserId(@PathVariable String username){
         UserDetails user = service.loadUserByUsername(username);
@@ -75,7 +75,7 @@ public class UserController {
         return ResponseEntity.ok((User) user);
     }
 
-    // create account
+    // Create User
     @PostMapping
     public ResponseEntity<Object> createUser(@RequestBody User user) {
         Result<User> result = service.createUser(user);

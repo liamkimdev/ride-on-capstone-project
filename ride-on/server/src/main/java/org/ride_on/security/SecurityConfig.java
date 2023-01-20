@@ -55,6 +55,8 @@ public class SecurityConfig {
                         "/api/ride_on/car").hasAnyAuthority("USER", "ADMIN")
 
                 // rider
+                .antMatchers(HttpMethod.GET,
+                        "/api/ride_on/rider/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
                         "/api/ride_on/rider/**").hasAnyAuthority("USER", "ADMIN")
 

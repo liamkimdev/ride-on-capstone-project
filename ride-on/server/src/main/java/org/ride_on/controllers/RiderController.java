@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("/api/ride_on/rider")
@@ -24,7 +26,18 @@ public class RiderController {
         this.tripService = tripService;
     }
 
-    //createRider
+    // Find Rider(s)
+    @GetMapping("/{tripId}")
+    public ResponseEntity<Object> findRidersByTripId(@PathVariable int tripId) {
+        List<Rider> riders = riderService.findRidersByTripId(tripId);
+        if(riders.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        }
+        return ResponseEntity.ok(riders);
+    }
+
+
+    //create Rider
     @PostMapping("/{userId}/{tripId}")
     public ResponseEntity<Object> createRider(@PathVariable int tripId, @RequestBody Rider rider) {
         Trip trip = tripService.findByTripId(tripId);

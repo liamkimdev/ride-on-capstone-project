@@ -25,7 +25,7 @@ public class TripController {
         return service.findAll();
     }
 
-    //findByTripId
+    //Find Trip
     @GetMapping("/{userId}/{tripId}")
     public ResponseEntity<Trip> findByTripId(@PathVariable int tripId){
         Trip trip = service.findByTripId(tripId);
@@ -36,6 +36,7 @@ public class TripController {
         return ResponseEntity.ok(trip);
     }
 
+    // Create Trip
     @PostMapping
     public ResponseEntity<Object> createTrip(@RequestBody Trip trip){
         Result<Trip> result = service.createTrip(trip);
