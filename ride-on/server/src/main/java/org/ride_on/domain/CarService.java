@@ -1,16 +1,23 @@
 package org.ride_on.domain;
 
 import org.ride_on.data.CarRepository;
+import org.ride_on.data.UserRepository;
 import org.ride_on.models.Car;
+import org.ride_on.models.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CarService {
 
     private final CarRepository repository;
+    private final UserRepository userRepository;
 
-    public CarService(CarRepository repository) {
+    public CarService(CarRepository repository, UserRepository userRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
     }
 
     public Result<Car> createCar(Car car) {
@@ -23,6 +30,12 @@ public class CarService {
         if (car.getCarId() != 0) {
             result.addMessage(ActionStatus.INVALID,"carId cannot be set for `add` operation");
         }
+
+
+        //when you make a car you get more authority
+        User user = userRepository.findByUserId(car.getUserId());
+        user.setAuthorities(List.of(new SimpleGrantedAuthority("DRIVER")));
+        userRepository.updateCredentials(user);
 
         car = repository.createCar(car);
         result.setPayload(car);

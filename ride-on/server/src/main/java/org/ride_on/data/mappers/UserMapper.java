@@ -9,11 +9,13 @@ import java.util.List;
 
 public class UserMapper implements RowMapper<User> {
 
-    private final List<String> roles;
+    private List<String> roles;
 
     public UserMapper(List<String> roles) {
         this.roles = roles;
     }
+    public UserMapper(){}
+
 
     @Override
     public User mapRow(ResultSet rs, int i) throws SQLException {

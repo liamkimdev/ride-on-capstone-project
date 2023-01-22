@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import Confirmation from "./components/Confirmation";
-import Error from "./components/Error";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./Utilities/Login";
+import Register from "./Utilities/Register";
 import AuthContext from "./contexts/AuthContext";
 import Home from "./components/Home";
-import Nav from "./components/Nav";
+import Nav from "./Utilities/Nav";
 import About from "./components/About";
 import TripForm from "./components/TripForm";
 import RideOn from "./components/RideOn";
@@ -21,6 +14,7 @@ import CarForm from "./components/CarForm";
 const LOCAL_STORAGE_TOKEN_KEY = "rideOnToken";
 
 function App() {
+  const [messages, setMessages] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -45,8 +39,6 @@ function App() {
       },
     };
 
-    console.log(user);
-
     setCurrentUser(user);
 
     return user;
@@ -61,6 +53,42 @@ function App() {
     currentUser: currentUser ? { ...currentUser } : null,
     login,
     logout,
+  };
+
+  const isPasswordComplex = (password) => {
+    let digits = 0;
+    let letters = 0;
+    let others = 0;
+
+    const characters = [...password];
+
+    for (let c of characters) {
+      const charCode = c.charCodeAt(0);
+
+      if (charCode >= 48 && charCode <= 57) {
+        // numbers 0-9
+        digits++;
+      } else if (
+        (charCode >= 65 && charCode <= 90) ||
+        (charCode >= 97 && charCode <= 122)
+      ) {
+        // lowercase and uppercase letters
+        letters++;
+      } else {
+        others++;
+      }
+    }
+
+    return digits > 0 && letters > 0 && others > 0;
+  };
+
+  const makeId = () => {
+    let id = "";
+    let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    for (var i = 0; i < 12; i++) {
+      id += characters.charAt(Math.floor(Math.random() * 36));
+    }
+    return id;
   };
 
   return (
@@ -78,29 +106,57 @@ function App() {
             currentUser ? <SightingForm /> : <Navigate to="/" />
           }/> */}
 
-          <Route path="/confirmation" element={<Confirmation />} />
-          <Route path="/error" element={<Error />} />
-
           {/* If logged in, go to home page, if not go to login page */}
           <Route
             path="/login"
-            element={currentUser ? <Navigate to="/" /> : <Login />}
+            element={
+              currentUser ? 
+                <Navigate to="/home" />
+               : 
+                <Login
+                  messages={messages}
+                  setMessages={setMessages}
+                  makeId={makeId}
+                  isPasswordComplex={isPasswordComplex}
+                />
+              
+            }
           />
 
           {/* If logged in, go to home page, if not go to register page */}
           <Route
             path="/register"
-            element={currentUser ? <Navigate to="/" /> : <Register />}
+            element={
+              currentUser ? 
+                <Navigate to="/home" />
+               : 
+                <Register
+                  messages={messages}
+                  setMessages={setMessages}
+                  makeId={makeId}
+                  isPasswordComplex={isPasswordComplex}
+                />
+              
+            }
           />
 
-           <Route path="/about" element={<About />} />
+          <Route path="/about" element={<About />} />
           {/* // <Route path="*" element={<NotFound />}/>  */}
 
-          <Route path="/home" element={<Home />} />
-          
+          <Route path="/home" element=
+          {<Home
+          currentUser= {currentUser}/>}/>
+
           <Route path="/" element={<RideOn />} />
-          
-          <Route path="/api/ride_on/trip/form" element={<TripForm />} />
+
+          <Route path="/api/ride_on/trip/form" element={
+            currentUser && currentUser.hasRole("DRIVER") ?
+          <TripForm 
+          messages={messages} 
+            setMessages={setMessages} 
+            makeId={makeId}  
+          /> : <Navigate to="/api/ride_on/car/form" />
+          } />
 
           <Route path="/api/ride_on/car/form" element={<CarForm />} />
 

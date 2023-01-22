@@ -1,106 +1,172 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import AuthContext from "../contexts/AuthContext";
 
 
-function CarForm() {
-  const { register } = useForm();
-    const navigate = useNavigate();
+function CarForm( { messages, setMessages, makeId, isPasswordComplex } ) {
+ 
+  const { handleSubmit, 
+        register,
+          formState: { errors }, 
+      } = useForm();
+ 
+  const auth = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const onSubmit = (carData) => {
+    fetch("http://localhost:8080/api/ride_on/car", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + auth.currentUser.token
+      },
+      body: JSON.stringify(carData),
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else if (response.status === 403) {
+        setMessages([
+          ...messages,
+          {
+            id: makeId(),
+            type: "failure",
+            text: "Car could not be registered.",
+          },
+        ]);
+        navigate("/api/ride_on/car/form");
+      } else {
+        setMessages([
+            ...messages,
+            {
+              id: makeId(),
+              type: "failure",
+              text: "Unexpected error occured.",
+            },
+          ]);
+          navigate("/");
+      };
+    })
+      .catch((error) => console.log(error));
+    };
+
+
 
   return (
-    // insurance
-    // registration
-<>
-<h1>Create a Car</h1>
-    <form>
-      <div>
-        <label className="form-label" type="text" id="make" htmlFor="car-make">
-          Make
-        </label>
-        <input
-          className="form-control"
-          type="text"
-          id="car-make"
-          {...register("make", { required: "Must define a car make" })}
-        />
-      </div>
+    <>
+      <h1>Create a Car</h1>
+      <form id="car-form" onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label
+            className="form-label"
+            type="text"
+            id="make"
+            htmlFor="car-make"
+          >
+            Make
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            id="car-make"
+            {...register("make", { required: "Must define a car make" })}
+          />
+        </div>
 
-      <div>
-        <label
-          className="form-label"
-          type="text"
-          id="model"
-          htmlFor="car-model"
-        >
-          Model
-        </label>
-        <input
-          className="form-control"
-          type="text"
-          id="car-model"
-          {...register("model", { required: "Must define a car model" })}
-        />
-      </div>
+        <div>
+          <label
+            className="form-label"
+            type="text"
+            id="model"
+            htmlFor="car-model"
+          >
+            Model
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            id="car-model"
+            {...register("model", { required: "Must define a car model" })}
+          />
+        </div>
 
-      <div>
-        <label className="form-label" type="text" id="year" htmlFor="car-year">
-          Year
-        </label>
-        <input
-          className="form-control"
-          type="text"
-          id="car-year"
-          {...register("year")}
-        />
-      </div>
+        <div>
+          <label
+            className="form-label"
+            type="text"
+            id="year"
+            htmlFor="car-year"
+          >
+            Year
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            id="car-year"
+            {...register("year")}
+          />
+        </div>
 
-      <div>
-        <label
-          className="form-label"
-          type="text"
-          id="color"
-          htmlFor="car-color"
-        >
-          Color
-        </label>
-        <input
-          className="form-control"
-          type="text"
-          id="car-color"
-          {...register("color", { required: "Must define a car color" })}
-        />
-      </div>
+        <div>
+          <label
+            className="form-label"
+            type="text"
+            id="color"
+            htmlFor="car-color"
+          >
+            Color
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            id="car-color"
+            {...register("color", { required: "Must define a car color" })}
+          />
+        </div>
 
-      <div>
-        <label
-          className="form-label"
-          type="text"
-          id="license-plate"
-          htmlFor="car-lisence-plate"
-        >
-          Lisence Plate
-        </label>
-        <input
-          className="form-control"
-          type="text"
-          id="car-license-plate"
-          {...register("lisencePlate", {
-            required: "Must define a car license plate",
-          })}
-        />
-      </div>
+        <div>
+          <label
+            className="form-label"
+            type="text"
+            id="license-plate"
+            htmlFor="car-lisence-plate"
+          >
+            License Plate
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            id="car-license-plate"
+            {...register("lisencePlate", {
+              required: "Must define a car license plate",
+            })}
+          />
+        </div>
 
-      <div>
-        <input type="checkbox" value="true" name="insurance" /> Insurance
-        <input type="checkbox" value="true" name="registration" /> Registration
-      </div>
+        <div>
+          <input type="checkbox" value="true" name="insurance" /> Insurance
+          <br />
+          <input type="checkbox" value="true" name="registration" />{" "}
+          Registration
+        </div>
 
-      <div className='row offset-4'>
-        <button className="btn btn-primary mt-3 col-3" type="submit">Submit</button>
-        
-            <button className="btn btn-secondary mt-3 ms-2 col-3" type="button" onClick={() => navigate("/home")}>Cancel</button> 
-            </div>
-    </form>
+        <div className="row offset-4">
+          <button className="btn btn-primary mt-3 col-3" type="submit">
+            Submit
+          </button>
+
+          <button
+            className="btn btn-secondary mt-3 ms-2 col-3"
+            type="button"
+            onClick={() => navigate("/home")}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
     </>
   );
 }

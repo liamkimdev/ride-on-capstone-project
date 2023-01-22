@@ -15,4 +15,9 @@ public interface UserRepository {
     boolean deleteByUserId(int userId);
 
     User findByUsername(String username);
+
+    User findByUserId(int userId);
+
+    @Transactional
+    void updateCredentials(User user);
 }

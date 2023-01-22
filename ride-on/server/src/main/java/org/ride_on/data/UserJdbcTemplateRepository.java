@@ -37,6 +37,14 @@ public class UserJdbcTemplateRepository implements UserRepository {
                 .findFirst().orElse(null);
     }
 
+    @Override
+    public User findByUserId(int userId) {
+        final String sql = " select * from `user` where user_id =?;";
+
+        User user = jdbcTemplate.query(sql, new UserMapper(), userId).stream().findFirst().orElse(null);
+        return user;
+    }
+
     private List<String> getRolesByUsername(String username) {
         final String sql = "select r.name "
                 + "from user_role ur "
