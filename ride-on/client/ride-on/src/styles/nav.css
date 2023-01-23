@@ -7,3 +7,8 @@
     justify-content: flex-end;
     flex-direction: row-reverse;
 }
+
+.navbar-nav{
+    display: flex;
+    justify-content: center;
+}

@@ -10,12 +10,16 @@ import About from "./components/About";
 import TripForm from "./components/TripForm";
 import RideOn from "./components/RideOn";
 import CarForm from "./components/CarForm";
+import "./styles/rideOn.css";
+import TripFactory from "./components/TripFactory";
 
 const LOCAL_STORAGE_TOKEN_KEY = "rideOnToken";
 
 function App() {
   const [messages, setMessages] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [cars, setCars] = useState([]);
+  const [trips, setTrips] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
@@ -26,14 +30,18 @@ function App() {
   }, []);
 
   const login = (token) => {
-    const { sub: username, authorities: authoritiesString } = jwtDecode(token);
+    const { sub: username, authorities: authoritiesString, user_id: userId, cars: cars } = jwtDecode(token);
+
+    localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
 
     const roles = authoritiesString.split(",");
 
     const user = {
       username,
+      userId,
       roles,
       token,
+      cars,
       hasRole(role) {
         return this.roles.includes(role);
       },
@@ -93,8 +101,8 @@ function App() {
 
   return (
     <AuthContext.Provider value={auth}>
+      <div className="container">
       <Nav />
-      <div>
         <Routes>
           {/* If logged in, go to form page, if not go to home page
           <Route path="/edit/:id" element={
@@ -145,17 +153,27 @@ function App() {
 
           <Route path="/home" element=
           {<Home
-          currentUser= {currentUser}/>}/>
+          currentUser= {currentUser} 
+          cars = {cars}
+          setCars = {setCars} />}/>
 
           <Route path="/" element={<RideOn />} />
 
           <Route path="/api/ride_on/trip/form" element={
-            currentUser && currentUser.hasRole("DRIVER") ?
+            //currentUser && currentUser.hasRole("DRIVER") ?
           <TripForm 
-          messages={messages} 
-            setMessages={setMessages} 
-            makeId={makeId}  
-          /> : <Navigate to="/api/ride_on/car/form" />
+          cars = {cars}
+          setCars = {setCars} />
+          // messages={messages} 
+          //   setMessages={setMessages} 
+          //   makeId={makeId}  
+          // /> : <Navigate to="/api/ride_on/car/form" />
+          } />
+
+          <Route path="/api/ride_on/trip" element={
+            <TripFactory 
+            trips = {trips}
+            setTrips = {setTrips} />
           } />
 
           <Route path="/api/ride_on/car/form" element={<CarForm />} />

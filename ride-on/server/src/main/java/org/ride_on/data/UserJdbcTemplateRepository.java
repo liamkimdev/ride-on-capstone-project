@@ -32,9 +32,16 @@ public class UserJdbcTemplateRepository implements UserRepository {
 
         final String sql = "select * from user where username = ?; ";
 
-        return jdbcTemplate.query(sql, new UserMapper(roles), username)
+        User user = jdbcTemplate.query(sql, new UserMapper(roles), username)
                 .stream()
                 .findFirst().orElse(null);
+
+        if (user != null) {
+            addCars(user);
+            addRiders(user);
+        }
+
+        return user;
     }
 
     @Override
@@ -42,6 +49,12 @@ public class UserJdbcTemplateRepository implements UserRepository {
         final String sql = " select * from `user` where user_id =?;";
 
         User user = jdbcTemplate.query(sql, new UserMapper(), userId).stream().findFirst().orElse(null);
+
+        if (user != null) {
+            addCars(user);
+            addRiders(user);
+        }
+
         return user;
     }
 

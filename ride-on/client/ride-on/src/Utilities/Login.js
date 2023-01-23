@@ -35,7 +35,7 @@ function Login({ messages, setMessages, makeId, isPasswordComplex }) {
               text: "Account could not be logged in at this time.",
             },
           ]);
-          navigate("/");
+          navigate("/register");
         } else {
           setMessages([
             ...messages,
@@ -45,10 +45,11 @@ function Login({ messages, setMessages, makeId, isPasswordComplex }) {
               text: "Unexpected error occured.",
             },
           ]);
-          navigate("/");
+          navigate("/register");
         };
       })
       .then((data) => {
+        console.log(data);
         auth.login(data.jwt_token);
         navigate("/home");
       })

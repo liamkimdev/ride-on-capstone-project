@@ -31,12 +31,6 @@ public class CarService {
             result.addMessage(ActionStatus.INVALID,"carId cannot be set for `add` operation");
         }
 
-
-        //when you make a car you get more authority
-        User user = userRepository.findByUserId(car.getUserId());
-        user.setAuthorities(List.of(new SimpleGrantedAuthority("DRIVER")));
-        userRepository.updateCredentials(user);
-
         car = repository.createCar(car);
         result.setPayload(car);
         return result;

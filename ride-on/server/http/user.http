@@ -44,7 +44,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpb
 
 ### Find User-Matthew By Username
 GET {{url}}/Mheine@dev-10.com HTTP/1.1
-Authorization: Bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibWhlaW5lQGRldi0xMC5jb20iLCJ1c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2NzU3MTUzNzl9.Wy1mI9rlhoKdx2ppA_DA0yaVF88NBexUhsuLIf74MZE
 
 
 ### Get JWT Token for Liam

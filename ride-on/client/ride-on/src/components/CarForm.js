@@ -5,55 +5,60 @@ import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 
 
-function CarForm( { messages, setMessages, makeId, isPasswordComplex } ) {
- 
-  const { handleSubmit, 
-        register,
-          formState: { errors }, 
-      } = useForm();
- 
+function CarForm({ messages, setMessages, makeId, cars, setCars }) {
+
+  const { handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+
   const auth = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const onSubmit = (carData) => {
+
+    let reviseCarData = {
+      ...carData,
+      userId: auth.currentUser.userId,
+     // cars: auth.currentUser.cars
+    }
+
     fetch("http://localhost:8080/api/ride_on/car", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + auth.currentUser.token
       },
-      body: JSON.stringify(carData),
+      body: JSON.stringify(reviseCarData),
     })
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      } else if (response.status === 403) {
-        setMessages([
-          ...messages,
-          {
-            id: makeId(),
-            type: "failure",
-            text: "Car could not be registered.",
-          },
-        ]);
-        navigate("/api/ride_on/car/form");
-      } else {
-        setMessages([
-            ...messages,
-            {
-              id: makeId(),
-              type: "failure",
-              text: "Unexpected error occured.",
-            },
-          ]);
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else if (response.status === 403) {
+          // setMessages([
+          //   ...messages,
+          //   {
+          //     id: makeId(),
+          //     type: "failure",
+          //     text: "Car could not be registered.",
+          //   },
+          // ]);
+          navigate("/api/ride_on/car/form");
+        } else {
+          // setMessages([
+          //     ...messages,
+          //     {
+          //       id: makeId(),
+          //       type: "failure",
+          //       text: "Unexpected error occured.",
+          //     },
+          //   ]);
           navigate("/");
-      };
-    })
+        };
+      })
       .catch((error) => console.log(error));
-    };
-
-
+  };
 
   return (
     <>
@@ -74,6 +79,9 @@ function CarForm( { messages, setMessages, makeId, isPasswordComplex } ) {
             id="car-make"
             {...register("make", { required: "Must define a car make" })}
           />
+           <p className="form-errors">
+            { errors.make?.message }
+          </p>
         </div>
 
         <div>
@@ -91,6 +99,9 @@ function CarForm( { messages, setMessages, makeId, isPasswordComplex } ) {
             id="car-model"
             {...register("model", { required: "Must define a car model" })}
           />
+           <p className="form-errors">
+            { errors.model?.message }
+          </p>
         </div>
 
         <div>
@@ -125,6 +136,9 @@ function CarForm( { messages, setMessages, makeId, isPasswordComplex } ) {
             id="car-color"
             {...register("color", { required: "Must define a car color" })}
           />
+          <p className="form-errors">
+            {errors.color?.message}
+          </p>
         </div>
 
         <div>
@@ -132,7 +146,7 @@ function CarForm( { messages, setMessages, makeId, isPasswordComplex } ) {
             className="form-label"
             type="text"
             id="license-plate"
-            htmlFor="car-lisence-plate"
+            htmlFor="car-license-plate"
           >
             License Plate
           </label>
@@ -140,17 +154,30 @@ function CarForm( { messages, setMessages, makeId, isPasswordComplex } ) {
             className="form-control"
             type="text"
             id="car-license-plate"
-            {...register("lisencePlate", {
+            {...register("licensePlate", {
               required: "Must define a car license plate",
             })}
           />
+           <p className="form-errors">
+            { errors.licensePlate?.message }
+          </p>
         </div>
 
         <div>
-          <input type="checkbox" value="true" name="insurance" /> Insurance
+          <input type="checkbox" value="true" name="insurance"
+            {...register("insurance", { required: "Must have an insurance" })}
+          /> Insurance
+          <p className="form-errors">
+            {errors.insurance?.message}
+          </p>
           <br />
-          <input type="checkbox" value="true" name="registration" />{" "}
+          <input type="checkbox" value="true" name="registration"
+            {...register("registration", { required: "Must have a registration" })}
+          />{" "}
           Registration
+          <p className="form-errors">
+            {errors.registration?.message}
+          </p>
         </div>
 
         <div className="row offset-4">

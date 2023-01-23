@@ -5,7 +5,7 @@
 ### Create Car
 POST {{url}} HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1NDAyMTk2fQ.HND8Mmr-xkFW1QqzUgNX_wtpFYzrdHgt7p7sUnPEJD0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoiTWhlaW5lQGRldi0xMC5jb20iLCJ1c2VyX2lkIjoyLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2NzU3MDI2ODB9.QVSt_6D-DLXVTCZI_4yfbNOyy3l3Vj9V6loZl2acAhk
 
 {
     "insurance": true,
