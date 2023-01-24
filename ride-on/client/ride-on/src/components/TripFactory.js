@@ -3,7 +3,7 @@ import AuthContext from "../contexts/AuthContext";
 import Table from 'react-bootstrap/Table';
 import Trip from "./Trip";
 
-function TripFactory({ trips, setTrips }) {
+function TripFactory({ trips, setTrips, currentUser, cars }) {
 
     const auth = useContext(AuthContext);
 
@@ -48,7 +48,7 @@ function TripFactory({ trips, setTrips }) {
     }
 
     const showTrips = () => {
-        return trips.map(trip => <Trip key={trip.tripId} trip={trip} />);
+        return trips.map(trip => <Trip key={trip.tripId} trip={trip} currentUser= {currentUser} cars = {cars} trips={trips}/>);
     }
 
     return (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import Signin from "./Utilities/Signin";
 import Signup from "./Utilities/Signup";
@@ -18,8 +18,13 @@ const LOCAL_STORAGE_TOKEN_KEY = "rideOnToken";
 function App() {
   const [messages, setMessages] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [auth, setAuth] = useState({});
   const [cars, setCars] = useState([]);
   const [trips, setTrips] = useState([]);
+
+
+  
+
 
   useEffect(() => {
     const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
@@ -83,6 +88,11 @@ function App() {
 
         
         setCurrentUser(user);
+
+        setAuth({
+          ...auth, 
+          currentUser: user
+        })
         
         console.log(currentUser.cars[0].carId);
 
@@ -94,14 +104,21 @@ function App() {
 
   const logout = () => {
     setCurrentUser(null);
+    setAuth({
+      ...auth,
+      currentUser: null
+    })
     localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
   };
 
-  const auth = {
-    currentUser: currentUser ? { ...currentUser } : null,
-    login,
-    logout,
-  };
+
+  useEffect( () => {
+    setAuth({
+      currentUser: currentUser ? { ...currentUser } : null,
+      login,
+      logout,
+    });
+  }, [currentUser]);
 
   const isPasswordComplex = (password) => {
     let digits = 0;
@@ -139,9 +156,19 @@ function App() {
     return id;
   };
 
+  const addCarToCurrentUser = (data) => {
+    let newAuth = {...auth};
+    let newCurrentUser = {...currentUser};
+    newCurrentUser.cars.push(data);
+    newAuth.currentUser = newCurrentUser;
+   setCurrentUser(newCurrentUser);
+   setAuth(newAuth);
+  }
+
+
   return (
     <AuthContext.Provider value={auth}>
-      <div className="container">
+      <div> 
         <Nav />
         <Routes>
           {/* If logged in, go to form page, if not go to home page
@@ -214,10 +241,17 @@ function App() {
           <Route path="/api/ride_on/trip" element={
             <TripFactory
               trips={trips}
-              setTrips={setTrips} />
+              setTrips={setTrips} 
+              currentUser= {currentUser}
+              cars = {cars}/>
           } />
 
-          <Route path="/api/ride_on/car/form" element={<CarForm />} />
+          <Route path="/api/ride_on/car/form" element={<CarForm 
+          message= {messages}
+          // make={make}
+          cars={cars}
+          setCars={setCars}
+          addCarToCurrentUser={addCarToCurrentUser}/>} />
 
           {/* // <Route path="*" element={<NotFound />}/>  */}
         </Routes>

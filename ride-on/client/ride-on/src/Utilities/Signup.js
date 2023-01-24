@@ -32,6 +32,7 @@ function Signup() {
     })
       .then((response) => {
         if (response.status === 201) {
+          alert("Account Successfully Created")
           navigate("/signin");
         } else if (response.status === 400) {
           console.log("Error sending...");

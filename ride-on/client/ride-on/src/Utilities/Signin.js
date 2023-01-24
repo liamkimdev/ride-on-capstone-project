@@ -35,6 +35,7 @@ function Signin({ messages, setMessages, makeId, isPasswordComplex }) {
               text: "Account could not be logged in at this time.",
             },
           ]);
+          alert("You do not have an account, Please create one.");
           navigate("/signup");
         } else {
           setMessages([
@@ -51,6 +52,7 @@ function Signin({ messages, setMessages, makeId, isPasswordComplex }) {
       .then((data) => {
         console.log(data);
         auth.login(data.jwt_token);
+        alert(`welcome   ${data.firstName} ${data.lastName}lastName`);
         navigate("/transport");
       })
       .catch((error) => console.log(error));

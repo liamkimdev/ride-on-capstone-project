@@ -20,4 +20,11 @@
   font-family: Arial, sans-serif;
 }
 
+.wallpaper{
+  color: green;
+  /* background-image:  'url(process.env.PUBLIC_URL + "/images/jeep.gif")'; */
+    background-size: 'cover';
+    background-position: 'center';
+}
+
 
