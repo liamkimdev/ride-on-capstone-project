@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Form, FormGroup, FormLabel, FormCheck } from "react-bootstrap";
 
-function Register() {
+function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkedValues, setCheckedValues] = useState([]);
 
-  const { register, handleSubmit } = useForm();
+  const { register,
+    handleSubmit,
+    formState: { errors } } = useForm();
 
   const navigate = useNavigate();
 
@@ -19,7 +22,6 @@ function Register() {
     }
   };
 
-
   const onSubmit = (userData) => {
     fetch("http://localhost:8080/api/ride_on/user", {
       method: "POST",
@@ -30,7 +32,7 @@ function Register() {
     })
       .then((response) => {
         if (response.status === 201) {
-          navigate("/login");
+          navigate("/signin");
         } else if (response.status === 400) {
           console.log("Error sending...");
         } else {
@@ -42,7 +44,9 @@ function Register() {
 
   return (
     <>
-      <h2>Register</h2>
+      <div className="text-center">
+        <h3>Sign Up</h3>
+      </div>
 
       <form classname="mb-5 form" onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -52,16 +56,19 @@ function Register() {
             id="username"
             htmlFor="user-username"
           >
-            Email
+
           </label>
           <input
             className="form-control"
             type="text"
             id="user-username"
-            placeholder="example@example.com"
+            placeholder="Email"
             onChange={(event) => setEmail(event.target.value)}
             {...register("username", { required: "Must input a username" })}
           />
+          <p className="form-errors">
+            {errors.username?.message}
+          </p>
         </div>
 
         <div>
@@ -71,15 +78,18 @@ function Register() {
             id="password"
             htmlFor="user-password"
           >
-            Password
           </label>
           <input
             className="form-control"
             type="password"
             id="user-password"
+            placeholder="Password"
             onChange={(event) => setPassword(event.target.value)}
             {...register("password", { required: "Must input a password" })}
           />
+          <p className="form-errors">
+            {errors.password?.message}
+          </p>
         </div>
 
         <div>
@@ -89,16 +99,19 @@ function Register() {
             id="firstName"
             htmlFor="user-first-name"
           >
-            First Name
           </label>
           <input
             className="form-control"
             type="text"
             id="user-first-name"
+            placeholder="First Name"
             {...register("firstName", {
               required: "Must provide a first name",
             })}
           />
+          <p className="form-errors">
+            {errors.firstName?.message}
+          </p>
         </div>
 
         <div>
@@ -108,14 +121,17 @@ function Register() {
             id="lastName"
             htmlFor="user-last-name"
           >
-            Last Name
           </label>
           <input
             className="form-control"
             type="text"
             id="user-last-name"
+            placeholder="Last Name"
             {...register("lastName", { required: "Must define a last name" })}
           />
+          <p className="form-errors">
+            {errors.lastName?.message}
+          </p>
         </div>
 
         <div>
@@ -125,17 +141,19 @@ function Register() {
             id="bankingAccount"
             htmlFor="user-banking-account"
           >
-            Banking Account
           </label>
           <input
             className="form-control"
             type="text"
             id="user-banking-account"
-            placeholder="1234567890"
+            placeholder="Banking Account No."
             {...register("bankingAccount", {
               required: "Must provide a banking account",
             })}
           />
+          <p className="form-errors">
+            {errors.bankingAccount?.message}
+          </p>
         </div>
 
         <div>
@@ -145,60 +163,78 @@ function Register() {
             id="identification"
             htmlFor="user-identification"
           >
-            Identification (Driver License, Passport, etc.)
           </label>
           <input
             className="form-control"
             type="text"
             id="user-identification"
-            placeholder="1234567890"
+            placeholder="Identification No."
             {...register("identification", {
               required: "Must define a identification",
             })}
           />
-        </div>
-
-        <label
-          className="form-label"
-          type="text"
-          id="preferences"
-          htmlFor="user-preferences"
-        >
-          Preferences
-        </label>
-        <div className="">
-          <input type="checkbox" value="true" name="insurance" /> I am a
-          friendly and talkative person 💛
-          <br />
-          <input type="checkbox" value="true" name="registration" /> I don't
-          mind pet(s) 🐶
-          <br />
-          <input type="checkbox" value="true" name="registration" /> I'm fine
-          with smoking 😗💨
-          <br />
-          <input type="checkbox" value="true" name="registration" /> I love
-          music 🎵
-          <p {...register("preferences")}>
-            Checked values: {checkedValues.join(", ")}
+          <p className="form-errors">
+            {errors.identification?.message}
           </p>
         </div>
 
-        <div className="row offset-4">
+        <Form>
+          <FormGroup>
+            <FormLabel><strong>Preferences</strong></FormLabel>
+            <div>
+              <FormCheck
+                type="checkbox"
+                label="I am a friendly and talkative person 💛"
+                name="insurance"
+                value="true"
+                id="insurance"
+              />
+              <FormCheck
+                type="checkbox"
+                label="I don't mind pet(s) 🐶"
+                name="registration"
+                value="true"
+                id="registration"
+              />
+              <FormCheck
+                type="checkbox"
+                label="I'm fine with smoking 😗💨"
+                name="registration"
+                value="true"
+                id="registration"
+              />
+              <FormCheck
+                type="checkbox"
+                label="I love music 🎵"
+                name="registration"
+                value="true"
+                id="registration"
+              />
+            </div>
+          </FormGroup>
+        </Form>
+
+
+        <div className="text-center">
           <button className="btn btn-primary mt-3 col-3" type="submit">
-            Register
+            Sign Up
           </button>
 
           <button
             className="btn btn-secondary mt-3 ms-2 col-3"
             type="button"
-            onClick={() => navigate("/home")}
+            onClick={() => navigate("/transport")}
           >
             Cancel
           </button>
+
+          <div className="m-4">
+            <p>Already a member? <a href="#!" onClick={() => navigate("/signin")}>Sign In</a></p>
+          </div>
         </div>
       </form>
     </>
   );
 }
 
-export default Register;
+export default Signup;

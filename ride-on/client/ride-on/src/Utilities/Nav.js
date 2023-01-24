@@ -7,9 +7,14 @@ function Nav() {
 
   return (
     <nav className="centero navbar navbar-expand-md navbar-light bg-white fixed-top sticky-top mb-5">
+   
+   <div className="d-flex align-items-center justify-content-end w-150">   
     <Link className="navbar-brand" to="/">
       Ride On
     </Link>
+    </div>
+    
+    <div className="text-right w-100">
     <button
       className="navbar-toggler"
       type="button"
@@ -25,12 +30,12 @@ function Nav() {
       <ul className="navbar-nav">
         <li className="nav-item">
           <NavLink
-            to="/home"
+            to="/transport"
             className={({ isActive }) =>
               isActive ? "nav-link active" : "nav-link"
             }
           >
-            Home
+            Transport
           </NavLink>
         </li>
         <li className="nav-item">
@@ -48,22 +53,22 @@ function Nav() {
           <>
             <li className="nav-item">
               <NavLink
-                to="/login"
+                to="/signin"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Login
+                Sign In
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
-                to="/register"
+                to="/signup"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Register
+                Sign Up
               </NavLink>
             </li>
           </>
@@ -71,11 +76,12 @@ function Nav() {
         {auth.currentUser ? (
           <li>
             <Link className="nav-link" onClick={auth.logout}>
-              Logout
+              Sign Out
             </Link>
           </li>
         ) : null}
       </ul>
+      </div>
     </div>
   </nav>
 );
@@ -90,7 +96,7 @@ function Nav() {
     //     <ul className="navbar-nav me-auto mb-2 mb-md-0">
     //       <li className="nav-item">
     //         <NavLink
-    //           to="/home"
+    //           to="/transport"
     //           className={({ isActive }) =>
     //             isActive ? "nav-link active" : "nav-link"
     //           }
@@ -125,7 +131,7 @@ function Nav() {
     //         <>
     //           <li className="nav-item">
     //             < NavLink
-    //               to="/login"
+    //               to="/signin"
     //               className={({ isActive }) =>
     //                 isActive ? "nav-link active" : "nav-link"
     //               }
@@ -135,7 +141,7 @@ function Nav() {
     //           </li>
     //           <li className="nav-item">
     //             <NavLink
-    //               to="/register"
+    //               to="/signup"
     //               className={({ isActive }) =>
     //                 isActive ? "nav-link active" : "nav-link"
     //               }

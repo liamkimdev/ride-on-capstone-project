@@ -33,7 +33,7 @@ function CarForm({ messages, setMessages, makeId, cars, setCars }) {
     })
       .then((response) => {
         if (response.status === 201) {
-          navigate("/home")
+          navigate("/transport")
           return response.json();
         } else if (response.status === 403) {
           // setMessages([
@@ -111,7 +111,7 @@ function CarForm({ messages, setMessages, makeId, cars, setCars }) {
             id="year"
             htmlFor="car-year"
           >
-            Year
+            Year (Optional)
           </label>
           <input
             className="form-control"
@@ -188,7 +188,7 @@ function CarForm({ messages, setMessages, makeId, cars, setCars }) {
           <button
             className="btn btn-secondary mt-3 ms-2 col-3"
             type="button"
-            onClick={() => navigate("/home")}
+            onClick={() => navigate("/transport")}
           >
             Cancel
           </button>

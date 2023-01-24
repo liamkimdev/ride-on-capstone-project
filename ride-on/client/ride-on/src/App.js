@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import Login from "./Utilities/Login";
-import Register from "./Utilities/Register";
+import Signin from "./Utilities/Signin";
+import Signup from "./Utilities/Signup";
 import AuthContext from "./contexts/AuthContext";
-import Home from "./components/Home";
+import Transport from "./components/Transport";
 import Nav from "./Utilities/Nav";
 import About from "./components/About";
 import TripForm from "./components/TripForm";
@@ -156,12 +156,12 @@ function App() {
 
           {/* If logged in, go to home page, if not go to login page */}
           <Route
-            path="/login"
+            path="/signin"
             element={
               currentUser ?
-                <Navigate to="/home" />
+                <Navigate to="/transport" />
                 :
-                <Login
+                <Signin
                   messages={messages}
                   setMessages={setMessages}
                   makeId={makeId}
@@ -173,12 +173,12 @@ function App() {
 
           {/* If logged in, go to home page, if not go to register page */}
           <Route
-            path="/register"
+            path="/signup"
             element={
               currentUser ?
-                <Navigate to="/home" />
+                <Navigate to="/transport" />
                 :
-                <Register
+                <Signup
                   messages={messages}
                   setMessages={setMessages}
                   makeId={makeId}
@@ -191,8 +191,8 @@ function App() {
           <Route path="/about" element={<About />} />
           {/* // <Route path="*" element={<NotFound />}/>  */}
 
-          <Route path="/home" element=
-            {<Home
+          <Route path="/transport" element=
+            {<Transport
               currentUser={currentUser}
               cars={cars}
               setCars={setCars} />} />

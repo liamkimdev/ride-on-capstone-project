@@ -3,8 +3,10 @@
 function About() {
     return(
 <div>
+        <div className="text-center">
         <h1> Welcome to Ride On!</h1>
-        <h3>Created By: Team Right On</h3>
+        </div>
+        <br></br>
         <div>
           <p>
             <strong>What is the primary goal of this application?</strong>

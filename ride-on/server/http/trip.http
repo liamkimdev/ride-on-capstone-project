@@ -18,4 +18,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpb
 
 ### Find Trip By Trip ID
 GET {{url}}/1/1 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1NDAyMzcyfQ.Yhx_qnwSTEZt0lPmL2z7pR-HU7NIj3rQPA1uwmRKI7A
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1NzQ4NjMzfQ.C8rUhdh7le1gGE5IY45a-PrsSU9Of6RqmL7mSpvJtUo
+
+### Find All Trips
+GET {{url}} HTTP/1.1

@@ -12,6 +12,7 @@ function Trip ({ trip }) {
         <tr>
             <td>{trip.departure}</td>
             <td>{trip.arrival}</td>
+            <td>{trip.seats}</td>
             <td>{trip.pricePerSeat}</td>
             <td>{trip.date}</td>
             {auth.currentUser && auth.currentUser.hasRole("USER") ? (

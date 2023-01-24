@@ -3,12 +3,12 @@
 }
 
 .links{
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row-reverse;
+    /* display: flex; */
+    /* justify-content: flex-end;
+    flex-direction: row-reverse; */
 }
 
 .navbar-nav{
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
 }

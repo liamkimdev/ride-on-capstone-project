@@ -12,14 +12,39 @@ function TripFactory({ trips, setTrips }) {
     }, [trips]);
 
     const getTrips = () => {
-        fetch("http://localhost:8080/api/ride_on/trip", {
-            headers: {
-                Authorization: "Bearer " + auth.currentUser.token
-            }
-        })
-       // .then(response => parseResponseMessage(response))
-        .then(data => data ? setTrips(data) : null)
-       // .catch(error => setMessages([...messages, { id: makeId(), type: "failure", text: error.message }]));
+        fetch("http://localhost:8080/api/ride_on/trip")
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json();
+                } else if (response.status === 403) {
+                    // setMessages([
+                    //   ...messages,
+                    //   {
+                    //     id: makeId(),
+                    //     type: "failure",
+                    //     text: "Car could not be registered.",
+                    //   },
+                    // ]);
+                    console.log(response);
+                } else {
+                    // setMessages([
+                    //     ...messages,
+                    //     {
+                    //       id: makeId(),
+                    //       type: "failure",
+                    //       text: "Unexpected error occured.",
+                    //     },
+                    //   ]);
+                    console.log(response);
+                };
+            })
+            .then(data => {
+                if (data) {
+                    setTrips(data);
+                }
+            })
+            // .catch(error => setMessages([...messages, { id: makeId(), type: "failure", text: error.message }]));
+            .catch((error) => console.log(error));
     }
 
     const showTrips = () => {
@@ -32,15 +57,15 @@ function TripFactory({ trips, setTrips }) {
                 <tr>
                     <th scope="col">Departure</th>
                     <th scope="col">Arrival</th>
+                    <th scope="col">Seats</th>
                     <th scope="col">Price per Seat</th>
                     <th scope="col">Date</th>
                     {auth.currentUser && auth.currentUser.hasRole("USER") ? (
                         <th scope="col">Actions</th>
-                    ) : null }
+                    ) : null}
                 </tr>
             </thead>
             <tbody>
-                {getTrips()}
                 {showTrips()}
             </tbody>
         </Table>

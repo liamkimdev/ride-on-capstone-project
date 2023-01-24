@@ -1,5 +1,6 @@
 package org.ride_on.controllers;
 
+import org.apache.coyote.Response;
 import org.ride_on.domain.TripService;
 import org.ride_on.domain.Result;
 import org.ride_on.models.Trip;
