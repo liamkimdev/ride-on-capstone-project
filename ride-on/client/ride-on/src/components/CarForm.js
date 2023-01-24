@@ -21,7 +21,6 @@ function CarForm({ messages, setMessages, makeId, cars, setCars }) {
     let reviseCarData = {
       ...carData,
       userId: auth.currentUser.userId,
-     // cars: auth.currentUser.cars
     }
 
     fetch("http://localhost:8080/api/ride_on/car", {
@@ -33,7 +32,8 @@ function CarForm({ messages, setMessages, makeId, cars, setCars }) {
       body: JSON.stringify(reviseCarData),
     })
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 201) {
+          navigate("/home")
           return response.json();
         } else if (response.status === 403) {
           // setMessages([

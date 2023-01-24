@@ -11,25 +11,30 @@ import { useForm } from 'react-hook-form';
 //     date: ''
 // };
 
-function TripForm() {
+function TripForm( { currentUser, setCurrentUser } ) {
 
   // const [trip, setTrip] = useState(RIDE_ON_DEFAULT);
   // const [errors, setErrors] = useState([]);
+  const { handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
 
   const auth = useContext(AuthContext);
-  const { register } = useForm();
 
   const navigate = useNavigate();
 
-
   const onSubmit = (tripData) => {
+    
+    console.log(tripData);
 
     let reviseTripData = {
       ...tripData,
-      carId: auth.currentUser.cars.get(0).carId,
-      // cars: auth.currentUser.cars
+      carId: auth.currentUser.cars[0].carId,
       // we need to register the car ID
     }
+
+    console.log(reviseTripData);
 
     fetch("http://localhost:8080/api/ride_on/trip", {
       method: "POST",
@@ -40,7 +45,9 @@ function TripForm() {
       body: JSON.stringify(reviseTripData),
     })
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 201) {
+          //setCurrentUser(...currentUser); TODO: we want to refresh the state of the current user
+          navigate("/home")
           return response.json();
         } else if (response.status === 403) {
           // setMessages([
@@ -72,7 +79,7 @@ function TripForm() {
       <div className=''>
         <h1>Create a Trip</h1>
       </div>
-      <form id='drive-form'>
+      <form id='drive-form' onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label className='form-label' type='text' id='departure' htmlFor='trip-departure'>Departure</label>
           <input className='form-control' type='text' id='trip-departure' {...register("departure", { required: "Must define a departure location" })} />
@@ -90,7 +97,7 @@ function TripForm() {
 
         <div>
           <label className='form-label' type='number' id='price-per-seats' htmlFor='trip-price-per-seats'>Price Per Seat</label>
-          <input className='form-control' type='number' id='trip-price-per-seats' {...register("price-per-seats", { required: "Must define a price per seat" })} />
+          <input className='form-control' type='number' id='trip-price-per-seats' {...register("pricePerSeat", { required: "Must define a price per seat" })} />
         </div>
 
         <div>

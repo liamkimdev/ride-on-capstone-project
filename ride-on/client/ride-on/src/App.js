@@ -30,26 +30,66 @@ function App() {
   }, []);
 
   const login = (token) => {
-    const { sub: username, authorities: authoritiesString, user_id: userId, cars: cars } = jwtDecode(token);
+    const { sub: username, authorities: authoritiesString, user_id: userId } = jwtDecode(token);
 
     localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
 
-    const roles = authoritiesString.split(",");
+    let cars = [];
 
-    const user = {
-      username,
-      userId,
-      roles,
-      token,
-      cars,
-      hasRole(role) {
-        return this.roles.includes(role);
-      },
-    };
+    fetch(`http://localhost:8080/api/ride_on/user/${username}`, {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else if (response.status === 403) {
+          // setMessages([
+          //   ...messages,
+          //   {
+          //     id: makeId(),
+          //     type: "failure",
+          //     text: "Car could not be registered.",
+          //   },
+          // ]);
+        } else {
+          // setMessages([
+          //     ...messages,
+          //     {
+          //       id: makeId(),
+          //       type: "failure",
+          //       text: "Unexpected error occured.",
+          //     },
+          //   ]);
+        };
+      })
+      .then((data) => {
+        console.log(data);
+        cars = data.cars;
 
-    setCurrentUser(user);
+        const roles = authoritiesString.split(",");
 
-    return user;
+        const user = {
+          username,
+          userId,
+          roles,
+          token,
+          cars,
+          hasRole(role) {
+            return this.roles.includes(role);
+          },
+        };
+
+        
+        setCurrentUser(user);
+        
+        console.log(currentUser.cars[0].carId);
+
+        return user;
+
+      })
+      .catch((error) => console.log(error));
   };
 
   const logout = () => {
@@ -102,7 +142,7 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <div className="container">
-      <Nav />
+        <Nav />
         <Routes>
           {/* If logged in, go to form page, if not go to home page
           <Route path="/edit/:id" element={
@@ -118,16 +158,16 @@ function App() {
           <Route
             path="/login"
             element={
-              currentUser ? 
+              currentUser ?
                 <Navigate to="/home" />
-               : 
+                :
                 <Login
                   messages={messages}
                   setMessages={setMessages}
                   makeId={makeId}
                   isPasswordComplex={isPasswordComplex}
                 />
-              
+
             }
           />
 
@@ -135,16 +175,16 @@ function App() {
           <Route
             path="/register"
             element={
-              currentUser ? 
+              currentUser ?
                 <Navigate to="/home" />
-               : 
+                :
                 <Register
                   messages={messages}
                   setMessages={setMessages}
                   makeId={makeId}
                   isPasswordComplex={isPasswordComplex}
                 />
-              
+
             }
           />
 
@@ -152,28 +192,29 @@ function App() {
           {/* // <Route path="*" element={<NotFound />}/>  */}
 
           <Route path="/home" element=
-          {<Home
-          currentUser= {currentUser} 
-          cars = {cars}
-          setCars = {setCars} />}/>
+            {<Home
+              currentUser={currentUser}
+              cars={cars}
+              setCars={setCars} />} />
 
           <Route path="/" element={<RideOn />} />
 
           <Route path="/api/ride_on/trip/form" element={
             //currentUser && currentUser.hasRole("DRIVER") ?
-          <TripForm 
-          cars = {cars}
-          setCars = {setCars} />
-          // messages={messages} 
-          //   setMessages={setMessages} 
-          //   makeId={makeId}  
-          // /> : <Navigate to="/api/ride_on/car/form" />
+            <TripForm 
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+            />
+            // messages={messages} 
+            //   setMessages={setMessages} 
+            //   makeId={makeId}  
+            // /> : <Navigate to="/api/ride_on/car/form" />
           } />
 
           <Route path="/api/ride_on/trip" element={
-            <TripFactory 
-            trips = {trips}
-            setTrips = {setTrips} />
+            <TripFactory
+              trips={trips}
+              setTrips={setTrips} />
           } />
 
           <Route path="/api/ride_on/car/form" element={<CarForm />} />

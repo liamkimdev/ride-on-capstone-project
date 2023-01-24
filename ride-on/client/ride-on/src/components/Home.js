@@ -18,8 +18,8 @@ function Home({ currentUser, cars, setCars }) {
                 navigate("/login");
               }
               // navigate to ../trip/form if user owns a car
-              console.log(currentUser); // currentCar.userId
-              if (currentUser.cars) {
+              console.log(currentUser.cars.length); // currentCar.userId
+              if (currentUser.cars.length > 0) {
                 navigate("/api/ride_on/trip/form");
               } else {
                 navigate("/api/ride_on/car/form");

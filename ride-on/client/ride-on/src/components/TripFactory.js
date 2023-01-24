@@ -6,10 +6,10 @@ import Trip from "./Trip";
 function TripFactory({ trips, setTrips }) {
 
     const auth = useContext(AuthContext);
-    
+
     useEffect(() => {
         getTrips();
-    }, []);
+    }, [trips]);
 
     const getTrips = () => {
         fetch("http://localhost:8080/api/ride_on/trip", {
@@ -23,7 +23,7 @@ function TripFactory({ trips, setTrips }) {
     }
 
     const showTrips = () => {
-        return trips.map(trip => <Trip key={trip.tripId + trip.arrival} trip={trip} />);
+        return trips.map(trip => <Trip key={trip.tripId} trip={trip} />);
     }
 
     return (
@@ -40,6 +40,7 @@ function TripFactory({ trips, setTrips }) {
                 </tr>
             </thead>
             <tbody>
+                {getTrips()}
                 {showTrips()}
             </tbody>
         </Table>
