@@ -67,12 +67,13 @@ function Signin({ messages, setMessages, makeId, isPasswordComplex }) {
 
         <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
 
-            <label className="form-label mt-3" htmlFor="user-email" placeholder="Email">
+            <label className="form-label mt-3" htmlFor="user-email">
             </label>
             <input
               className="form-control col-3" 
               type="email"
               id="user-email"
+              placeholder="Email"
               {...register("username", {
                 required: "Must have a valid email address",
                 maxLength: {
@@ -95,6 +96,7 @@ function Signin({ messages, setMessages, makeId, isPasswordComplex }) {
               className="form-control"
               type="password"
               id="user-password"
+              placeholder="Password"
               {...register("password", {
                 required: "Must have a valid password",
                 minLength: {

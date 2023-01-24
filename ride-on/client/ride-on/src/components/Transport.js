@@ -37,7 +37,7 @@ function Transport({ currentUser, cars, setCars }) {
         </div>
 
         <div className="col-md-6 col-xl-4 mb-5">
-          <img src="images/chair-solid.svg" alt="Ride"
+          <img src="images/thumbs-up-solid.svg" alt="Ride"
             className="ride-img"
             onClick={() => {
               navigate("/api/ride_on/trip")

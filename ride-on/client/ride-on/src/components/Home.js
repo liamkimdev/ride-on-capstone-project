@@ -6,7 +6,7 @@ function Home() {
     const rootElement = document.getElementById("root");
     rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) no-repeat center center fixed`;
     rootElement.style.backgroundSize = "cover";
-    rootElement.style.height = "110vh";
+    rootElement.style.height = "100vh";
   }
 
   useEffect(() => {
