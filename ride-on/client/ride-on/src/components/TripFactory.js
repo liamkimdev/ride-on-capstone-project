@@ -52,6 +52,7 @@ function TripFactory({ trips, setTrips, currentUser, cars }) {
     }
 
     return (
+        <div className="bubble-box text slide-right">
         <Table>
             <thead>
                 <tr>
@@ -69,6 +70,7 @@ function TripFactory({ trips, setTrips, currentUser, cars }) {
                 {showTrips()}
             </tbody>
         </Table>
+        </div>
     );
 }
 

@@ -36,6 +36,10 @@ public class TripService {
         return result;
     }
 
+    public boolean deleteByTripId(int tripId) {
+        return repository.deleteByTripId(tripId);
+    }
+
     private Result<Trip> validate(Trip trip) {
         Result<Trip> result = new Result<>();
 

@@ -71,7 +71,10 @@ function CarForm({
 
   return (
     <>
-      <h1>Create a Car</h1>
+    <div className="bubble-box text slide-right">
+      <div className='text-center'>
+        <h1>Create a Car</h1>
+      </div>
       <form id="car-form" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label
@@ -80,12 +83,12 @@ function CarForm({
             id="make"
             htmlFor="car-make"
           >
-            Make
           </label>
           <input
             className="form-control"
             type="text"
             id="car-make"
+            placeholder="Make"
             {...register("make", { required: "Must define a car make" })}
           />
           <p className="form-errors">{errors.make?.message}</p>
@@ -98,12 +101,12 @@ function CarForm({
             id="model"
             htmlFor="car-model"
           >
-            Model
           </label>
           <input
             className="form-control"
             type="text"
             id="car-model"
+            placeholder="Model"
             {...register("model", { required: "Must define a car model" })}
           />
           <p className="form-errors">{errors.model?.message}</p>
@@ -116,12 +119,12 @@ function CarForm({
             id="year"
             htmlFor="car-year"
           >
-            Year (Optional)
           </label>
           <input
             className="form-control"
             type="text"
             id="car-year"
+            placeholder="Year (Optional)"
             {...register("year")}
           />
         </div>
@@ -133,12 +136,12 @@ function CarForm({
             id="color"
             htmlFor="car-color"
           >
-            Color
           </label>
           <input
             className="form-control"
             type="text"
             id="car-color"
+            placeholder="Color"
             {...register("color", { required: "Must define a car color" })}
           />
           <p className="form-errors">{errors.color?.message}</p>
@@ -151,12 +154,12 @@ function CarForm({
             id="license-plate"
             htmlFor="car-license-plate"
           >
-            License Plate
           </label>
           <input
             className="form-control"
             type="text"
             id="car-license-plate"
+            placeholder="License Plate No."
             {...register("licensePlate", {
               required: "Must define a car license plate",
             })}
@@ -187,19 +190,23 @@ function CarForm({
         </div>
 
         <div className="row offset-4">
-          <button className="btn btn-primary mt-3 col-3" type="submit">
+          <button className="btn mt-3 col-3" type="submit"
+          style={{ color: "#FFFFFF", backgroundColor: "#3CB2FB" }}
+          >  
             Submit
           </button>
 
           <button
-            className="btn btn-secondary mt-3 ms-2 col-3"
+            className="btn mt-3 ms-2 col-3"
             type="button"
+            style={{ color: "#FFFFFF", backgroundColor: "#FF4571" }}
             onClick={() => navigate("/transport")}
           >
             Cancel
           </button>
         </div>
       </form>
+      </div>
     </>
   );
 }

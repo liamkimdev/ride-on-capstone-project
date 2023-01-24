@@ -76,44 +76,45 @@ function TripForm( { currentUser, setCurrentUser } ) {
 
   return (
     <>
-      <div className=''>
+    <div className="bubble-box text slide-right">
+      <div className='text-center'>
         <h1>Create a Trip</h1>
       </div>
       <form id='drive-form' onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label className='form-label' type='text' id='departure' htmlFor='trip-departure'>Departure</label>
-          <input className='form-control' type='text' id='trip-departure' {...register("departure", { required: "Must define a departure location" })} />
+          <label className='form-label' type='text' id='departure' htmlFor='trip-departure'></label>
+          <input className='form-control' type='text' id='trip-departure' placeholder="Departure" {...register("departure", { required: "Must define a departure location" })} />
           <p className="form-errors">
             { errors.departure?.message }
           </p>
         </div>
 
         <div>
-          <label className='form-label' type='text' id='arrival' htmlFor='trip-arrival'>Arrival</label>
-          <input className='form-control' type='text' id='trip-arrival' {...register("arrival", { required: "Must define an arrival location" })} />
+          <label className='form-label' type='text' id='arrival' htmlFor='trip-arrival'></label>
+          <input className='form-control' type='text' id='trip-arrival' placeholder="Arrival" {...register("arrival", { required: "Must define an arrival location" })} />
           <p className="form-errors">
             { errors.arrival?.message }
           </p>
         </div>
 
         <div>
-          <label className='form-label' type='number' id='seats' htmlFor='trip-seats'>Seats</label>
-          <input className='form-control' type='number' id='trip-seats' {...register("seats", { required: "Must define a number of seats" })} />
+          <label className='form-label' type='number' id='seats' htmlFor='trip-seats'></label>
+          <input className='form-control' type='number' id='trip-seats' placeholder="Available Seats" {...register("seats", { required: "Must define a number of seats" })} />
           <p className="form-errors">
             { errors.seats?.message }
           </p>
         </div>
 
         <div>
-          <label className='form-label' type='number' id='price-per-seats' htmlFor='trip-price-per-seats'>Price Per Seat</label>
-          <input className='form-control' type='number' id='trip-price-per-seats' {...register("pricePerSeat", { required: "Must define a price per seat" })} />
+          <label className='form-label' type='number' id='price-per-seats' htmlFor='trip-price-per-seats'></label>
+          <input className='form-control' type='number' id='trip-price-per-seats' placeholder="Seat Price" {...register("pricePerSeat", { required: "Must define a price per seat" })} />
           <p className="form-errors">
             { errors.pricePerSeat?.message }
           </p>
         </div>
 
         <div>
-          <label className='form-label' type='date' id='date' htmlFor='trip-date'>Date</label>
+          <label className='form-label' type='date' id='date' htmlFor='trip-date'></label>
           <input className='form-control' type='date' id='trip-date' {...register("date", { required: "Must define a date" })} />
           <p className="form-errors">
             { errors.date?.message }
@@ -121,11 +122,12 @@ function TripForm( { currentUser, setCurrentUser } ) {
         </div>
 
         <div className='row offset-4'>
-          <button className="btn btn-primary mt-3 col-3" type="submit">Submit</button>
+          <button className="btn mt-3 col-3" type="submit" style={{ color: "#FFFFFF", backgroundColor: "#3CB2FB" }}>Submit</button>
 
-          <button className="btn btn-secondary mt-3 ms-2 col-3" type="button" onClick={() => navigate("/transport")}>Cancel</button>
+          <button className="btn mt-3 ms-2 col-3" type="button"           style={{ color: "#FFFFFF", backgroundColor: "#FF4571" }} onClick={() => navigate("/transport")}>Cancel</button>
         </div>
       </form>
+      </div>
     </>
   );
 }

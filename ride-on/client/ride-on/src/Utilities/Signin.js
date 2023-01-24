@@ -35,8 +35,8 @@ function Signin({ messages, setMessages, makeId, isPasswordComplex }) {
               text: "Account could not be logged in at this time.",
             },
           ]);
-          alert("You do not have an account, Please create one.");
-          navigate("/signup");
+          alert("The username and password provided does not exist.");
+         // navigate("/signup");
         } else {
           setMessages([
             ...messages,
@@ -52,15 +52,15 @@ function Signin({ messages, setMessages, makeId, isPasswordComplex }) {
       .then((data) => {
         console.log(data);
         auth.login(data.jwt_token);
-        alert(`welcome   ${data.firstName} ${data.lastName}lastName`);
         navigate("/transport");
+        alert("Welcome!");
       })
       .catch((error) => console.log(error));
   };
 
   return (
     <>
-      <div>
+      <div className="bubble-box text slide-right">
         <div className="text-center">
           <h3>Sign In</h3>
         </div>
@@ -109,12 +109,14 @@ function Signin({ messages, setMessages, makeId, isPasswordComplex }) {
             <p className="form-errors">{errors.password?.message}</p>
 
             <div className="text-center">
-              <button className="btn btn-primary mt-3" type="submit">
+              <button className="btn mt-3" type="submit"
+              style={{ color: "#FFFFFF", backgroundColor: "#3CB2FB" }}>
                 Sign In
               </button>
               <button
-                className="btn btn-secondary mt-3 ms-2"
+                className="btn mt-3 ms-2"
                 type="button"
+                style={{ color: "#FFFFFF", backgroundColor: "#FF4571" }}
                 onClick={() => navigate("/transport")}
               >
                 Cancel

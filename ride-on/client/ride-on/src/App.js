@@ -8,7 +8,7 @@ import Transport from "./components/Transport";
 import Nav from "./Utilities/Nav";
 import About from "./components/About";
 import TripForm from "./components/TripForm";
-import RideOn from "./components/RideOn";
+import Home from "./components/Home";
 import CarForm from "./components/CarForm";
 import "./styles/rideOn.css";
 import TripFactory from "./components/TripFactory";
@@ -168,8 +168,8 @@ function App() {
 
   return (
     <AuthContext.Provider value={auth}>
-      <div> 
-        <Nav />
+      <Nav />
+      <div className="container pt-5 mt-5 text-color"> 
         <Routes>
           {/* If logged in, go to form page, if not go to home page
           <Route path="/edit/:id" element={
@@ -224,7 +224,7 @@ function App() {
               cars={cars}
               setCars={setCars} />} />
 
-          <Route path="/" element={<RideOn />} />
+          <Route path="/" element={<Home />} />
 
           <Route path="/api/ride_on/trip/form" element={
             //currentUser && currentUser.hasRole("DRIVER") ?

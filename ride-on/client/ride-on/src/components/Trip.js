@@ -21,26 +21,28 @@ function Trip({ trip, currentUser, cars, trips }) {
           <td>
             {/* Cancel for Driver View/ */}
             <button
-              className="btn btn-danger ms-2"
+              className="btn"
+              style={{ color: "#FFFFFF", backgroundColor: "#FF4571" }}
               onClick={() => 
                 //cancel the trip
                 
                 navigate("/api/ride_on/trip")}
             >
-              Cancel
+              Cancel Trip
             </button>
           </td>
         ) : (
           <td>
             {/* join for rider view */}
             <button
-              className="btn btn-secondary"
+              className="btn"
+              style={{ color: "#FFFFFF", backgroundColor: "#3CB2FB" }}
               onClick={() => 
                 //trip seat number decrease by one
                 //add user to the trip
                 navigate("/api/ride_on/trip/" + trip.tripId)}
             >
-              Join
+              Join Trip
             </button>
           </td>
         )

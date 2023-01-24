@@ -6,6 +6,7 @@ import org.ride_on.domain.Result;
 import org.ride_on.models.Trip;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,5 +46,14 @@ public class TripController {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
         return ErrorResponse.build(result);
+    }
+
+    // Delete Trip By Trip ID
+    @DeleteMapping("/{tripId}")
+    public ResponseEntity<Void> deleteByTripId(@PathVariable int tripId) {
+        if (service.deleteByTripId(tripId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

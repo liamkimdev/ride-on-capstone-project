@@ -8,83 +8,88 @@ function Nav() {
   return (
 
     // Formatted how we want just not spacing with flexbox
-    <nav className="centero navbar navbar-expand-md navbar-light bg-white fixed-top sticky-top mb-5">
-      <div className="d-flex align-items-center justify-content-start w-150">
-        <NavLink
-          to="/transport"
-          className={({ isActive }) =>
-            isActive ? "nav-link active" : "nav-link"
-          }
-        >
-          Transport
-        </NavLink>
-      </div>
-      <div className="d-flex align-items-center justify-content-center w-150">
-        <Link className="navbar-brand" to="/">
-          Ride On
-        </Link>
-      </div>
-      <div className="text-right w-100">
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
+      <nav className="navbar navbar-expand-md navbar-light bg-nav fixed-top mb-5 text">
+        <div className="container-fluid d-block px-5">
+        <div className="row">
+          <div className="col align-self-center">
+            <NavLink
+              to="/transport"
+              className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+            >
+              Transport
+            </NavLink>
+          </div>
+          <div className="col text-center align-self-center">
+            <Link className="navbar-brand" to="/"
+            style={{ fontFamily: 'cutestThings', color: '#3CB2FB', fontSize: '35px' }}>
+              RIDE ON
+            </Link>
+          </div>
+          <div className="col text-end align-self-center">
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
               >
-                About
-              </NavLink>
-            </li>
-            {!auth.currentUser ? (
-              <>
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
                   <NavLink
-                    to="/signin"
+                    to="/about"
                     className={({ isActive }) =>
                       isActive ? "nav-link active" : "nav-link"
                     }
-                  >
-                    Sign In
+                    >
+                    About
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink
-                    to="/signup"
-                    className={({ isActive }) =>
-                      isActive ? "nav-link active" : "nav-link"
-                    }
-                  >
-                    Sign Up
-                  </NavLink>
-                </li>
-              </>
-            ) : null}
-            {auth.currentUser ? (
-              <li>
-                <Link className="nav-link" onClick={auth.logout}>
-                  <NavLink to="/" className="text-reset" style={{textDecoration: "none"}}>
-                  Sign Out
-                  </NavLink>
-                </Link>
-              </li>
-            ) : null}
-          </ul>
+                {!auth.currentUser ? (
+                  <>
+                    <li className="nav-item">
+                      <NavLink
+                        to="/signin"
+                        className={({ isActive }) =>
+                        isActive ? "nav-link active" : "nav-link"
+                      }
+                      >
+                        Sign In
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink
+                        to="/signup"
+                        className={({ isActive }) =>
+                        isActive ? "nav-link active" : "nav-link"
+                      }
+                      >
+                        Sign Up
+                      </NavLink>
+                    </li>
+                  </>
+                ) : null}
+                {auth.currentUser ? (
+                  <li>
+                    <Link className="nav-link" onClick={auth.logout}>
+                      <NavLink to="/" className="text-reset" style={{textDecoration: "none"}}>
+                      Sign Out
+                      </NavLink>
+                    </Link>
+                  </li>
+                ) : null}
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+    </div>
+      </nav>
 
 
 // NavBar without propper formatting

@@ -7,12 +7,12 @@ function Transport({ currentUser, cars, setCars }) {
 
   return (
     <>
-      <div className="d-flex justify-content-center mb-5 text-muted">
-        <h4> Your pick of rides at low prices</h4>
-      </div>
-      <div className="d-flex align-items-center justify-content-center mx-auto row">
+      <div className="row text-center bubble-box text slide-right">
+        <div className="col-12">
+          <h4 className="mb-5">Your pick of rides at low prices</h4>
+        </div>
 
-        <div className="col-3">
+        <div className="col-md-6 col-xl-4 offset-xl-2 mb-5">
           <img src="images/car-solid.svg" alt="Drive"
             className="drive-img"
             onClick={() => {
@@ -28,30 +28,42 @@ function Transport({ currentUser, cars, setCars }) {
                 navigate("/api/ride_on/car/form");
               }
             }} />
-          </div>
+          <p
+            className="drive-text text"
+            onClick={() => {
+              navigate("/api/ride_on/trip")
+            }}
+          >Post a Ride?</p>
+        </div>
 
-        <div className="col-3">
+        <div className="col-md-6 col-xl-4 mb-5">
           <img src="images/chair-solid.svg" alt="Ride"
             className="ride-img"
             onClick={() => {
               navigate("/api/ride_on/trip")
-            }} />
-        </div>
-        </div>
+            }}
+          />
 
-        
-        <div className="row d-flex space-between">
-          <div className="col-3 drive-text m-4">Post a Ride</div>
-          
-          <div className=" col-3 ride-text m-4">Book a Ride</div>
+          <p
+            className="ride-text text"
+            onClick={() => {
+              navigate("/api/ride_on/trip")
+            }}
+          >Book a Ride!</p>
+        </div>
+      </div>
 
+      {/* <div className="d-none d-md-block">
+        <div className="row text-center">
+          <div className="col-3 offset-3">
+            <p className="drive-text">Post a Ride?</p>
           </div>
 
-        <div className="col-3">
+          <div className="col-3">
+            <p className="ride-text">Book a Ride!</p>
+          </div>
         </div>
-
-
-      
+      </div> */}
     </>
   );
 }

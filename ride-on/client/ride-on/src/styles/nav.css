@@ -1,5 +1,6 @@
-.bg-white{
-    background-color: #FFFFFF;
+.bg-nav{
+    background-color: #f5f5f5; 
+    box-shadow: 2px 2px 5px rgb(204, 204, 204);
 }
 
 .links{
