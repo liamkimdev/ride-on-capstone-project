@@ -12,6 +12,7 @@ import Home from "./components/Home";
 import CarForm from "./components/CarForm";
 import "./styles/rideOn.css";
 import TripFactory from "./components/TripFactory";
+import MessageFactory from "./Utilities/MessageFactory";
 
 const LOCAL_STORAGE_TOKEN_KEY = "rideOnToken";
 
@@ -21,6 +22,17 @@ function App() {
   const [auth, setAuth] = useState({});
   const [cars, setCars] = useState([]);
   const [trips, setTrips] = useState([]);
+
+  const changeBackground = () => {
+    const rootElement = document.getElementById("root");
+    rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat center center fixed`;
+    rootElement.style.backgroundSize = "cover";
+    rootElement.style.height = "100vh";
+  }
+
+  useEffect(() => {
+    changeBackground();
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
@@ -164,19 +176,9 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <Nav />
-      <div className="container pt-5 mt-5 text-color"> 
+      <div className="container text-color"> 
+      <MessageFactory messages={messages} setMessages={setMessages} />
         <Routes>
-          {/* If logged in, go to form page, if not go to home page
-          <Route path="/edit/:id" element={
-            currentUser ? <SightingForm /> : <Navigate to="/" />
-          }/>
-          
-          
-          <Route path="/add" element={
-            currentUser ? <SightingForm /> : <Navigate to="/" />
-          }/> */}
-
-          {/* If logged in, go to home page, if not go to login page */}
           <Route
             path="/signin"
             element={
@@ -189,11 +191,9 @@ function App() {
                   makeId={makeId}
                   isPasswordComplex={isPasswordComplex}
                 />
-
             }
           />
 
-          {/* If logged in, go to home page, if not go to register page */}
           <Route
             path="/signup"
             element={
@@ -211,7 +211,6 @@ function App() {
           />
 
           <Route path="/about" element={<About />} />
-          {/* // <Route path="*" element={<NotFound />}/>  */}
 
           <Route path="/transport" element=
             {<Transport
@@ -222,26 +221,29 @@ function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/api/ride_on/trip/form" element={
-            //currentUser && currentUser.hasRole("DRIVER") ?
+            
             <TripForm 
             currentUser={currentUser}
             setCurrentUser={setCurrentUser}
+            messages={messages}
+            setMessages={setMessages}
+            makeId={makeId}
+            isPasswordComplex={isPasswordComplex}            
             />
-            // messages={messages} 
-            //   setMessages={setMessages} 
-            //   makeId={makeId}  
-            // /> : <Navigate to="/api/ride_on/car/form" />
           } />
 
           <Route path="/api/ride_on/trip" element={
             <TripFactory
-              currentUser= {currentUser}
-              />
+            currentUser= {currentUser}
+            messages={messages}
+            setMessages={setMessages}      
+            makeId={makeId}
+            />
           } />
 
           <Route path="/api/ride_on/car/form" element={<CarForm 
           message= {messages}
-          // make={make}
+          setMessages = { setMessages }
           cars={cars}
           setCars={setCars}
           addCarToCurrentUser={addCarToCurrentUser}/>} />

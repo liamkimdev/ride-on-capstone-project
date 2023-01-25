@@ -28,6 +28,7 @@
   margin: 10px 0;
   width: 100%;
   height: 100%;
+
 }
 
 @font-face {
@@ -53,4 +54,22 @@
   color: #40414F;
 }
 
+.cb-pale {
+  /* background-color: rgb(221, 237, 245);
+  height: 100vh; */
+  
+}
 
+.emoji {
+  font-size: 28px;
+}
+
+
+
+@media(max-width: 767px) {
+  #root {
+    /* background: lightblue !important; */
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 48%, rgba(0,212,255,1) 76%, rgba(57,74,206,1) 100%) !important;
+    height: auto !important;
+  }
+}

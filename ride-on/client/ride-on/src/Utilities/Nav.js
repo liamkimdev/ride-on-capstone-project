@@ -18,12 +18,12 @@ function Nav() {
                 isActive ? "nav-link active" : "nav-link"
               }
             >
-              👋 Let's Ride
+              <span className="emoji">👋</span> Let's Ride
             </NavLink>
           </div>
           <div className="col text-center align-self-center">
             <Link className="navbar-brand" to="/"
-              style={{ fontFamily: 'cutestThings', color: '#3CB2FB', fontSize: '35px' }}>
+              style={{ fontFamily: 'cutestThings', color: '#3CB2FB', fontSize: '45px' }}>
               RIDE ON
             </Link>
           </div>
@@ -47,7 +47,7 @@ function Nav() {
                     className={({ isActive }) =>
                       isActive ? "nav-link active" : "nav-link"
                     }
-                  >📝 About
+                  ><span className="emoji">📝</span> About
                   </NavLink>
                 </li>
                 {!auth.currentUser ? (
@@ -59,7 +59,7 @@ function Nav() {
                           isActive ? "nav-link active" : "nav-link"
                         }
                       >
-                        🚪 Sign In
+                        <span className="emoji">🚪</span> Sign In
                       </NavLink>
                     </li>
                     {/* <li className="nav-item">
@@ -78,7 +78,7 @@ function Nav() {
                   <li>
                     <Link className="nav-link" onClick={auth.logout}>
                       <NavLink to="/" className="text-reset" style={{ textDecoration: "none" }}>
-                      🚪 Sign Out
+                      <span className="emoji">🚪</span> Sign Out
                       </NavLink>
                     </Link>
                   </li>

@@ -7,6 +7,7 @@ function Transport({ currentUser, cars, setCars }) {
 
   return (
     <>
+    <div className="container pt-5 mt-5">
       <div className="row text-center bubble-box text slide-right">
         <div className="col-12">
           <h4 className="mb-5">Your pick of rides at low prices</h4>
@@ -16,11 +17,9 @@ function Transport({ currentUser, cars, setCars }) {
           <img src="images/car-solid.svg" alt="Drive"
             className="drive-img"
             onClick={() => {
-              // navigate to /signin page if user doesn't have an account
               if (!currentUser) {
                 navigate("/signin");
               }
-              // navigate to ../trip/form if user owns a car
               console.log(currentUser.cars.length); // currentCar.userId
               if (currentUser.cars.length > 0) {
                 navigate("/api/ride_on/trip/form");
@@ -52,18 +51,7 @@ function Transport({ currentUser, cars, setCars }) {
           >Book a Ride!</p>
         </div>
       </div>
-
-      {/* <div className="d-none d-md-block">
-        <div className="row text-center">
-          <div className="col-3 offset-3">
-            <p className="drive-text">Post a Ride?</p>
-          </div>
-
-          <div className="col-3">
-            <p className="ride-text">Book a Ride!</p>
-          </div>
-        </div>
-      </div> */}
+      </div>
     </>
   );
 }

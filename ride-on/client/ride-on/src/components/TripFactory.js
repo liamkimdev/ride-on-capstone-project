@@ -3,7 +3,7 @@ import AuthContext from "../contexts/AuthContext";
 import Table from 'react-bootstrap/Table';
 import Trip from "./Trip";
 
-function TripFactory({ currentUser }) {
+function TripFactory({ currentUser, messages, setMessages, makeId }) {
 
     const [trips, setTrips] = useState([]);
 
@@ -53,7 +53,7 @@ function TripFactory({ currentUser }) {
         setTrips(currentList => [...currentList].filter(tr => tr.tripId != tripId));
     }
     const showTrips = () => {
-        return trips.map(trip => <Trip key={trip.tripId} trip={trip} currentUser= {currentUser} updateTrip={ updateTrip } deleteTrips={ deleteTrips } />);
+        return trips.map(trip => <Trip key={trip.tripId} trip={trip} currentUser= {currentUser} updateTrip={ updateTrip } deleteTrips={ deleteTrips } messages={ messages } setMessages={ setMessages } makeId={ makeId }/>);
     }
 
 
@@ -66,6 +66,7 @@ function TripFactory({ currentUser }) {
     }
 
     return (
+        <div className="container pt-5 mt-5">
         <div className="bubble-box text slide-right text-center">
             <h1>Trips</h1>
             <hr></hr>
@@ -86,6 +87,7 @@ function TripFactory({ currentUser }) {
                 {showTrips()}
             </tbody>
         </Table>
+        </div>
         </div>
     );
 }

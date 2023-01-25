@@ -7,9 +7,10 @@ function Message({ message, messages, setMessages }) {
 
     setTimeout(()=>{
         handleClose();
-    }, 5000)
+    }, 6543)
 
     return (
+        <div className="mt-5 pt-5">
         <div className={message.type === "success" ? "alert alert-success" : "alert alert-danger"}>
             <div className="row">
                 <div className="col-11">
@@ -19,6 +20,7 @@ function Message({ message, messages, setMessages }) {
                     <button type="button" className="btn-close" aria-label="Close" onClick={handleClose}></button>
                 </div>
             </div>
+        </div>
         </div>
     )
 }

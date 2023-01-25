@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Form, FormGroup, FormLabel, FormCheck } from "react-bootstrap";
 
-function Signup() {
+function Signup( {messages, makeId, setMessages } ) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkedValues, setCheckedValues] = useState([]);
@@ -32,12 +32,33 @@ function Signup() {
     })
       .then((response) => {
         if (response.status === 201) {
-          alert("Welcome! Account was successfully created. Please sign in.")
+          setMessages([
+            ...messages,
+            {
+              id: makeId(),
+              type: "success",
+              text: "Account successfully created. Please sign in.",
+            },
+          ]);
           navigate("/signin");
         } else if (response.status === 400) {
-          console.log("Error sending...");
+          setMessages([
+            ...messages,
+            {
+              id: makeId(),
+              type: "failure",
+              text: "Account could not be created.",
+            },
+          ]);;
         } else {
-          console.log("Weird error!");
+          setMessages([
+            ...messages,
+            {
+              id: makeId(),
+              type: "failure",
+              text: "An unexpected error occurred. Account may already exist.",
+            },
+          ]);
         }
       })
       .catch((error) => console.log(error));
@@ -45,7 +66,8 @@ function Signup() {
 
   return (
     <>
-      <div className="bubble-box text slide-right">
+    <div className="container pt-5 mt-5">
+      <div className="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 bubble-box text slide-right">
         <div className="text-center">
           <h3>Sign Up</h3>
         </div>
@@ -58,7 +80,7 @@ function Signup() {
               id="username"
               htmlFor="user-username"
             >
-
+            Email
             </label>
             <input
               className="form-control"
@@ -80,6 +102,7 @@ function Signup() {
               id="password"
               htmlFor="user-password"
             >
+              Password
             </label>
             <input
               className="form-control"
@@ -101,6 +124,7 @@ function Signup() {
               id="firstName"
               htmlFor="user-first-name"
             >
+              First Name
             </label>
             <input
               className="form-control"
@@ -123,6 +147,7 @@ function Signup() {
               id="lastName"
               htmlFor="user-last-name"
             >
+              Last Name
             </label>
             <input
               className="form-control"
@@ -143,6 +168,7 @@ function Signup() {
               id="bankingAccount"
               htmlFor="user-banking-account"
             >
+              Banking Account No.
             </label>
             <input
               className="form-control"
@@ -165,6 +191,7 @@ function Signup() {
               id="identification"
               htmlFor="user-identification"
             >
+              Identification No.
             </label>
             <input
               className="form-control"
@@ -237,6 +264,7 @@ function Signup() {
             </div>
           </div>
         </form>
+      </div>
       </div>
     </>
   );

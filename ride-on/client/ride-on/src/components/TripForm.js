@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 //     date: ''
 // };
 
-function TripForm( { currentUser, setCurrentUser } ) {
+function TripForm( { messages, setMessages, makeId } ) {
 
   // const [trip, setTrip] = useState(RIDE_ON_DEFAULT);
   // const [errors, setErrors] = useState([]);
@@ -46,28 +46,35 @@ function TripForm( { currentUser, setCurrentUser } ) {
     })
       .then((response) => {
         if (response.status === 201) {
-          //setCurrentUser(...currentUser); TODO: we want to refresh the state of the current user
           navigate("/transport")
+          setMessages([
+            ...messages,
+            {
+              id: makeId(),
+              type: "success",
+              text: "Trip successfully created.",
+            },
+          ]);
           return response.json();
         } else if (response.status === 403) {
-          // setMessages([
-          //   ...messages,
-          //   {
-          //     id: makeId(),
-          //     type: "failure",
-          //     text: "Car could not be registered.",
-          //   },
-          // ]);
+          setMessages([
+            ...messages,
+            {
+              id: makeId(),
+              type: "failure",
+              text: "Trip could not be created.",
+            },
+          ]);
           navigate("/api/ride_on/trip/form");
         } else {
-          // setMessages([
-          //     ...messages,
-          //     {
-          //       id: makeId(),
-          //       type: "failure",
-          //       text: "Unexpected error occured.",
-          //     },
-          //   ]);
+          setMessages([
+              ...messages,
+              {
+                id: makeId(),
+                type: "failure",
+                text: "An unexpected error occurred.",
+              },
+            ]);
           navigate("/api/ride_on/trip/form");
         };
       })
@@ -76,29 +83,30 @@ function TripForm( { currentUser, setCurrentUser } ) {
 
   return (
     <>
-    <div className="bubble-box text slide-right">
+    <div className="container pt-5 mt-5">
+    <div className="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 bubble-box text slide-right">
       <div className='text-center'>
         <h1>Create a Trip</h1>
       </div>
       <form id='drive-form' onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label className='form-label' type='text' id='departure' htmlFor='trip-departure'></label>
-          <input className='form-control' type='text' id='trip-departure' placeholder="Departure" {...register("departure", { required: "Must define a departure location" })} />
+          <label className='form-label' type='text' id='departure' htmlFor='trip-departure'>From</label>
+          <input className='form-control' type='text' id='trip-departure' placeholder="From" {...register("departure", { required: "Must define a departure location" })} />
           <p className="form-errors">
             { errors.departure?.message }
           </p>
         </div>
 
         <div>
-          <label className='form-label' type='text' id='arrival' htmlFor='trip-arrival'></label>
-          <input className='form-control' type='text' id='trip-arrival' placeholder="Arrival" {...register("arrival", { required: "Must define an arrival location" })} />
+          <label className='form-label' type='text' id='arrival' htmlFor='trip-arrival'>To</label>
+          <input className='form-control' type='text' id='trip-arrival' placeholder="To" {...register("arrival", { required: "Must define an arrival location" })} />
           <p className="form-errors">
             { errors.arrival?.message }
           </p>
         </div>
 
         <div>
-          <label className='form-label' type='number' id='seats' htmlFor='trip-seats'></label>
+          <label className='form-label' type='number' id='seats' htmlFor='trip-seats'>Seats</label>
           <input className='form-control' type='number' id='trip-seats' placeholder="Available Seats" {...register("seats", { required: "Must define a number of seats" })} />
           <p className="form-errors">
             { errors.seats?.message }
@@ -106,7 +114,7 @@ function TripForm( { currentUser, setCurrentUser } ) {
         </div>
 
         <div>
-          <label className='form-label' type='number' id='price-per-seats' htmlFor='trip-price-per-seats'></label>
+          <label className='form-label' type='number' id='price-per-seats' htmlFor='trip-price-per-seats'>Price per Seat</label>
           <input className='form-control' type='number' id='trip-price-per-seats' placeholder="Seat Price" {...register("pricePerSeat", { required: "Must define a price per seat" })} />
           <p className="form-errors">
             { errors.pricePerSeat?.message }
@@ -114,7 +122,7 @@ function TripForm( { currentUser, setCurrentUser } ) {
         </div>
 
         <div>
-          <label className='form-label' type='date' id='date' htmlFor='trip-date'></label>
+          <label className='form-label' type='date' id='date' htmlFor='trip-date'>Date</label>
           <input className='form-control' type='date' id='trip-date' {...register("date", { required: "Must define a date" })} />
           <p className="form-errors">
             { errors.date?.message }
@@ -127,6 +135,7 @@ function TripForm( { currentUser, setCurrentUser } ) {
           <button className="btn mt-3 ms-2 col-3" type="button"           style={{ color: "#FFFFFF", backgroundColor: "#FF4571" }} onClick={() => navigate("/transport")}>Cancel</button>
         </div>
       </form>
+      </div>
       </div>
     </>
   );

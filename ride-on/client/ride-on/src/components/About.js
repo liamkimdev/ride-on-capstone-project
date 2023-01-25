@@ -2,14 +2,15 @@
 
 function About() {
   return (
-    <div className="text-center text slide-right">
+    <div className="container mt-5 pt-5">
+    <div className="text slide-right">
       <div
       style={{ fontFamily: "cutestThings", fontSize: "50px", color: "#4A7BDE", textShadow: "2px 2px 2px #FFFFFF" }}>
-        <h1><strong>What is Ride On?</strong></h1>
+        <h1 className="text-center"><strong>What is Ride On?</strong></h1>
       </div>
       <br></br>
       <div className="bubble-box">
-        <p>
+        <p className="text-center">
           <strong>What is the primary goal of this application?</strong>
         </p>
 
@@ -28,7 +29,7 @@ function About() {
       </div>
       <br></br>
       <div className="bubble-box">
-        <p>
+        <p className="text-center">
           <strong>What are the features of this application?</strong>
         </p>
 
@@ -42,9 +43,9 @@ function About() {
           friends.
         </p>
       </div>
-      <br></br>
+      {/* <br></br>
       <div className="bubble-box">
-        <p>
+        <p className="text-center">
           <strong>How is it different from Uber and Lyft?</strong>
         </p>
 
@@ -57,14 +58,14 @@ function About() {
         </p>
 
         <p>And most importantly, much cheaper than Uber and Lyft!</p>
-      </div>
+      </div> */}
       <br></br>
       <div className="bubble-box">
-        <p>
+        <p className="text-center">
           <strong>Safety concerns?</strong>
         </p>
 
-        <p>Safety is our number one priority</p>
+        <p className="text-center">Safety is our number one priority</p>
 
         <p>
           We go the extra mile to ensure members have a safe experience on
@@ -73,6 +74,7 @@ function About() {
           tracker, user's car is covered by car insurance, and more!
         </p>
       </div>
+    </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
-function Trip({ trip, updateTrip, deleteTrips }) {
+function Trip({ trip, updateTrip, deleteTrips, messages, setMessages, makeId }) {
   const auth = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -30,13 +30,27 @@ function Trip({ trip, updateTrip, deleteTrips }) {
         if (response.status === 201) {
           return response.json();
         } else {
-          alert("Something went wrong, unable to update");
+          setMessages([
+            ...messages,
+            {
+              id: makeId(),
+              type: "failure",
+              text: "Unable to join the trip.",
+            },
+          ]);
         }
       })
       .then((data) => {
         if (data) {
-          console.log(data);
           updateTrip(trip.tripId, data);
+          setMessages([
+            ...messages,
+            {
+              id: makeId(),
+              type: "success",
+              text: "You have successfully joined the trip.",
+            },
+          ]);
           //setRiders(riders => [...riders, data])
         }
       })
@@ -75,8 +89,23 @@ function Trip({ trip, updateTrip, deleteTrips }) {
       .then((response) => {
         if (response.status === 204) { 
           deleteTrips(trip.tripId);
+          setMessages([
+            ...messages,
+            {
+              id: makeId(),
+              type: "success",
+              text: "You have successfully cancelled the trip.",
+            },
+          ]);
         } else {
-          alert("Something went wrong, unable to delete");
+          setMessages([
+            ...messages,
+            {
+              id: makeId(),
+              type: "failure",
+              text: "Unable to cancel the trip.",
+            },
+          ]);
         }
       })
       .catch(error => console.log(error));
