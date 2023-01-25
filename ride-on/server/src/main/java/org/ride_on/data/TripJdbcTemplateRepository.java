@@ -26,7 +26,12 @@ public class TripJdbcTemplateRepository implements TripRepository {
     @Override
     public List<Trip> findAll(){
         final String sql = "select * from trip limit 1000;";
-         return jdbcTemplate.query(sql, new TripMapper());
+
+        List<Trip> trips = jdbcTemplate.query(sql, new TripMapper());
+
+        trips.forEach(tr -> addRiders(tr));
+
+        return trips;
     }
 
     @Override
@@ -88,14 +93,10 @@ public class TripJdbcTemplateRepository implements TripRepository {
     @Override
     @Transactional
     public boolean deleteByTripId(int tripId) {
-        // open
-        jdbcTemplate.execute("set sql_safe_updates = 0;");
         // rider
         jdbcTemplate.update("delete from rider where trip_id = ?;", tripId);
         // trip
         boolean deleteTrip = jdbcTemplate.update("delete from trip where trip_id = ?;", tripId) > 0;
-        // close
-        jdbcTemplate.execute("set sql_safe_updates = 1;");
 
         return deleteTrip;
     }

@@ -2,6 +2,7 @@ package org.ride_on.domain;
 
 import org.ride_on.data.TripRepository;
 import org.ride_on.data.UserRepository;
+import org.ride_on.models.Rider;
 import org.ride_on.models.Trip;
 import org.ride_on.models.User;
 import org.springframework.stereotype.Service;
@@ -52,13 +53,13 @@ public class TripService {
             return result;
         }
 
-        trip.setSeats(trip.getSeats() - 1);
+        //trip.setSeats(trip.getSeats() - 1);
 
         User user = userRepository.findByUsername(username);
 
-        ArrayList<Trip> trips = user.getTrips();
-        trips.add(trip);
-        user.setTrips(trips);
+//        ArrayList<Trip> trips = user.getTrips();
+//        trips.add(trip);
+//        user.setTrips(trips);
 
         if (!repository.updateTrip(trip)) {
             String msg = String.format("tripId: %s, not found", trip.getTripId());

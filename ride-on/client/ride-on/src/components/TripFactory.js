@@ -1,15 +1,17 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import Table from 'react-bootstrap/Table';
 import Trip from "./Trip";
 
-function TripFactory({ trips, setTrips, currentUser, cars }) {
+function TripFactory({ currentUser }) {
+
+    const [trips, setTrips] = useState([]);
 
     const auth = useContext(AuthContext);
 
     useEffect(() => {
         getTrips();
-    }, [trips]);
+    }, []);
 
     const getTrips = () => {
         fetch("http://localhost:8080/api/ride_on/trip")
@@ -46,9 +48,21 @@ function TripFactory({ trips, setTrips, currentUser, cars }) {
             // .catch(error => setMessages([...messages, { id: makeId(), type: "failure", text: error.message }]));
             .catch((error) => console.log(error));
     }
-
+    
+    const deleteTrips = (tripId) => {
+        setTrips(currentList => [...currentList].filter(tr => tr.tripId != tripId));
+    }
     const showTrips = () => {
-        return trips.map(trip => <Trip key={trip.tripId} trip={trip} currentUser= {currentUser} cars = {cars} trips={trips}/>);
+        return trips.map(trip => <Trip key={trip.tripId} trip={trip} currentUser= {currentUser} updateTrip={ updateTrip } deleteTrips={ deleteTrips } />);
+    }
+
+
+    const updateTrip = (tripId, rider)  => {
+        const index = trips.findIndex(tr => tr.tripId == tripId);
+        const tripsCopy = [...trips];
+        const tripCopy = {...tripsCopy[index], riders: [...tripsCopy[index].riders, rider]};
+        tripsCopy.splice(index, 1, tripCopy);
+        setTrips(tripsCopy);   
     }
 
     return (

@@ -37,12 +37,12 @@ public class RiderController {
 
     //create Rider
     @PostMapping("/{userId}/{tripId}")
-    public ResponseEntity<Object> createRider(@PathVariable int tripId, @RequestBody Rider rider) {
-        if(rider.getTripId() != tripId){
+    public ResponseEntity<Object> createRider(@PathVariable int tripId, @PathVariable int userId, @RequestBody Rider rider) {
+        if(rider.getTripId() != tripId && userId != rider.getUserId()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        Result<Trip> result = riderService.createRider(rider);
+        Result<Rider> result = riderService.createRider(rider);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }

@@ -48,7 +48,7 @@ class RiderServiceTest {
         when(tripRepository.findByTripId(rider.getTripId())).thenReturn(trip);
 
         // Act
-        Result<Trip> actualResult = service.createRider(rider);
+        Result<Rider> actualResult = service.createRider(rider);
 
         // Assert
         assertEquals(expectedResult.getMessages(), actualResult.getMessages());
@@ -84,7 +84,7 @@ class RiderServiceTest {
         when(tripRepository.findByTripId(rider.getTripId())).thenReturn(trip);
 
         // Act
-        Result<Trip> actualResult = service.createRider(rider);
+        Result<Rider> actualResult = service.createRider(rider);
 
         // Assert
         assertEquals(expectedResult.getMessages(), actualResult.getMessages());

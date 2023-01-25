@@ -11,7 +11,7 @@ function Home() {
 
   useEffect(() => {
     changeBackground();
-  });
+  }, []);
   return (
     <>
       <div className="text-center col align-self-center">

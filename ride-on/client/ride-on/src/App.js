@@ -235,10 +235,8 @@ function App() {
 
           <Route path="/api/ride_on/trip" element={
             <TripFactory
-              trips={trips}
-              setTrips={setTrips} 
               currentUser= {currentUser}
-              cars = {cars}/>
+              />
           } />
 
           <Route path="/api/ride_on/car/form" element={<CarForm 
