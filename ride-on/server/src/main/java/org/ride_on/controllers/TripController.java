@@ -56,4 +56,18 @@ public class TripController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PutMapping("/{tripId}/{username}")
+    public ResponseEntity<Object> updateByTripId(@PathVariable int tripId, @PathVariable String username, @RequestBody Trip trip) {
+        if (tripId != trip.getTripId()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        Result<Trip> result = service.updateByTripId(trip, username);
+        if(result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return ErrorResponse.build(result);
+    }
 }

@@ -1,10 +1,13 @@
 package org.ride_on.domain;
 
 import org.ride_on.data.TripRepository;
+import org.ride_on.data.UserRepository;
 import org.ride_on.models.Trip;
+import org.ride_on.models.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,8 +15,11 @@ public class TripService {
 
     private final TripRepository repository;
 
-    public TripService(TripRepository repository) {
+    private final UserRepository userRepository;
+
+    public TripService(TripRepository repository, UserRepository userRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
     }
 
     public List<Trip> findAll() {
@@ -38,6 +44,33 @@ public class TripService {
 
     public boolean deleteByTripId(int tripId) {
         return repository.deleteByTripId(tripId);
+    }
+
+    public Result<Trip> updateByTripId(Trip trip, String username) {
+        Result<Trip> result = validate(trip);
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        trip.setSeats(trip.getSeats() - 1);
+
+        User user = userRepository.findByUsername(username);
+
+        ArrayList<Trip> trips = user.getTrips();
+        trips.add(trip);
+        user.setTrips(trips);
+
+        if (!repository.updateTrip(trip)) {
+            String msg = String.format("tripId: %s, not found", trip.getTripId());
+            result.addMessage(ActionStatus.NOT_FOUND, msg);
+        }
+
+        if (!userRepository.updateUser(user)) {
+            String msg = String.format("An error occurred updating the userId: %", user.getUserId());
+            result.addMessage(ActionStatus.NOT_FOUND, msg);
+        }
+
+        return result;
     }
 
     private Result<Trip> validate(Trip trip) {

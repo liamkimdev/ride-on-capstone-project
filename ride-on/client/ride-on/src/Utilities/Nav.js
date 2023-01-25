@@ -8,22 +8,22 @@ function Nav() {
   return (
 
     // Formatted how we want just not spacing with flexbox
-      <nav className="navbar navbar-expand-md navbar-light bg-nav fixed-top mb-5 text">
-        <div className="container-fluid d-block px-5">
+    <nav className="navbar navbar-expand-md navbar-light bg-nav fixed-top mb-5 text">
+      <div className="container-fluid d-block px-5">
         <div className="row">
           <div className="col align-self-center">
             <NavLink
               to="/transport"
               className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
-            }
+                isActive ? "nav-link active" : "nav-link"
+              }
             >
-              Transport
+              👋 Let's Ride
             </NavLink>
           </div>
           <div className="col text-center align-self-center">
             <Link className="navbar-brand" to="/"
-            style={{ fontFamily: 'cutestThings', color: '#3CB2FB', fontSize: '35px' }}>
+              style={{ fontFamily: 'cutestThings', color: '#3CB2FB', fontSize: '35px' }}>
               RIDE ON
             </Link>
           </div>
@@ -36,7 +36,7 @@ function Nav() {
               aria-controls="navbarNavDropdown"
               aria-expanded="false"
               aria-label="Toggle navigation"
-              >
+            >
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
@@ -47,8 +47,7 @@ function Nav() {
                     className={({ isActive }) =>
                       isActive ? "nav-link active" : "nav-link"
                     }
-                    >
-                    About
+                  >📝 About
                   </NavLink>
                 </li>
                 {!auth.currentUser ? (
@@ -57,29 +56,29 @@ function Nav() {
                       <NavLink
                         to="/signin"
                         className={({ isActive }) =>
-                        isActive ? "nav-link active" : "nav-link"
-                      }
+                          isActive ? "nav-link active" : "nav-link"
+                        }
                       >
-                        Sign In
+                        🚪 Sign In
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <NavLink
                         to="/signup"
                         className={({ isActive }) =>
-                        isActive ? "nav-link active" : "nav-link"
-                      }
+                          isActive ? "nav-link active" : "nav-link"
+                        }
                       >
-                        Sign Up
+                       👍 Sign Up
                       </NavLink>
-                    </li>
+                    </li> */}
                   </>
                 ) : null}
                 {auth.currentUser ? (
                   <li>
                     <Link className="nav-link" onClick={auth.logout}>
-                      <NavLink to="/" className="text-reset" style={{textDecoration: "none"}}>
-                      Sign Out
+                      <NavLink to="/" className="text-reset" style={{ textDecoration: "none" }}>
+                      🚪 Sign Out
                       </NavLink>
                     </Link>
                   </li>
@@ -88,11 +87,11 @@ function Nav() {
             </div>
           </div>
         </div>
-    </div>
-      </nav>
+      </div>
+    </nav>
 
 
-// NavBar without propper formatting
+    // NavBar without propper formatting
     //     <nav className="centero navbar navbar-expand-md navbar-light bg-white fixed-top sticky-top mb-5">
 
     //    <div className="d-flex align-items-center justify-content-end w-150">

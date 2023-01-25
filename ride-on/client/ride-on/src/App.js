@@ -22,10 +22,6 @@ function App() {
   const [cars, setCars] = useState([]);
   const [trips, setTrips] = useState([]);
 
-
-  
-
-
   useEffect(() => {
     const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
 
@@ -86,7 +82,6 @@ function App() {
           },
         };
 
-        
         setCurrentUser(user);
 
         setAuth({

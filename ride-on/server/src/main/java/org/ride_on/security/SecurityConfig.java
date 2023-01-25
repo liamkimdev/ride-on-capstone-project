@@ -49,6 +49,10 @@ public class SecurityConfig {
                         "/api/ride_on/trip/**").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
                         "/api/ride_on/trip").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE,
+                        "/api/ride_on/trip/*").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT,
+                        "/api/ride_on/trip/**").hasAnyAuthority("USER", "ADMIN")
 
                 // car
                 .antMatchers(HttpMethod.POST,

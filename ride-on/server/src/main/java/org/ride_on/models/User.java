@@ -23,7 +23,17 @@ public class User implements UserDetails {
     private String preferences;
     private List<Car> cars = new ArrayList<>();
     private List<Rider> riders = new ArrayList<>();
+
+    private ArrayList<Trip> trips = new ArrayList<>();
     private Collection<GrantedAuthority> authorities;
+
+    public ArrayList<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(ArrayList<Trip> trips) {
+        this.trips = trips;
+    }
 
     public void setUsername(String username) {
         this.username = username;

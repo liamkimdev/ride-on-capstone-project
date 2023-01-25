@@ -18,7 +18,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpb
 
 ### Find Trip By Trip ID
 GET {{url}}/1/1 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1NzQ4NjMzfQ.C8rUhdh7le1gGE5IY45a-PrsSU9Of6RqmL7mSpvJtUo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1ODIwNTE1fQ.V4bXGW8jikKpKpKUnu1wpgPw8cai-zznfAG90nZEyXs
 
 ### Find All Trips
 GET {{url}} HTTP/1.1
+
+### Delete Trip By Trip ID
+DELETE {{url}}/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1ODIwNTg3fQ.6UsmXte3X3JEnYJFdfIdJD_Jt3lef4bL5kkEJ-vJEZM
+
+### Update Trip By Trip ID
+PUT {{url}}/2/lkim@dev-10.com HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyaWRlLW9uIiwic3ViIjoibGtpbUBkZXYtMTAuY29tIiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjc1ODI1MjQ4fQ.kUh8zlbSUdtvwvcbGgxJbKUzBkxGhKIJDmeE3dtOEh0
+
+{
+    "tripId": 2,
+    "departure": "Atlanta, GA",
+    "arrival": "Warner Robins",
+    "seats": 2,
+    "pricePerSeat": 10000000.00,
+    "date": "2023-01-24",
+    "carId": 1,
+     "riders": []
+}
