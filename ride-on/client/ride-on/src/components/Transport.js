@@ -9,7 +9,7 @@ function Transport({ currentUser, cars, setCars, }) {
     const rootElement = document.getElementById("root");
     rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat-y center fixed`;
     rootElement.style.backgroundSize = "cover";
-    rootElement.style.height = "130vh";
+    rootElement.style.height = "150vh";
   }
 
   useEffect(() => {

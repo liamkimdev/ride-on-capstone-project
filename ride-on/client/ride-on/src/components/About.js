@@ -51,7 +51,7 @@ function About() {
           
           <p className="text-center"><strong> “Ride On” is an online marketplace for carpooling.</strong></p><br />
 
-          <p>👍: Its website and mobile apps connect drivers and passengers willing to travel together between cities and share the journey cost. </p>
+          <p>👍: It connect drivers and passengers willing to travel together between cities and share the journey cost. </p>
           <p>👍: The company does not own any vehicle.</p>
           <p>👍: This application makes it fun and affordable to carpool from city to city in the United States of America. </p>
           <p className="text-center"><i><strong>Save money, reduce your carbon footprint, and make new friends.</strong></i></p>
