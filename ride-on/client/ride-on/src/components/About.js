@@ -26,9 +26,9 @@ function About() {
         <br></br>
 
         <div className="bubble-box">
-          <p className="text-center">
-            <h4><strong>What is the primary goal of this application?</strong></h4>
-          </p>
+          
+            <h4 className="text-center"><strong>What is the primary goal of this application?</strong></h4>
+          
 
           <p>
             👍: "Ride On" aimes to instill faith and trust in the community by connecting drivers of everyday trips with passengers looking for a ride to the same destination. All while saving money and resources, reducing traffic congestion, limiting environmental impacts, and fostering friendships along the way.
@@ -46,9 +46,9 @@ function About() {
         <br></br>
 
         <div className="bubble-box">
-          <p className="text-center">
-            <h4><strong>What are the features of this application?</strong></h4>
-          </p>
+          
+            <h4 className="text-center"><strong>What are the features of this application?</strong></h4>
+          
           <p className="text-center"><strong> “Ride On” is an online marketplace for carpooling.</strong></p><br />
 
           <p>👍: Its website and mobile apps connect drivers and passengers willing to travel together between cities and share the journey cost. </p>
@@ -60,9 +60,9 @@ function About() {
         <br />
 
         <div className="bubble-box">
-          <p className="text-center">
-            <h4><strong>Safety concerns?</strong></h4>
-          </p>
+        
+            <h4 className="text-center"><strong>Safety concerns?</strong></h4>
+        
           <p className="text-center"><strong>Safety is our number one priority!</strong></p>
 
           <p>
@@ -72,9 +72,9 @@ function About() {
         </div>
         <br />
         <div className="bubble-box">
-          <p className="text-center">
-            <h4><strong>How is it different from Uber and Lyft?</strong></h4>
-          </p>
+          
+            <h4 className="text-center"> <strong>How is it different from Uber and Lyft?</strong></h4>
+          
 
           <p className="text-center"><strong >With Ride on, the driver is the one
             making the decision on where to go and the passenger tags along.

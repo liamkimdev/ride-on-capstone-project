@@ -8,7 +8,7 @@ function MessageFactory({ messages, setMessages }) {
                 return <Message message={message}
                     messages={messages}
                     setMessages={setMessages}
-                    key={message.text}
+                    key={message.id}
                 />
             })
         }

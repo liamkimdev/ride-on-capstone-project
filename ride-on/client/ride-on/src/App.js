@@ -11,6 +11,7 @@ import TripForm from "./components/TripForm";
 import Home from "./components/Home";
 import CarForm from "./components/CarForm";
 import "./styles/rideOn.css";
+
 import TripFactory from "./components/TripFactory";
 import MessageFactory from "./Utilities/MessageFactory";
 
@@ -18,32 +19,19 @@ const LOCAL_STORAGE_TOKEN_KEY = "rideOnToken";
 
 function App() {
   const [messages, setMessages] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useState({
+    currentUser: null,
+    login,
+    logout,
+  });
   const [cars, setCars] = useState([]);
-  const [trips, setTrips] = useState([]);
 
-  const changeBackground = () => {
-    const rootElement = document.getElementById("root");
-    rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat-y center fixed`;
-    rootElement.style.backgroundSize = "cover";
-    rootElement.style.height = "100vh";
-  }
-
-  useEffect(() => {
-    changeBackground();
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
-
-    if (token) {
-      login(token);
-    }
-  }, []);
-
-  const login = (token) => {
-    const { sub: username, authorities: authoritiesString, user_id: userId } = jwtDecode(token);
+  function login(token) {
+    const {
+      sub: username,
+      authorities: authoritiesString,
+      user_id: userId,
+    } = jwtDecode(token);
 
     localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
 
@@ -51,8 +39,8 @@ function App() {
 
     fetch(`http://localhost:8080/api/ride_on/user/${username}`, {
       headers: {
-        Authorization: "Bearer " + token
-      }
+        Authorization: "Bearer " + token,
+      },
     })
       .then((response) => {
         if (response.status === 200) {
@@ -75,7 +63,7 @@ function App() {
           //       text: "Unexpected error occured.",
           //     },
           //   ]);
-        };
+        }
       })
       .then((data) => {
         console.log(data);
@@ -94,38 +82,51 @@ function App() {
           },
         };
 
-        setCurrentUser(user);
+        setAuth((auth) => {
+          const updatedAuth = {
+            ...auth,
+            currentUser: user,
+          };
 
-        setAuth({
-          ...auth,
-          currentUser: user
-        })
+          console.log("before login:", auth.currentUser?.cars);
+          console.log("after login:", updatedAuth.currentUser.cars);
 
-        console.log(currentUser.cars[0].carId);
+          return updatedAuth;
+        });
+
+        console.log("after set auth:", auth.currentUser?.cars);
 
         return user;
-
       })
       .catch((error) => console.log(error));
-  };
+  }
 
-  const logout = () => {
-    setCurrentUser(null);
+  function logout() {
     setAuth({
       ...auth,
-      currentUser: null
-    })
+      currentUser: null,
+    });
     localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
+  }
+
+  const changeBackground = () => {
+    const rootElement = document.getElementById("root");
+    rootElement.style.background = `url(${
+      process.env.PUBLIC_URL + "/images/jeep.gif"
+    }) repeat-y center fixed`;
+    rootElement.style.backgroundSize = "cover";
+    rootElement.style.height = "100vh";
   };
 
-
   useEffect(() => {
-    setAuth({
-      currentUser: currentUser ? { ...currentUser } : null,
-      login,
-      logout,
-    });
-  }, [currentUser]);
+    changeBackground();
+
+    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+
+    if (token) {
+      login(token);
+    }
+  }, []);
 
   const isPasswordComplex = (password) => {
     let digits = 0;
@@ -164,100 +165,109 @@ function App() {
   };
 
   const addCarToCurrentUser = (data) => {
-    let newAuth = { ...auth };
-    let newCurrentUser = { ...currentUser };
-    newCurrentUser.cars.push(data);
-    newAuth.currentUser = newCurrentUser;
-    setCurrentUser(newCurrentUser);
-    setAuth(newAuth);
-  }
+    setAuth((auth) => {
+      const currentUser = auth.currentUser;
+      const newCurrentUser = {
+        ...currentUser,
+        cars: [...currentUser.cars, data],
+      };
 
+      return { ...auth, currentUser: newCurrentUser };
+    });
+  };
 
   return (
     <AuthContext.Provider value={auth}>
       <Nav />
-      <div className="m-5"><br></br></div>
+      <div className="m-5">
+        <br></br>
+      </div>
       <div className="container-fluid text-color">
-       
         <Routes>
           <Route
             path="/signin"
             element={
-              currentUser ?
-              <Navigate to="/transport" />
-              :
-              <Signin
-              messages={messages}
-              setMessages={setMessages}
-              makeId={makeId}
-              isPasswordComplex={isPasswordComplex}
-              />
+              auth.currentUser ? (
+                <Navigate to="/transport" />
+              ) : (
+                <Signin
+                  messages={messages}
+                  setMessages={setMessages}
+                  makeId={makeId}
+                  isPasswordComplex={isPasswordComplex}
+                />
+              )
             }
           />
           <Route
             path="/signup"
             element={
-              currentUser ?
-              <Navigate to="/transport" />
-              :
-              <Signup
-              messages={messages}
-              setMessages={setMessages}
-              makeId={makeId}
-              isPasswordComplex={isPasswordComplex}
-              
-              />
-              
+              auth.currentUser ? (
+                <Navigate to="/transport" />
+              ) : (
+                <Signup
+                  messages={messages}
+                  setMessages={setMessages}
+                  makeId={makeId}
+                  isPasswordComplex={isPasswordComplex}
+                />
+              )
             }
           />
 
-
           <Route path="/about" element={<About />} />
 
-          <Route path="/transport" element=
-            {<Transport
-              currentUser={currentUser}
-              cars={cars}
-              setCars={setCars} />}
+          <Route
+            path="/transport"
+            element={
+              <Transport
+                currentUser={auth.currentUser}
+                cars={cars}
+                setCars={setCars}
+              />
+            }
           />
 
           <Route path="/" element={<Home />} />
 
-          <Route path="/api/ride_on/trip/form" element={
-            
-            <TripForm
-            currentUser={currentUser}
-            setCurrentUser={setCurrentUser}
-            messages={messages}
-            setMessages={setMessages}
-            makeId={makeId}
-            isPasswordComplex={isPasswordComplex}
-            
-            />
-          } />
+          <Route
+            path="/api/ride_on/trip/form"
+            element={
+              <TripForm
+                messages={messages}
+                setMessages={setMessages}
+                makeId={makeId}
+              />
+            }
+          />
 
-          <Route path="/api/ride_on/trip" element={
-            <TripFactory
-            currentUser={currentUser}
-            messages={messages}
-            setMessages={setMessages}
-            makeId={makeId}
-            
-            />
-          } />
+          <Route
+            path="/api/ride_on/trip"
+            element={
+              <TripFactory
+                currentUser={auth.currentUser}
+                messages={messages}
+                setMessages={setMessages}
+                makeId={makeId}
+              />
+            }
+          />
 
-          <Route path="/api/ride_on/car/form" element={<CarForm
-            message={messages}
-            setMessages={setMessages}
-            cars={cars}
-            setCars={setCars}
-            addCarToCurrentUser={addCarToCurrentUser}
-            />} />
+          <Route
+            path="/api/ride_on/car/form"
+            element={
+              <CarForm
+                messages={messages}
+                setMessages={setMessages}
+                addCarToCurrentUser={addCarToCurrentUser}
+                makeId={makeId}
+              />
+            }
+          />
 
           {/* // <Route path="*" element={<NotFound />}/>  */}
         </Routes>
         <MessageFactory messages={messages} setMessages={setMessages} />
-        
       </div>
     </AuthContext.Provider>
   );

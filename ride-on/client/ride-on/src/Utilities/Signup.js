@@ -83,7 +83,7 @@ function Signup({ messages, makeId, setMessages }) {
             <h3>Sign Up</h3>
           </div>
 
-          <form classname="mb-5 form" onSubmit={handleSubmit(onSubmit)}>
+          <form className="mb-5 form" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
                 className="form-label"

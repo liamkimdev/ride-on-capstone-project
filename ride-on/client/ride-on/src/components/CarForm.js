@@ -8,8 +8,6 @@ function CarForm({
   messages,
   setMessages,
   makeId,
-  cars,
-  setCars,
   addCarToCurrentUser,
 }) {
   const {
@@ -34,6 +32,7 @@ function CarForm({
   }, []);
 
   const onSubmit = (carData) => {
+
     let reviseCarData = {
       ...carData,
       userId: auth.currentUser.userId,
@@ -49,7 +48,6 @@ function CarForm({
     })
       .then((response) => {
         if (response.status === 201) {
-          navigate("/transport")
           setMessages([
             ...messages,
             {
@@ -82,8 +80,10 @@ function CarForm({
         }
       })
       .then((data) => {
+        if(data){
         addCarToCurrentUser(data);
-        setCars([...cars, data]);
+        navigate("/transport");
+        }
       })
       .catch((error) => console.log(error));
   };
@@ -198,7 +198,7 @@ function CarForm({
                 value="true"
                 name="insurance"
                 {...register("insurance", { required: "Must have an insurance" })}
-              />{" "}
+              />
               Insurance
               <p className="form-errors">{errors.insurance?.message}</p>
               <br />
@@ -209,7 +209,7 @@ function CarForm({
                 {...register("registration", {
                   required: "Must have a registration",
                 })}
-              />{" "}
+              />
               Registration
               <p className="form-errors">{errors.registration?.message}</p>
             </div>
@@ -217,7 +217,6 @@ function CarForm({
             <div className="row offset-4">
               <button className="btn mt-3 col-3" type="submit"
                 style={{ color: "#FFFFFF", backgroundColor: "#3CB2FB" }}
-                onClick={onSubmit}
               >
                 Submit
               </button>
