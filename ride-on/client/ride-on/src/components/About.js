@@ -63,7 +63,7 @@ function About() {
         <p className="text-center"><strong>Safety is our number one priority</strong></p>
 
         <p>
-        , such as verifying users via identification, choosing who they travel with, active admin monitoring of trips through GPS tracking, a guarantee that drivers are registured and insured, and more!
+        We verify users via identification<br/><br/>Allow users to choose who they travel with<br/><br/> Provide active admin monitoring of trips through GPS tracking<br/><br/> Guarantee that drivers are registured and insured, and more!
         </p>
         <h5 className="text-center">We go the extra mile to ensure members have a safe experience using “Ride On”</h5>
       </div>
@@ -78,9 +78,9 @@ function About() {
           Uber and Lyft focus on an on-demand type of business model where you
           request a ride and someone with a car will accommodate to your
           desires, in other words the passenger is the one who runs the show
-          and the driver follows along. With Ride on, the driver is the one
+          and the driver follows along.<br/><br/> <p className="text-center"><strong >With Ride on, the driver is the one
           making the decision on where to go and the passenger tags along.
-        </p>
+          </strong></p></p>
 
         <h5 className="text-center">And most importantly, much cheaper than Uber and Lyft!</h5>
       </div>
