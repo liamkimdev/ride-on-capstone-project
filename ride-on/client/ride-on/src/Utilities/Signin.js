@@ -15,6 +15,17 @@ function Signin({ messages, setMessages, makeId, isPasswordComplex }) {
 
   const navigate = useNavigate();
 
+  const changeBackground = () => {
+    const rootElement = document.getElementById("root");
+    rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat-y center fixed`;
+    rootElement.style.backgroundSize = "cover";
+    rootElement.style.height = "100vh";
+  }
+
+  useEffect(() => {
+    changeBackground();
+  }, []);
+
   const onSubmit = (userData) => {
     fetch("http://localhost:8080/api/ride_on/user/authenticate", {
       method: "POST",
