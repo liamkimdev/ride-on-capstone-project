@@ -1,9 +1,20 @@
-import React from "react";
+import { React, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Transport({ currentUser, cars, setCars }) {
+function Transport({ currentUser, cars, setCars, }) {
 
   const navigate = useNavigate();
+
+  const changeBackground = () => {
+    const rootElement = document.getElementById("root");
+    rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat-y center fixed`;
+    rootElement.style.backgroundSize = "cover";
+    rootElement.style.height = "100vh";
+  }
+
+  useEffect(() => {
+    changeBackground();
+  }, []);
 
   return (
     <>

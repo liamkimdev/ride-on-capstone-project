@@ -13,6 +13,7 @@ function TripFactory({ currentUser, messages, setMessages, makeId }) {
         getTrips();
     }, []);
 
+
     const getTrips = () => {
         fetch("http://localhost:8080/api/ride_on/trip")
             .then((response) => {

@@ -2,6 +2,16 @@ import { useEffect } from 'react';
 import '../styles/rideOn.css';
 
 function Home() {
+  const changeBackground = () => {
+    const rootElement = document.getElementById("root");
+    rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat-y center fixed`;
+    rootElement.style.backgroundSize = "cover";
+    rootElement.style.height = "100vh";
+  }
+
+  useEffect(() => {
+    changeBackground();
+  }, []);
 
   return (
     <>

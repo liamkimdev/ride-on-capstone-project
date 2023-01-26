@@ -25,7 +25,7 @@ function App() {
 
   const changeBackground = () => {
     const rootElement = document.getElementById("root");
-    rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat center center fixed`;
+    rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat-y center fixed`;
     rootElement.style.backgroundSize = "cover";
     rootElement.style.height = "100vh";
   }
@@ -176,7 +176,7 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <Nav />
-      <div className="container text-color"> 
+      <div className="container-fluid text-color"> 
       <MessageFactory messages={messages} setMessages={setMessages} />
         <Routes>
           <Route
@@ -193,7 +193,6 @@ function App() {
                 />
             }
           />
-
           <Route
             path="/signup"
             element={
@@ -205,10 +204,12 @@ function App() {
                   setMessages={setMessages}
                   makeId={makeId}
                   isPasswordComplex={isPasswordComplex}
+                
                 />
 
             }
           />
+        
 
           <Route path="/about" element={<About />} />
 
@@ -216,9 +217,10 @@ function App() {
             {<Transport
               currentUser={currentUser}
               cars={cars}
-              setCars={setCars} />} />
+              setCars={setCars} />}
+             />
 
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
 
           <Route path="/api/ride_on/trip/form" element={
             
@@ -228,7 +230,8 @@ function App() {
             messages={messages}
             setMessages={setMessages}
             makeId={makeId}
-            isPasswordComplex={isPasswordComplex}            
+            isPasswordComplex={isPasswordComplex}   
+                   
             />
           } />
 
@@ -238,6 +241,7 @@ function App() {
             messages={messages}
             setMessages={setMessages}      
             makeId={makeId}
+          
             />
           } />
 
@@ -246,7 +250,8 @@ function App() {
           setMessages = { setMessages }
           cars={cars}
           setCars={setCars}
-          addCarToCurrentUser={addCarToCurrentUser}/>} />
+          addCarToCurrentUser={addCarToCurrentUser}
+        />} />
 
           {/* // <Route path="*" element={<NotFound />}/>  */}
         </Routes>

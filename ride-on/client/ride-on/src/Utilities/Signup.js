@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Form, FormGroup, FormLabel, FormCheck } from "react-bootstrap";
@@ -21,6 +21,17 @@ function Signup( {messages, makeId, setMessages } ) {
       setCheckedValues(checkedValues.filter((val) => val !== e.target.value));
     }
   };
+
+  const changeBackground = () => {
+    const rootElement = document.getElementById("root");
+    rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat-y center fixed`;
+    rootElement.style.backgroundSize = "cover";
+    rootElement.style.height = "100%";
+  }
+
+  useEffect(() => {
+    changeBackground();
+  }, []);
 
   const onSubmit = (userData) => {
     fetch("http://localhost:8080/api/ride_on/user", {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import AuthContext from "../contexts/AuthContext";
 
 function CarForm({
@@ -21,6 +21,17 @@ function CarForm({
   const auth = useContext(AuthContext);
 
   const navigate = useNavigate();
+
+  const changeBackground = () => {
+    const rootElement = document.getElementById("root");
+    rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat-y center fixed`;
+    rootElement.style.backgroundSize = "cover";
+    rootElement.style.height = "100%";
+  }
+
+  useEffect(() => {
+    changeBackground();
+  }, []);
 
   const onSubmit = (carData) => {
     let reviseCarData = {

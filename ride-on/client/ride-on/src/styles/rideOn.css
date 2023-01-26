@@ -64,6 +64,24 @@
   font-size: 28px;
 }
 
+.background{
+  background-image: url('../../public/images/jeep.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-y;
+  width: 100vh;
+  height: 100vh;
+}
+
+.background-sign-in{
+  background-image: url('../../public/images/jeep.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-y;
+  width: 100%;
+  height: 100%;
+}
+
 
 
 @media(max-width: 767px) {
@@ -73,3 +91,7 @@
     height: auto !important;
   }
 }
+
+
+
+
