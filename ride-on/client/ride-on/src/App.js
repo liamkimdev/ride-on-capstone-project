@@ -176,37 +176,38 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <Nav />
+      <div className="m-5"><br></br></div>
       <div className="container-fluid text-color">
-        <MessageFactory messages={messages} setMessages={setMessages} />
+       
         <Routes>
           <Route
             path="/signin"
             element={
               currentUser ?
-                <Navigate to="/transport" />
-                :
-                <Signin
-                  messages={messages}
-                  setMessages={setMessages}
-                  makeId={makeId}
-                  isPasswordComplex={isPasswordComplex}
-                />
+              <Navigate to="/transport" />
+              :
+              <Signin
+              messages={messages}
+              setMessages={setMessages}
+              makeId={makeId}
+              isPasswordComplex={isPasswordComplex}
+              />
             }
           />
           <Route
             path="/signup"
             element={
               currentUser ?
-                <Navigate to="/transport" />
-                :
-                <Signup
-                  messages={messages}
-                  setMessages={setMessages}
-                  makeId={makeId}
-                  isPasswordComplex={isPasswordComplex}
-
-                />
-
+              <Navigate to="/transport" />
+              :
+              <Signup
+              messages={messages}
+              setMessages={setMessages}
+              makeId={makeId}
+              isPasswordComplex={isPasswordComplex}
+              
+              />
+              
             }
           />
 
@@ -223,25 +224,25 @@ function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/api/ride_on/trip/form" element={
-
+            
             <TripForm
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              messages={messages}
-              setMessages={setMessages}
-              makeId={makeId}
-              isPasswordComplex={isPasswordComplex}
-
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+            messages={messages}
+            setMessages={setMessages}
+            makeId={makeId}
+            isPasswordComplex={isPasswordComplex}
+            
             />
           } />
 
           <Route path="/api/ride_on/trip" element={
             <TripFactory
-              currentUser={currentUser}
-              messages={messages}
-              setMessages={setMessages}
-              makeId={makeId}
-
+            currentUser={currentUser}
+            messages={messages}
+            setMessages={setMessages}
+            makeId={makeId}
+            
             />
           } />
 
@@ -251,10 +252,12 @@ function App() {
             cars={cars}
             setCars={setCars}
             addCarToCurrentUser={addCarToCurrentUser}
-          />} />
+            />} />
 
           {/* // <Route path="*" element={<NotFound />}/>  */}
         </Routes>
+        <MessageFactory messages={messages} setMessages={setMessages} />
+        
       </div>
     </AuthContext.Provider>
   );

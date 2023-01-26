@@ -10,7 +10,7 @@ function Message({ message, messages, setMessages }) {
     }, 6543)
 
     return (
-        <div className="mt-5 pt-5">
+        <div className="container pt-2 mt-2 text-center col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
             <div className={message.type === "success" ? "alert alert-success" : "alert alert-danger"}>
                 <div className="row">
                     <div className="col-11">

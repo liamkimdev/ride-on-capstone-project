@@ -273,9 +273,14 @@ function Signup({ messages, makeId, setMessages }) {
               <div className="m-4">
                 <p>Already a member? <a href="#!" onClick={() => navigate("/signin")}>Sign In</a></p>
               </div>
+
             </div>
           </form>
+          
         </div>
+        <br></br>
+          <br></br>
+          <br></br>
       </div>
     </>
   );

@@ -26,7 +26,7 @@ function CarForm({
     const rootElement = document.getElementById("root");
     rootElement.style.background = `url(${process.env.PUBLIC_URL + '/images/jeep.gif'}) repeat-y center fixed`;
     rootElement.style.backgroundSize = "cover";
-    rootElement.style.height = "100%";
+    rootElement.style.height = "120vh";
   }
 
   useEffect(() => {
@@ -233,6 +233,9 @@ function CarForm({
             </div>
           </form>
         </div>
+        <br></br>
+        <br></br>
+        <br></br>
       </div>
     </>
   );
