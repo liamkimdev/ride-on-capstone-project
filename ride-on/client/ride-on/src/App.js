@@ -97,10 +97,10 @@ function App() {
         setCurrentUser(user);
 
         setAuth({
-          ...auth, 
+          ...auth,
           currentUser: user
         })
-        
+
         console.log(currentUser.cars[0].carId);
 
         return user;
@@ -119,7 +119,7 @@ function App() {
   };
 
 
-  useEffect( () => {
+  useEffect(() => {
     setAuth({
       currentUser: currentUser ? { ...currentUser } : null,
       login,
@@ -164,20 +164,20 @@ function App() {
   };
 
   const addCarToCurrentUser = (data) => {
-    let newAuth = {...auth};
-    let newCurrentUser = {...currentUser};
+    let newAuth = { ...auth };
+    let newCurrentUser = { ...currentUser };
     newCurrentUser.cars.push(data);
     newAuth.currentUser = newCurrentUser;
-   setCurrentUser(newCurrentUser);
-   setAuth(newAuth);
+    setCurrentUser(newCurrentUser);
+    setAuth(newAuth);
   }
 
 
   return (
     <AuthContext.Provider value={auth}>
       <Nav />
-      <div className="container-fluid text-color"> 
-      <MessageFactory messages={messages} setMessages={setMessages} />
+      <div className="container-fluid text-color">
+        <MessageFactory messages={messages} setMessages={setMessages} />
         <Routes>
           <Route
             path="/signin"
@@ -204,12 +204,12 @@ function App() {
                   setMessages={setMessages}
                   makeId={makeId}
                   isPasswordComplex={isPasswordComplex}
-                
+
                 />
 
             }
           />
-        
+
 
           <Route path="/about" element={<About />} />
 
@@ -218,40 +218,40 @@ function App() {
               currentUser={currentUser}
               cars={cars}
               setCars={setCars} />}
-             />
+          />
 
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Home />} />
 
           <Route path="/api/ride_on/trip/form" element={
-            
-            <TripForm 
-            currentUser={currentUser}
-            setCurrentUser={setCurrentUser}
-            messages={messages}
-            setMessages={setMessages}
-            makeId={makeId}
-            isPasswordComplex={isPasswordComplex}   
-                   
+
+            <TripForm
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              messages={messages}
+              setMessages={setMessages}
+              makeId={makeId}
+              isPasswordComplex={isPasswordComplex}
+
             />
           } />
 
           <Route path="/api/ride_on/trip" element={
             <TripFactory
-            currentUser= {currentUser}
-            messages={messages}
-            setMessages={setMessages}      
-            makeId={makeId}
-          
+              currentUser={currentUser}
+              messages={messages}
+              setMessages={setMessages}
+              makeId={makeId}
+
             />
           } />
 
-          <Route path="/api/ride_on/car/form" element={<CarForm 
-          message= {messages}
-          setMessages = { setMessages }
-          cars={cars}
-          setCars={setCars}
-          addCarToCurrentUser={addCarToCurrentUser}
-        />} />
+          <Route path="/api/ride_on/car/form" element={<CarForm
+            message={messages}
+            setMessages={setMessages}
+            cars={cars}
+            setCars={setCars}
+            addCarToCurrentUser={addCarToCurrentUser}
+          />} />
 
           {/* // <Route path="*" element={<NotFound />}/>  */}
         </Routes>

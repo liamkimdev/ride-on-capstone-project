@@ -18,7 +18,7 @@ function Nav() {
                 isActive ? "nav-link active" : "nav-link"
               }
             >
-              <span className="emoji">👋</span> Let's Ride
+              <span className="emoji">👍</span> Let's Ride
             </NavLink>
           </div>
           <div className="col text-center align-self-center">
@@ -78,7 +78,7 @@ function Nav() {
                   <li>
                     <Link className="nav-link" onClick={auth.logout}>
                       <NavLink to="/" className="text-reset" style={{ textDecoration: "none" }}>
-                      <span className="emoji">🚪</span> Sign Out
+                        <span className="emoji">🚪</span> Sign Out
                       </NavLink>
                     </Link>
                   </li>

@@ -87,7 +87,7 @@ function Trip({ trip, updateTrip, deleteTrips, messages, setMessages, makeId }) 
       }
     })
       .then((response) => {
-        if (response.status === 204) { 
+        if (response.status === 204) {
           deleteTrips(trip.tripId);
           setMessages([
             ...messages,
@@ -132,7 +132,7 @@ function Trip({ trip, updateTrip, deleteTrips, messages, setMessages, makeId }) 
               <button
                 className="btn"
                 style={{ color: "#FFFFFF", backgroundColor: "#3CB2FB" }}
-                onClick={ addRiderToTrip }
+                onClick={addRiderToTrip}
               >
                 Join Trip
               </button>

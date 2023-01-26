@@ -49,46 +49,46 @@ function TripFactory({ currentUser, messages, setMessages, makeId }) {
             // .catch(error => setMessages([...messages, { id: makeId(), type: "failure", text: error.message }]));
             .catch((error) => console.log(error));
     }
-    
+
     const deleteTrips = (tripId) => {
         setTrips(currentList => [...currentList].filter(tr => tr.tripId != tripId));
     }
     const showTrips = () => {
-        return trips.map(trip => <Trip key={trip.tripId} trip={trip} currentUser= {currentUser} updateTrip={ updateTrip } deleteTrips={ deleteTrips } messages={ messages } setMessages={ setMessages } makeId={ makeId }/>);
+        return trips.map(trip => <Trip key={trip.tripId} trip={trip} currentUser={currentUser} updateTrip={updateTrip} deleteTrips={deleteTrips} messages={messages} setMessages={setMessages} makeId={makeId} />);
     }
 
 
-    const updateTrip = (tripId, rider)  => {
+    const updateTrip = (tripId, rider) => {
         const index = trips.findIndex(tr => tr.tripId == tripId);
         const tripsCopy = [...trips];
-        const tripCopy = {...tripsCopy[index], riders: [...tripsCopy[index].riders, rider]};
+        const tripCopy = { ...tripsCopy[index], riders: [...tripsCopy[index].riders, rider] };
         tripsCopy.splice(index, 1, tripCopy);
-        setTrips(tripsCopy);   
+        setTrips(tripsCopy);
     }
 
     return (
         <div className="container pt-5 mt-5">
-        <div className="bubble-box text slide-right text-center">
-            <h1>Trips</h1>
-            <hr></hr>
-        <Table>
-            <thead>
-                <tr>
-                    <th scope="col">Departure</th>
-                    <th scope="col">Arrival</th>
-                    <th scope="col">Seats</th>
-                    <th scope="col">Price per Seat</th>
-                    <th scope="col">Date</th>
-                    {auth.currentUser && auth.currentUser.hasRole("USER") ? (
-                        <th scope="col">Actions</th>
-                    ) : null}
-                </tr>
-            </thead>
-            <tbody>
-                {showTrips()}
-            </tbody>
-        </Table>
-        </div>
+            <div className="bubble-box text slide-right text-center">
+                <h1>Trips</h1>
+                <hr></hr>
+                <Table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Departure</th>
+                            <th scope="col">Arrival</th>
+                            <th scope="col">Seats</th>
+                            <th scope="col">Price per Seat</th>
+                            <th scope="col">Date</th>
+                            {auth.currentUser && auth.currentUser.hasRole("USER") ? (
+                                <th scope="col">Actions</th>
+                            ) : null}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {showTrips()}
+                    </tbody>
+                </Table>
+            </div>
         </div>
     );
 }
