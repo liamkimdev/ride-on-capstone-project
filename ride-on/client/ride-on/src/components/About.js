@@ -31,7 +31,7 @@ function About() {
           
 
           <p>
-            👍: "Ride On" aimes to instill faith and trust in the community by connecting drivers of everyday trips with passengers looking for a ride to the same destination. All while saving money and resources, reducing traffic congestion, limiting environmental impacts, and fostering friendships along the way.
+            👍: "Ride On" aims to instill faith and trust in the community by connecting drivers of everyday trips with passengers looking for a ride to the same destination. All while saving money and resources, reducing traffic congestion, limiting environmental impacts, and fostering friendships along the way.
           </p>
 
           <p className="text-center">
@@ -66,7 +66,7 @@ function About() {
           <p className="text-center"><strong>Safety is our number one priority!</strong></p>
 
           <p>
-            👍: We verify users via identification.<br /><br />👍: Allow users to choose who they travel with.<br /><br />👍: Provide active admin monitoring of trips through GPS tracking.<br /><br />👍: Guarantee that drivers are registured and insured, and more!
+            👍: We verify users via identification.<br /><br />👍: Allow users to choose who they travel with.<br /><br />👍: Provide active admin monitoring of trips through GPS tracking.<br /><br />👍: Guarantee that drivers are registered and insured, and more!
           </p>
           <p className="text-center"><i><strong>We go the extra mile to ensure members have a safe experience using “Ride On”</strong></i></p>
         </div>

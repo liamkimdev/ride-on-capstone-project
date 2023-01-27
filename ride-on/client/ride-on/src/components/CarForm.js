@@ -195,22 +195,24 @@ function CarForm({
             <div>
               <input
                 type="checkbox"
+                className="checkbox-spacing"
                 value="true"
                 name="insurance"
                 {...register("insurance", { required: "Must have an insurance" })}
               />
-              Insurance
+               Insurance
               <p className="form-errors">{errors.insurance?.message}</p>
-              <br />
+            
               <input
                 type="checkbox"
+                className="checkbox-spacing"
                 value="true"
                 name="registration"
                 {...register("registration", {
                   required: "Must have a registration",
                 })}
               />
-              Registration
+               Registration
               <p className="form-errors">{errors.registration?.message}</p>
             </div>
 
